@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module PolarisFormBuilder
-  class Engine < ::Rails::Engine
+  class Railtie < ::Rails::Railtie
     isolate_namespace PolarisFormBuilder
 
-    initializer "polaris_form_builder.view_helpers" do
+    initializer 'polaris_form_builder.view_helpers' do |app|
       ActiveSupport.on_load(:action_view) do
         include PolarisFormBuilder::Helpers
       end
