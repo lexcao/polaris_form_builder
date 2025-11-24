@@ -6,20 +6,16 @@ module PolarisFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
 
     def text_field(method, options = {})
-      value = object.respond_to?(method) ? object.public_send(method) : nil
+      value = object.public_send(method) if object.respond_to?(method)
       name  = "#{@object_name}[#{method}]"
+      error = object.errors[method].presence&.join(", ")
 
-      label = options.delete(:label) || method.to_s.humanize
-      placeholder = options.delete(:placeholder)
-      error       = object.errors[method].presence&.join(", ")
-
-      @template.tag.public_send(
-        "s-input",
+      @template.content_tag(
+        "s-text-field",
+        nil,
         {
           name: name,
           value: value,
-          label: label,
-          placeholder: placeholder,
           error: error
         }.compact
       )

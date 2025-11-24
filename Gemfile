@@ -9,3 +9,5 @@ gem "rake", "~> 13.0"
 gem "minitest", "~> 5.16"
 
 gem "actionview", "~> 8.1.0"
+gem "actionpack", "~> 8.1.0"
+gem "activemodel", "~> 8.1.0"
