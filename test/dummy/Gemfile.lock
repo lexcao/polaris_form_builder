@@ -1,3 +1,9 @@
+PATH
+  remote: ../..
+  specs:
+    polaris_form_builder (0.1.0)
+      actionview (>= 7.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +237,7 @@ PLATFORMS
 
 DEPENDENCIES
   debug
+  polaris_form_builder!
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.1)

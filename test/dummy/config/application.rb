@@ -38,5 +38,7 @@ module Dummy
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.action_view.default_form_builder = PolarisFormBuilder::FormBuilder
   end
 end
