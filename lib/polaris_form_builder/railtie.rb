@@ -2,8 +2,6 @@
 
 module PolarisFormBuilder
   class Railtie < ::Rails::Railtie
-    isolate_namespace PolarisFormBuilder
-
     initializer 'polaris_form_builder.view_helpers' do |app|
       ActiveSupport.on_load(:action_view) do
         include PolarisFormBuilder::Helpers
