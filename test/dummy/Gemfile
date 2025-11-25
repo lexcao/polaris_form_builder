@@ -17,3 +17,4 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 end
 
+gem "polaris_form_builder", path: "../.."
