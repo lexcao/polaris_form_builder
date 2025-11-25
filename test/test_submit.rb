@@ -8,7 +8,7 @@ class TestSubmit < TestCase
       concat f.submit
     end
 
-    expected = '<s-button type="submit" name="commit" value="Create Post"/>'
+    expected = '<s-button type="submit" name="commit" data-disable-with="Create Post" value="Create Post"/>'
     assert_dom_equal expected, form_body(@rendered)
   end
 end
