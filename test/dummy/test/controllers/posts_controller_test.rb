@@ -13,6 +13,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get new_post_url
     assert_response :success
+
+    assert_includes @response.body, "<s-text-field"
+    assert_includes @response.body, "<s-button"
   end
 
   test "should create post" do
