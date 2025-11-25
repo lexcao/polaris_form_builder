@@ -33,6 +33,7 @@ module PolarisFormBuilder
       attrs = {
         type: "submit",
         name: "commit",
+        variant: "primary",
         value: value,
       }
 
@@ -40,7 +41,7 @@ module PolarisFormBuilder
         "s-button",
         nil,
         attrs.merge(options)
-      )
+      ) { value }
     end
 
   end
