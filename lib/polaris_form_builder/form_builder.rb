@@ -21,5 +21,20 @@ module PolarisFormBuilder
       )
     end
 
+    def submit(value = nil, options = {})
+      value, options = nil, value if value.is_a?(Hash)
+      value ||= submit_default_value
+
+      @template.content_tag(
+        "s-button",
+        nil,
+        {
+          type: "submit",
+          name: "commit",
+          value: value,
+        }
+      )
+    end
+
   end
 end
