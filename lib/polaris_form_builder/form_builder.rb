@@ -9,16 +9,18 @@ module PolarisFormBuilder
     def text_field(method, options = {})
       value = object.public_send(method) if object.respond_to?(method)
       name  = "#{@object_name}[#{method}]"
-      error = object.errors[method].presence&.join(", ")
+      error = object.errors[method].presence&.join(", ") if object.respond_to?(:errors)
+
+      attrs = {
+        name:  name,
+        value: value,
+        error: error
+      }.compact
 
       @template.content_tag(
         "s-text-field",
         nil,
-        {
-          name: name,
-          value: value,
-          error: error
-        }.compact
+        attrs.merge(options)
       )
     end
 
@@ -28,14 +30,16 @@ module PolarisFormBuilder
 
       set_default_disable_with value, options
 
+      attrs = {
+        type: "submit",
+        name: "commit",
+        value: value,
+      }
+
       @template.content_tag(
         "s-button",
         nil,
-        options.merge({
-          type: "submit",
-          name: "commit",
-          value: value,
-        })
+        attrs.merge(options)
       )
     end
 
