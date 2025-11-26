@@ -17,9 +17,8 @@ module PolarisFormBuilder
         error: error
       }.compact
 
-      @template.content_tag(
+      @template.tag(
         "s-text-field",
-        nil,
         attrs.merge(options)
       )
     end
@@ -39,9 +38,9 @@ module PolarisFormBuilder
 
       @template.content_tag(
         "s-button",
-        nil,
+        value,
         attrs.merge(options)
-      ) { value }
+      )
     end
 
   end
