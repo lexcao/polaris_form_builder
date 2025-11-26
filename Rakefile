@@ -6,7 +6,7 @@ require "minitest/test_task"
 Minitest::TestTask.create(:test_unit) do |t|
   t.libs << "test"
   t.libs << "lib"
-  t.test_globs = ["test/test_*.rb"]
+  t.test_globs = ["test/test_*.rb", "test/dev/*_test.rb"]
 end
 
 task :test_integration do
