@@ -13,12 +13,11 @@ class FetchTest < Minitest::Test
 
   def test_fetch_with_cache
     cache_file_path = Fetch.cache_file_path(@url)
+    File.delete(cache_file_path) if File.exist?(cache_file_path)
 
     refute File.exist?(cache_file_path)
     body = Fetch.with_cache(@url)
     refute_empty body
     assert File.exist?(cache_file_path)
-  ensure
-    File.delete(cache_file_path)
   end
 end
