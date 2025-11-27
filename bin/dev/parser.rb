@@ -1,97 +1,98 @@
 # frozen_string_literal: true
 
+require 'yaml'
+require 'kramdown'
+require 'kramdown-parser-gfm'
+require 'kramdown/utils/entities'
+
 class Parser
+  MetaData = Struct.new(:title, :description, :api_name, :source_url, :raw, keyword_init: true)
   Property = Struct.new(:key, :type, :default, :description, keyword_init: true)
   Example = Struct.new(:name, :description, :html_code, keyword_init: true)
-  Result = Struct.new(:properties, :examples, keyword_init: true)
+  Result = Struct.new(:metadata, :name, :properties, :examples, keyword_init: true)
 
   def initialize(markdown_content)
-    @lines = markdown_content.split("\n")
-    @properties = []
-    @examples = []
+    @metadata = build_metadata(extract_metadata(markdown_content))
+    @document = Kramdown::Document.new(markdown_content, input: 'GFM', yaml_header: true)
+    @root = @document.root
   end
 
   def parse
-    parse_properties
-    parse_examples
-    Result.new(properties: @properties, examples: @examples)
+    name = extract_first_heading_text(level: 1)
+
+    Result.new(
+      metadata: @metadata,
+      name: name,
+      properties: extract_properties_for(name),
+      examples: extract_examples
+    )
   end
 
   private
 
-  def parse_properties
-    in_properties = false
-    current_property = nil
-    description_lines = []
+  def build_metadata(raw_metadata)
+    return MetaData.new(raw: {}) if raw_metadata.nil? || raw_metadata.empty?
 
-    @lines.each_with_index do |line, index|
-      # Start parsing properties after we see the first "* propertyname" pattern after "## TextField"
-      if !in_properties && line.match?(/^## TextField$/)
-        in_properties = true
-        next
-      end
-
-      # Stop when we hit "### TextAutocompleteField" or "## Slots"
-      if in_properties && (line.match?(/^### TextAutocompleteField$/) || line.match?(/^## Slots$/))
-        # Save last property before breaking
-        save_property(current_property, description_lines) if current_property
-        current_property = nil  # Mark as saved
-        break
-      end
-
-      next unless in_properties
-
-      # New property starts with "* " followed by property name
-      if match = line.match(/^\* (.+)$/)
-        # Save previous property if exists
-        save_property(current_property, description_lines) if current_property
-
-        current_property = match[1].strip
-        description_lines = []
-      elsif current_property
-        # Accumulate lines for current property
-        description_lines << line
-      end
-    end
-
-    # Save last property if we haven't already
-    save_property(current_property, description_lines) if current_property
+    MetaData.new(
+      title: raw_metadata['title'] || raw_metadata[:title],
+      description: raw_metadata['description'] || raw_metadata[:description],
+      api_name: raw_metadata['api_name'] || raw_metadata[:api_name],
+      source_url: raw_metadata['source_url'] || raw_metadata[:source_url],
+      raw: raw_metadata
+    )
   end
 
-  def save_property(key, lines)
-    return if lines.empty?
+  def extract_metadata(markdown_content)
+    return {} unless markdown_content.start_with?('---')
 
+    header = markdown_content.match(/\A---\s*\n(.*?)\n---\s*\n/m)
+    return {} unless header
+
+    YAML.safe_load(header[1], aliases: true) || {}
+  rescue Psych::SyntaxError
+    {}
+  end
+
+  def extract_first_heading_text(level:)
+    heading = @root.children.find { |child| heading?(child, level) }
+    heading_text(heading) if heading
+  end
+
+  def extract_properties_for(name)
+    section_children = collect_section_children(level: 2, title: name)
+    list = find_first_list(section_children)
+    return [] unless list
+
+    list.children.map { |item| build_property(item) }.compact
+  end
+
+  def build_property(list_item)
+    blocks = list_item_blocks(list_item)
+    return nil if blocks.empty?
+
+    key = block_text(blocks.shift)
     type = nil
     default = nil
     description_parts = []
-    skip_next = false
 
-    lines.each_with_index do |line, idx|
-      next if skip_next
-      skip_next = false
+    blocks.each do |block|
+      text = block_text(block)
+      next if text.empty?
 
-      stripped = line.strip
-
-      # Skip empty lines at the beginning
-      next if description_parts.empty? && stripped.empty?
-
-      # First non-empty indented line is typically the type
-      if type.nil? && !stripped.empty? && line.start_with?('  ')
-        type = stripped
+      if default.nil? && text.start_with?('Default:')
+        default = text.sub(/^Default:\s*/, '')
         next
       end
 
-      # Check for "Default: " pattern
-      if stripped.match?(/^Default:/)
-        default = stripped.sub(/^Default:\s*/, '')
+      if type.nil?
+        type = text
         next
       end
 
-      # Accumulate description
-      description_parts << stripped unless stripped.empty?
+      description_parts << text
     end
 
-    @properties << Property.new(
+    Property.new(
       key: key,
       type: type,
       default: default,
@@ -99,85 +100,161 @@ class Parser
     )
   end
 
-  def parse_examples
-    in_examples = false
-    current_example = nil
-    current_description = []
-    current_html = []
-    in_html_block = false
-    capture_html = false
-
-    @lines.each_with_index do |line, index|
-      # Look for "## Examples" section
-      if line.match?(/^## Examples$/)
-        in_examples = true
-        next
-      end
-
-      next unless in_examples
-
-      # Example name pattern: "* #### Name"
-      if match = line.match(/^\* #### (.+)$/)
-        # Save previous example if exists
-        save_example(current_example, current_description, current_html) if current_example
-
-        current_example = match[1].strip
-        current_description = []
-        current_html = []
-        in_html_block = false
-        capture_html = false
-        next
-      end
-
-      # Description section
-      if line.match?(/^\s+##### Description$/)
-        capture_html = false
-        next
-      end
-
-      # HTML code block section
-      if line.match?(/^\s+##### html$/)
-        capture_html = true
-        in_html_block = false
-        next
-      end
-
-      # Code block markers
-      if line.match?(/^\s+```html$/)
-        in_html_block = true
-        capture_html = true
-        next
-      elsif line.match?(/^\s+```$/) && in_html_block
-        in_html_block = false
-        next
-      end
-
-      # Capture content
-      if current_example
-        if capture_html && in_html_block
-          # Remove leading spaces (typically 2-4 spaces for indentation)
-          clean_line = line.sub(/^\s{2,4}/, '')
-          current_html << clean_line
-        elsif !capture_html && !line.match?(/^\s+##### /)
-          # Capture description (skip section headers and jsx/html markers)
-          stripped = line.strip
-          current_description << stripped unless stripped.empty?
-        end
-      end
-    end
-
-    # Save last example
-    save_example(current_example, current_description, current_html) if current_example
+  def list_item_blocks(list_item)
+    list_item.children.select { |child| block_node?(child) }
   end
 
-  def save_example(name, description_lines, html_lines)
-    return if name.nil?
+  def block_node?(node)
+    %i[p header ul ol codeblock blockquote table].include?(node.type)
+  end
 
-    @examples << Example.new(
+  def extract_examples
+    section_children = collect_section_children(level: 2, title: 'Examples')
+    list_items = section_children.flat_map { |node| collect_list_items(node) }
+
+    list_items.map { |item| build_example(item) }.compact
+  end
+
+  def build_example(list_item)
+    name = first_heading_in(list_item)&.then { |heading| heading_text(heading) }
+    return nil unless name
+
+    grouped = group_children_by_heading(list_item)
+    description = flatten_text(grouped['Description'])
+    html_code = extract_html(grouped['html'])
+
+    Example.new(
       name: name,
-      description: description_lines.join(' '),
-      html_code: html_lines.join("\n").strip
+      description: description,
+      html_code: html_code
     )
+  end
+
+  def flatten_text(nodes)
+    return '' unless nodes
+
+    nodes.map { |node| block_text(node) }.reject(&:empty?).join(' ')
+  end
+
+  def extract_html(nodes)
+    return '' unless nodes
+
+    code_block = find_code_block(nodes, 'html')
+    return code_block.value.strip if code_block
+
+    ''
+  end
+
+  def find_code_block(nodes, language)
+    nodes.find do |node|
+      next false unless node.type == :codeblock
+
+      lang = node.options[:lang].to_s
+      lang.empty? || lang.casecmp(language).zero?
+    end
+  end
+
+  def group_children_by_heading(list_item)
+    groups = Hash.new { |hash, key| hash[key] = [] }
+    current_heading = nil
+
+    list_item.children.each do |child|
+      if child.type == :header
+        current_heading = heading_text(child)
+        next
+      end
+
+      groups[current_heading] << child if current_heading
+    end
+
+    groups
+  end
+
+  def first_heading_in(node)
+    return node if node.type == :header
+
+    node.children.each do |child|
+      heading = first_heading_in(child)
+      return heading if heading
+    end
+
+    nil
+  end
+
+  def collect_list_items(node)
+    return [node] if node.type == :li
+
+    node.children.flat_map { |child| collect_list_items(child) }
+  end
+
+  def collect_section_children(level:, title:)
+    collecting = false
+    children = []
+
+    @root.children.each do |child|
+      if heading?(child)
+        if collecting && child.options[:level] <= level
+          break
+        end
+
+        if heading?(child, level) && heading_text(child) == title
+          collecting = true
+          next
+        end
+      end
+
+      children << child if collecting
+    end
+
+    children
+  end
+
+  def find_first_list(nodes)
+    nodes.each do |node|
+      list = find_list_node(node)
+      return list if list
+    end
+
+    nil
+  end
+
+  def find_list_node(node)
+    return node if node.type == :ul
+
+    node.children.each do |child|
+      list = find_list_node(child)
+      return list if list
+    end
+
+    nil
+  end
+
+  def block_text(node)
+    return node.value.rstrip if node.type == :codeblock
+
+    text = element_to_text(node)
+    text.gsub(/\s+/, ' ').strip
+  end
+
+  def element_to_text(node)
+    case node.type
+    when :text, :codespan, :raw_text
+      node.value.to_s
+    when :entity
+      Kramdown::Utils::Entities.entity(node.value).char
+    when :smart_quote
+      node.value.to_s.include?('ldquo') || node.value.to_s.include?('rdquo') ? '"' : "'"
+    else
+      node.children.map { |child| element_to_text(child) }.join
+    end
+  end
+
+  def heading?(node, level = nil)
+    node.type == :header && (level.nil? || node.options[:level] == level)
+  end
+
+  def heading_text(node)
+    block_text(node)
   end
 end
 
@@ -200,6 +277,12 @@ if __FILE__ == $PROGRAM_NAME
   parser = Parser.new(content)
   result = parser.parse
 
+  puts "=" * 80
+  puts "NAME: #{result.name}" if result.name
+  if result.metadata
+    puts "TITLE: #{result.metadata.title}" if result.metadata.title
+    puts "DESCRIPTION: #{result.metadata.description}" if result.metadata.description
+  end
   puts "=" * 80
   puts "PROPERTIES (#{result.properties.length} found)"
   puts "=" * 80
