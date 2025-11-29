@@ -59,7 +59,9 @@ class Parser
   end
 
   def extract_properties_for(name)
-    section_children = collect_section_children(level: 2, title: name)
+    section_children = collect_section_children(level: 2, title: "Properties")
+    section_children = collect_section_children(level: 2, title: name) if section_children.empty?
+
     list = find_first_list(section_children)
     return [] unless list
 
