@@ -9,7 +9,7 @@ module MetaData
   Result = Data.define(:key, :name, :markdown_content, :markdown_url)
 
   COMPONENTS = %w[checkbox choicelist colorfield colorpicker datefield datepicker dropzone emailfield moneyfield numberfield passwordfield searchfield select switch textarea textfield urlfield]
-  DATA = COMPONENTS.map { |component| Result.new(key: component, name: component.camelcase, markdown_url: "#{BASE_URL}#{component}.md") }
+  DATA = COMPONENTS.map { |component| Result.new(key: component, name: component.camelcase, markdown_url: "#{BASE_URL}#{component}.md", markdown_content: "") }
   private_constant :DATA
 
   module_function

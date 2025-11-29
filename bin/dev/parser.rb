@@ -5,11 +5,17 @@ require 'kramdown'
 require 'kramdown-parser-gfm'
 require 'kramdown/utils/entities'
 
+class Data
+  def to_json(*args)
+    to_h.to_json(*args)
+  end
+end
+
 class Parser
-  MetaData = Struct.new(:title, :description, :api_name, :source_url, :raw, keyword_init: true)
-  Property = Struct.new(:key, :type, :default, :description, keyword_init: true)
-  Example = Struct.new(:name, :description, :html_code, keyword_init: true)
-  Result = Struct.new(:metadata, :name, :properties, :examples, keyword_init: true)
+  MetaData = Data.define(:title, :description, :api_name, :source_url)
+  Property = Data.define(:key, :type, :default, :description)
+  Example = Data.define(:name, :description, :html_code)
+  Result = Data.define(:metadata, :name, :properties, :examples)
 
   def initialize(markdown_content)
     @metadata = build_metadata(extract_metadata(markdown_content))
@@ -38,7 +44,6 @@ class Parser
       description: raw_metadata['description'] || raw_metadata[:description],
       api_name: raw_metadata['api_name'] || raw_metadata[:api_name],
       source_url: raw_metadata['source_url'] || raw_metadata[:source_url],
-      raw: raw_metadata
     )
   end
 
@@ -97,7 +102,7 @@ class Parser
     Property.new(
       key: key,
       type: type,
-      default: default,
+      default: default.to_s,
       description: description_parts.join(' ')
     )
   end

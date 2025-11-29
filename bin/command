@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "./dev/command"
+
+if __FILE__ == $PROGRAM_NAME
+  if ARGV.empty?
+    puts "Usage: #{$PROGRAM_NAME} <1|2|3>"
+    exit 1
+  end
+
+  step = ARGV[0]
+
+  case step.to_i
+  when 1
+    Command::Step1_FetchComponents.new.run
+  else
+    puts "Unknown step: #{step}"
+  end
+end
+
+
