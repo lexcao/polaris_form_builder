@@ -53,7 +53,7 @@
     },
     {
       "key": "type",
-      "type": "\"single\"\"range\"",
+      "type": "\"single\" | \"range\"",
       "default": "\"single\"",
       "description": ""
     },

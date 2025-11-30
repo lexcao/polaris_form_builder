@@ -59,7 +59,7 @@
     },
     {
       "key": "labelAccessibilityVisibility",
-      "type": "\"visible\"\"exclusive\"",
+      "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
       "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
     },

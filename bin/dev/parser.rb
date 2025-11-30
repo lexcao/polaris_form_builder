@@ -50,7 +50,7 @@ class Parser
     return nil if blocks.empty?
 
     key = block_text(blocks.shift)
-    type = nil
+    type = block_text(blocks.shift)
     default = nil
     description_parts = []
 
@@ -60,11 +60,6 @@ class Parser
 
       if default.nil? && text.start_with?('Default:')
         default = text.sub(/^Default:\s*/, '')
-        next
-      end
-
-      if type.nil?
-        type = text
         next
       end
 
@@ -221,6 +216,10 @@ class Parser
       node.value.to_s
     when :entity
       Kramdown::Utils::Entities.entity(node.value).char
+    when :tr
+      node.children.map { |child| element_to_text(child) }.join.delete_suffix(" | ")
+    when :td
+      node.children.map { |child| element_to_text(child) }.join << " | "
     when :smart_quote
       node.value.to_s.include?('ldquo') || node.value.to_s.include?('rdquo') ? '"' : "'"
     else
