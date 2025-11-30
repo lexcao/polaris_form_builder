@@ -1,0 +1,128 @@
+{
+  "metadata": {
+    "title": "NumberField",
+    "description": "Collect numerical values from users with optimized keyboard settings and built-in validation.",
+    "api_name": "app-home",
+    "source_url": {
+      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/numberfield",
+      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/numberfield.md"
+    }
+  },
+  "properties": [
+    {
+      "key": "autocomplete",
+      "type": "\"on\"\"off\"NumberAutocompleteField`section-${string} one-time-code``section-${string} cc-number``section-${string} cc-csc`\"shipping one-time-code\"\"shipping cc-number\"\"shipping cc-csc\"\"billing one-time-code\"\"billing cc-number\"\"billing cc-csc\"`section-${string} shipping one-time-code``section-${string} shipping cc-number``section-${string} shipping cc-csc``section-${string} billing one-time-code``section-${string} billing cc-number``section-${string} billing cc-csc`",
+      "default": "'on' for everything else",
+      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The default value for the field."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Disables the field, disallowing any interaction."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element."
+    },
+    {
+      "key": "inputMode",
+      "type": "\"decimal\"\"numeric\"",
+      "default": "'decimal'",
+      "description": "Sets the virtual keyboard."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "Content to use as the field label."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\"\"exclusive\"",
+      "default": "'visible'",
+      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+    },
+    {
+      "key": "max",
+      "type": "number",
+      "default": "Infinity",
+      "description": "The highest decimal or integer to be accepted for the field. When used with step the value will round down to the max number. Note: a user will still be able to use the keyboard to input a number higher than the max. It is up to the developer to add appropriate validation."
+    },
+    {
+      "key": "min",
+      "type": "number",
+      "default": "-Infinity",
+      "description": "The lowest decimal or integer to be accepted for the field. When used with step the value will round up to the min number. Note: a user will still be able to use the keyboard to input a number lower than the min. It is up to the developer to add appropriate validation."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "An identifier for the field that is unique within the nearest containing form."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "A short hint that describes the expected value of the field."
+    },
+    {
+      "key": "prefix",
+      "type": "string",
+      "default": "''",
+      "description": "A value to be displayed immediately before the editable portion of the field. This is useful for displaying an implied part of the value, such as \"https://\" or \"+353\". This cannot be edited by the user, and it isn't included in the value of the field. It may not be displayed until the user has interacted with the input. For example, an inline label may take the place of the prefix until the user focuses the input."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+    },
+    {
+      "key": "step",
+      "type": "number",
+      "default": "1",
+      "description": "The amount the value can increase or decrease by. This can be an integer or decimal. If a max or min is specified with step when increasing/decreasing the value via the buttons, the final value will always round to the max or min rather than the closest valid amount."
+    },
+    {
+      "key": "suffix",
+      "type": "string",
+      "default": "''",
+      "description": "A value to be displayed immediately after the editable portion of the field. This is useful for displaying an implied part of the value, such as \"@shopify.com\", or \"%\". This cannot be edited by the user, and it isn't included in the value of the field. It may not be displayed until the user has interacted with the input. For example, an inline label may take the place of the suffix until the user focuses the input."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "",
+      "description": "The current value for the field. If omitted, the field will be empty."
+    }
+  ],
+  "examples": []
+}

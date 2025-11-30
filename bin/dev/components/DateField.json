@@ -1,0 +1,128 @@
+{
+  "metadata": {
+    "title": "DateField",
+    "description": "Allow users to select a specific date with a date picker.",
+    "api_name": "app-home",
+    "source_url": {
+      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/datefield",
+      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/datefield.md"
+    }
+  },
+  "properties": [
+    {
+      "key": "allow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Dates that can be selected. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' allows all dates. Dates in YYYY-MM-DD format allow a single date.Dates in YYYY-MM format allow a whole month.Dates in YYYY format allow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
+    },
+    {
+      "key": "allowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Days of the week that can be selected. These intersect with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on the result of allow and disallow. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
+    },
+    {
+      "key": "autocomplete",
+      "type": "DateAutocompleteField",
+      "default": "'on' for everything else",
+      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The default value for the field."
+    },
+    {
+      "key": "defaultView",
+      "type": "string",
+      "default": "",
+      "description": "Default month to display in YYYY-MM format. This value is used until view is set, either directly or as a result of user interaction. Defaults to the current month in the user's locale."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Disables the field, disallowing any interaction."
+    },
+    {
+      "key": "disallow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Dates that cannot be selected. These subtract from allow. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' has no effect on allow. Dates in YYYY-MM-DD format disallow a single date.Dates in YYYY-MM format disallow a whole month.Dates in YYYY format disallow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
+    },
+    {
+      "key": "disallowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Days of the week that cannot be selected. This subtracts from allowDays, and intersects with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on allowDays. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "Content to use as the field label."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\"\"exclusive\"",
+      "default": "'visible'",
+      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "An identifier for the field that is unique within the nearest containing form."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "A short hint that describes the expected value of the field."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "",
+      "description": "The current value for the field. If omitted, the field will be empty."
+    },
+    {
+      "key": "view",
+      "type": "string",
+      "default": "",
+      "description": "Displayed month in YYYY-MM format. onViewChange is called when this value changes. Defaults to defaultView."
+    }
+  ],
+  "examples": []
+}

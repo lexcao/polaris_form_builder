@@ -8,10 +8,14 @@ module Command
 
   class Step1_FetchComponents
     def run
-      MetaData.fetch_all[0, 1].each do |component|
+      MetaData.fetch_all.each do |component|
+        begin
         parser = Parser.new(component.markdown_content)
         definition = parser.parse
         Component.persist(definition)
+        rescue => e
+          puts "skip parse #{component.name} for error #{e} with #{component}"
+        end
       end
     end
   end

@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "title": "DropZone",
+    "description": "Lets users upload files through drag-and-drop functionality into a designated area on a page, or by activating a button.",
+    "api_name": "app-home",
+    "source_url": {
+      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/dropzone",
+      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/dropzone.md"
+    }
+  },
+  "properties": [
+    {
+      "key": "accept",
+      "type": "string",
+      "default": "''",
+      "description": "A string representing the types of files that are accepted by the drop zone. This string is a comma-separated list of unique file type specifiers which can be one of the following: A file extension starting with a period (\".\") character (e.g. .jpg, .pdf, .doc)A valid MIME type string with no extensions If omitted, all file types are accepted."
+    },
+    {
+      "key": "accessibilityLabel",
+      "type": "string",
+      "default": "",
+      "description": "A label that describes the purpose or contents of the item. When set, it will be announced to buyers using assistive technologies and will provide them with more context."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Disables the field, disallowing any interaction."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
+    },
+    {
+      "key": "files",
+      "type": "File[]",
+      "default": "[]",
+      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "Content to use as the field label."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\"\"exclusive\"",
+      "default": "'visible'",
+      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+    },
+    {
+      "key": "multiple",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether multiple files can be selected or dropped at once."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "An identifier for the field that is unique within the nearest containing form."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "''",
+      "description": "This sets the input value for a file type, which cannot be set programatically, so it can only be reset."
+    }
+  ],
+  "examples": []
+}
