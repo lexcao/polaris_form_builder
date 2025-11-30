@@ -36,8 +36,8 @@ class Component
   include ActiveModel::Attributes
 
   attribute :metadata, MetaData.to_type
-  attribute :properties, Property.to_array_type
-  attribute :examples, Example.to_array_type
+  attribute :properties, Property.to_array_type, default: []
+  attribute :examples, Example.to_array_type, default: []
 
   delegate :description, to: :metadata
 

@@ -1,4 +1,53 @@
-<div id="<%= dom_id component %>">
-  <h1><%= component.name %></h1>
-  <h3>Properties <%= component.properties.size %></h3>
-</div>
+<s-page heading="<%= component.name %>">
+  <s-link slot="breadcrumb-actions" target="_blank" href="<%= component.metadata.source_url.html %>">Polaris</s-link>
+
+  <s-grid gridTemplateColumns="repeat(12, 1fr)" gap="base">
+    <s-grid-item gridColumn="span 6" gridRow="span 1">
+      <s-box paddingBlock="large">
+        <h1><%= component.name %></h1>
+        <s-paragraph>
+          <%= component.description %>
+        </s-paragraph>
+      </s-box>
+
+      <h2>Properties <%= component.properties.size %></h2>
+      <s-divider></s-divider>
+      <% component.properties.each do |property| %>
+        <s-box padingBlock="large">
+          <s-stack>
+            <s-stack direction="inline" alignItems="center" gap="small-300">
+              <s-box paddingBlock="base">
+                <s-text tone="success" type="strong"><%= property.key %></s-text>
+              </s-box>
+
+              <s-box paddingBlock="base">
+                <s-chip>
+                  <%= property.type %>
+                </s-chip>
+              </s-box>
+
+              <% if property.default.present? %>
+                <s-chip>
+                  Default: <%= property.default %>
+                </s-chip>
+              <% end %>
+            </s-stack>
+
+            <s-paragraph>
+              <%= property.description %>
+            </s-paragraph>
+
+            <s-divider></s-divider>
+          </s-stack>
+        </s-box>
+      <% end %>
+    </s-grid-item>
+
+    <s-grid-item gridColumn="span 6" gridRow="span 1">
+      <s-section>
+        <s-text>TODO: demo code</s-text>
+      </s-section>
+    </s-grid-item>
+  </s-grid>
+
+</s-page>
