@@ -9,34 +9,20 @@ require_relative "component"
 
 class Parser
   def initialize(markdown_content)
-    @metadata = build_metadata(extract_metadata(markdown_content))
-    @document = Kramdown::Document.new(markdown_content, input: 'GFM', yaml_header: true)
+    @metadata = Component::MetaData.new(**extract_metadata(markdown_content))
+    @document = Kramdown::Document.new(markdown_content, input: 'GFM')
     @root = @document.root
   end
 
   def parse
-    name = extract_first_heading_text(level: 1)
-
     Component::Definition.new(
       metadata: @metadata,
-      name: name,
-      properties: extract_properties_for(name),
+      properties: extract_properties_for(@metadata.title),
       examples: extract_examples
     )
   end
 
   private
-
-  def build_metadata(raw_metadata)
-    return Component::MetaData.new(raw: {}) if raw_metadata.nil? || raw_metadata.empty?
-
-    Component::MetaData.new(
-      title: raw_metadata['title'] || raw_metadata[:title],
-      description: raw_metadata['description'] || raw_metadata[:description],
-      api_name: raw_metadata['api_name'] || raw_metadata[:api_name],
-      source_url: raw_metadata['source_url'] || raw_metadata[:source_url],
-    )
-  end
 
   def extract_metadata(markdown_content)
     return {} unless markdown_content.start_with?('---')
@@ -44,14 +30,9 @@ class Parser
     header = markdown_content.match(/\A---\s*\n(.*?)\n---\s*\n/m)
     return {} unless header
 
-    YAML.safe_load(header[1], aliases: true) || {}
+    YAML.safe_load(header[1], aliases: true, symbolize_names: true) || {}
   rescue Psych::SyntaxError
     {}
-  end
-
-  def extract_first_heading_text(level:)
-    heading = @root.children.find { |child| heading?(child, level) }
-    heading_text(heading) if heading
   end
 
   def extract_properties_for(name)

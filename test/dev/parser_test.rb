@@ -15,7 +15,6 @@ class ParserTest < Minitest::Test
   def test_parser_returns_parse_result
     assert_instance_of Component::Definition, @result
     assert_respond_to @result, :metadata
-    assert_respond_to @result, :name
     assert_respond_to @result, :properties
     assert_respond_to @result, :examples
   end
@@ -23,7 +22,6 @@ class ParserTest < Minitest::Test
   def test_metadata_and_name_are_extracted
     assert_instance_of Component::MetaData, @result.metadata
     assert_equal 'TextField', @result.metadata.title
-    assert_equal 'TextField', @result.name
   end
 
   def test_properties_are_extracted

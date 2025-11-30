@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+class SourceUrl
+  include StoreModel::Model
+
+  attribute :html, :string
+end
+
+class MetaData
+  include StoreModel::Model
+
+  attribute :title, :string
+  attribute :description, :string
+  attribute :source_url, SourceUrl.to_type
+end
+
 class Property
   include StoreModel::Model
 
@@ -21,12 +35,14 @@ class Component
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :name, :string
+  attribute :metadata, MetaData.to_type
   attribute :properties, Property.to_array_type
   attribute :examples, Example.to_array_type
 
-  def metadata=(metadata)
-    # skip for now
+  delegate :description, to: :metadata
+
+  def name
+    metadata.title
   end
 
   def to_param

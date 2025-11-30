@@ -12,14 +12,14 @@ module Component
   MetaData = Data.define(:title, :description, :api_name, :source_url)
   Property = Data.define(:key, :type, :default, :description)
   Example = Data.define(:name, :description, :html_code)
-  Definition = Data.define(:metadata, :name, :properties, :examples)
+  Definition = Data.define(:metadata, :properties, :examples)
 
   OUTPUT_DIR = File.expand_path("components", __dir__)
 
   module_function
 
   def persist(component)
-    file = File.join(OUTPUT_DIR, "#{component.name}.json")
+    file = File.join(OUTPUT_DIR, "#{component.metadata.title}.json")
 
     File.write(file, JSON.pretty_generate(component))
   end

@@ -8,7 +8,6 @@
       "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox.md"
     }
   },
-  "name": "Checkbox",
   "properties": [
     {
       "key": "accessibilityLabel",
