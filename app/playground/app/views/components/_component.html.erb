@@ -14,16 +14,24 @@
       <s-divider></s-divider>
       <% component.properties.each do |property| %>
         <s-box padingBlock="large">
-          <s-stack>
+          <s-stack gap="base">
             <s-stack direction="inline" alignItems="center" gap="small-300">
               <s-box paddingBlock="base">
                 <s-text tone="success" type="strong"><%= property.key %></s-text>
               </s-box>
 
               <s-box paddingBlock="base">
-                <s-chip>
-                  <%= property.type %>
-                </s-chip>
+                <% if property.type.include?("|") %>
+                  <% property.type.split("|").each do |type| %>
+                    <s-chip>
+                      <%= type %>
+                    </s-chip>
+                  <% end %>
+                <% else %>
+                  <s-chip>
+                    <%= property.type %>
+                  </s-chip>
+                <% end %>
               </s-box>
 
               <% if property.default.present? %>
