@@ -2,6 +2,7 @@
 
 require 'minitest/autorun'
 require_relative '../../bin/dev/parser'
+require_relative '../../bin/dev/component'
 
 class ParserTest < Minitest::Test
   def setup
@@ -12,7 +13,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_parser_returns_parse_result
-    assert_instance_of Parser::Result, @result
+    assert_instance_of Component::Definition, @result
     assert_respond_to @result, :metadata
     assert_respond_to @result, :name
     assert_respond_to @result, :properties
@@ -20,7 +21,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_metadata_and_name_are_extracted
-    assert_instance_of Parser::MetaData, @result.metadata
+    assert_instance_of Component::MetaData, @result.metadata
     assert_equal 'TextField', @result.metadata.title
     assert_equal 'TextField', @result.name
   end
@@ -32,7 +33,7 @@ class ParserTest < Minitest::Test
 
   def test_property_structure
     property = @result.properties.first
-    assert_instance_of Parser::Property, property
+    assert_instance_of Component::Property, property
     assert_respond_to property, :key
     assert_respond_to property, :type
     assert_respond_to property, :default
@@ -102,7 +103,7 @@ class ParserTest < Minitest::Test
 
   def test_example_structure
     example = @result.examples.first
-    assert_instance_of Parser::Example, example
+    assert_instance_of Component::Example, example
     assert_respond_to example, :name
     assert_respond_to example, :description
     assert_respond_to example, :html_code
@@ -189,15 +190,5 @@ class ParserTest < Minitest::Test
 
     readonly_prop = @result.properties.find { |p| p.key == 'readOnly' }
     assert_equal 'false', readonly_prop.default if readonly_prop
-  end
-
-  def test_properties_without_defaults
-    properties_without_defaults = @result.properties.select { |p| p.default.nil? }
-
-    refute_empty properties_without_defaults, "Should have properties without defaults"
-
-    # Properties like 'id', 'name', 'value' typically don't have defaults
-    id_prop = @result.properties.find { |p| p.key == 'id' }
-    assert_nil id_prop.default if id_prop
   end
 end

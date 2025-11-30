@@ -5,18 +5,9 @@ require 'kramdown'
 require 'kramdown-parser-gfm'
 require 'kramdown/utils/entities'
 
-class Data
-  def to_json(*args)
-    to_h.to_json(*args)
-  end
-end
+require_relative "component"
 
 class Parser
-  MetaData = Data.define(:title, :description, :api_name, :source_url)
-  Property = Data.define(:key, :type, :default, :description)
-  Example = Data.define(:name, :description, :html_code)
-  Result = Data.define(:metadata, :name, :properties, :examples)
-
   def initialize(markdown_content)
     @metadata = build_metadata(extract_metadata(markdown_content))
     @document = Kramdown::Document.new(markdown_content, input: 'GFM', yaml_header: true)
@@ -26,7 +17,7 @@ class Parser
   def parse
     name = extract_first_heading_text(level: 1)
 
-    Result.new(
+    Component::Definition.new(
       metadata: @metadata,
       name: name,
       properties: extract_properties_for(name),
@@ -37,9 +28,9 @@ class Parser
   private
 
   def build_metadata(raw_metadata)
-    return MetaData.new(raw: {}) if raw_metadata.nil? || raw_metadata.empty?
+    return Component::MetaData.new(raw: {}) if raw_metadata.nil? || raw_metadata.empty?
 
-    MetaData.new(
+    Component::MetaData.new(
       title: raw_metadata['title'] || raw_metadata[:title],
       description: raw_metadata['description'] || raw_metadata[:description],
       api_name: raw_metadata['api_name'] || raw_metadata[:api_name],
@@ -99,7 +90,7 @@ class Parser
       description_parts << text
     end
 
-    Property.new(
+    Component::Property.new(
       key: key,
       type: type,
       default: default.to_s,
@@ -130,7 +121,7 @@ class Parser
     description = flatten_text(grouped['Description'])
     html_code = extract_html(grouped['html'])
 
-    Example.new(
+    Component::Example.new(
       name: name,
       description: description,
       html_code: html_code
