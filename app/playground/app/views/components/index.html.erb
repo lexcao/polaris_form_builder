@@ -6,11 +6,8 @@
 
 <div id="components">
   <% @components.each do |component| %>
-    <%= render component %>
     <p>
-      <%= link_to "Show this component", component %>
+      <%= link_to component.name, component %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New component", new_component_path %>

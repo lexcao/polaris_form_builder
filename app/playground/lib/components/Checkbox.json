@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "title": "Checkbox",
+    "description": "Give users a clear way to make selections, such as agreeing to terms or choosing multiple items from a list.",
+    "api_name": "app-home",
+    "source_url": {
+      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox",
+      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox.md"
+    }
+  },
+  "name": "Checkbox",
+  "properties": [
+    {
+      "key": "accessibilityLabel",
+      "type": "string",
+      "default": "",
+      "description": "A label used for users using assistive technologies like screen readers. When set, any children or label supplied will not be announced. This can also be used to display a control without a visual label, while still providing context to users using screen readers."
+    },
+    {
+      "key": "checked",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the control is active."
+    },
+    {
+      "key": "defaultChecked",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the control is active by default."
+    },
+    {
+      "key": "defaultIndeterminate",
+      "type": "boolean",
+      "default": "false",
+      "description": ""
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Disables the field, disallowing any interaction."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element."
+    },
+    {
+      "key": "indeterminate",
+      "type": "boolean",
+      "default": "",
+      "description": ""
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "Visual content to use as the control label."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "An identifier for the field that is unique within the nearest containing form."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "",
+      "description": "The value used in form data when the checkbox is checked."
+    }
+  ],
+  "examples": []
+}

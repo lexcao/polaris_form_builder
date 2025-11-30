@@ -10,3 +10,4 @@
 **/storage/
 **/config/*.key
 **/app/assets/builds/*
+**/log/

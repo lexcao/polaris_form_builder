@@ -1,3 +1,8 @@
+PATH
+  remote: ../..
+  specs:
+    polaris_form_builder (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -204,6 +209,8 @@ GEM
     sqlite3 (2.8.1-x86_64-darwin)
     sqlite3 (2.8.1-x86_64-linux-gnu)
     sqlite3 (2.8.1-x86_64-linux-musl)
+    store_model (4.3.0)
+      activerecord (>= 7.0)
     stringio (3.1.8)
     thor (1.4.0)
     timeout (0.4.4)
@@ -231,10 +238,12 @@ PLATFORMS
 
 DEPENDENCIES
   debug
+  polaris_form_builder!
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.1)
   sqlite3 (>= 2.1)
+  store_model (~> 4.3)
   tzinfo-data
 
 BUNDLED WITH
