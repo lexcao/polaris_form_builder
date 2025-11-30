@@ -7,3 +7,6 @@
 /spec/reports/
 /tmp/
 **/tmp/
+**/storage/
+**/config/*.key
+**/app/assets/builds/*
