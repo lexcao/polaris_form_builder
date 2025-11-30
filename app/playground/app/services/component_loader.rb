@@ -6,7 +6,6 @@ class ComponentLoader
   def self.load_json
     Dir.glob(DIR.join("*.json")).map do |path|
       data = JSON.parse(File.read(path))
-      puts "load_join for #{data}"
       Component.new(data)
     end
   end

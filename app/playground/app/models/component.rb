@@ -59,9 +59,7 @@ class Component
     end
 
     def find(name)
-      item = all.find { |component| component.name.downcase == name.downcase }
-      puts "find? #{item.inspect}"
-      item
+      all.find { |component| component.name.downcase == name.downcase }
     end
   end
 
