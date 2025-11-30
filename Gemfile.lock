@@ -93,7 +93,7 @@ DEPENDENCIES
   actionpack (~> 8.1.0)
   actionview (~> 8.1.0)
   activemodel (~> 8.1.0)
-  kramdown (~> 2.4)
+  kramdown (~> 2.5)
   kramdown-parser-gfm (~> 1.1)
   minitest (~> 5.16)
   polaris_form_builder!

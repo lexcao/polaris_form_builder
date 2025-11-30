@@ -7,7 +7,7 @@ gemspec
 
 gem "rake", "~> 13.0"
 gem "minitest", "~> 5.16"
-gem "kramdown", "~> 2.4"
+gem "kramdown", "~> 2.5"
 gem "kramdown-parser-gfm", "~> 1.1"
 
 gem "actionview", "~> 8.1.0"
