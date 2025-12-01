@@ -8,3 +8,8 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+.sticky {
+    position: sticky;
+    top: 2rem;
+}
