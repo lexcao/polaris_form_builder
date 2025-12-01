@@ -24,6 +24,14 @@ class ComponentsController < ApplicationController
   end
 
   def get_preview
+    get_preview_from_params || get_preview_from_session
+  end
+
+  def get_preview_from_params
+    Preview.new preview_params if params[:preview]
+  end
+
+  def get_preview_from_session
     params = session[:preview]
     if params
       session.delete :preview

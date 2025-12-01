@@ -6,6 +6,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Playground">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -23,6 +25,8 @@
 
     <script src="https://cdn.shopify.com/shopifycloud/polaris.js"></script>
     <%= javascript_importmap_tags %>
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
