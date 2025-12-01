@@ -52,9 +52,10 @@
     </s-grid-item>
 
     <s-grid-item gridColumn="span 6" gridRow="span 1">
-      <s-section>
-        <s-text>TODO: demo code</s-text>
-      </s-section>
+      <s-stack gap="base">
+        <%= render partial: "components/code" %>
+        <%= render partial: "components/preview" %>
+      </s-stack>
     </s-grid-item>
   </s-grid>
 

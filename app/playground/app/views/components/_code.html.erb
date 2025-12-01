@@ -1,0 +1,51 @@
+<s-box
+  background="strong"
+  borderRadius="large"
+  padding="base"
+  data-controller="code-switcher"
+>
+  <s-stack gap="base">
+    <s-stack
+      direction="inline"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <h3>Code</h3>
+      <s-stack direction="inline" gap="small">
+        <s-clickable-chip
+          color="strong"
+          accessibilityLabel="Show ERB code"
+          data-code-tab="erb"
+          data-code-switcher-target="tab"
+          data-action="click->code-switcher#switch"
+        >
+          ERB
+        </s-clickable-chip>
+
+        <s-clickable-chip
+          color="subdued"
+          accessibilityLabel="Show HTML code"
+          data-code-tab="html"
+          data-code-switcher-target="tab"
+          data-action="click->code-switcher#switch"
+        >
+          HTML
+        </s-clickable-chip>
+      </s-stack>
+    </s-stack>
+    <s-text>
+      <code data-code-switcher-target="code"
+            data-code-content="erb">
+        <%%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
+      </code>
+      <code data-code-switcher-target="code"
+            data-code-content="html"
+            hidden>
+        &lt;s-text-field
+        label="Store name"
+        value="Jaded Pixel"
+        placeholder="Become a merchant" /&gt;
+      </code>
+    </s-text>
+  </s-stack>
+</s-box>

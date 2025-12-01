@@ -1,0 +1,20 @@
+<s-box
+  background="strong"
+  borderRadius="large"
+  padding="base"
+>
+  <s-stack gap="base">
+    <h3>Preview</h3>
+
+    <%= polaris_form_with(model: Preview.new, url: components_path, scope: :preview) do |form| %>
+      <s-stack gap="base">
+        <div>
+          <%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
+        </div>
+        <div>
+          <%= form.submit "Try it" %>
+        </div>
+      </s-stack>
+    <% end %>
+  </s-stack>
+</s-box>
