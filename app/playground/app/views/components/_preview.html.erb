@@ -8,12 +8,8 @@
 
     <%= polaris_form_with(model: Preview.new, url: preview_component_path(component)) do |form| %>
       <s-stack gap="base">
-        <div>
-          <%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
-        </div>
-        <div>
-          <%= form.submit "Try it" %>
-        </div>
+        <%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
+        <%= form.submit "Try it" %>
       </s-stack>
     <% end %>
   </s-stack>

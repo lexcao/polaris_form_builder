@@ -8,7 +8,8 @@ class TestTextField < TestCase
       concat f.text_field(:title)
     end
 
-    expected = '<s-text-field name="post[title]"/>'
+    expected = '<s-text-field name="post[title]"></s-text-field>'
     assert_dom_equal expected, form_body(@rendered)
+    assert_includes form_body(@rendered), '></s-text-field>'
   end
 end
