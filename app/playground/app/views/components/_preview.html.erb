@@ -6,7 +6,7 @@
   <s-stack gap="base">
     <h3>Preview</h3>
 
-    <%= polaris_form_with(model: Preview.new, url: components_path, scope: :preview) do |form| %>
+    <%= polaris_form_with(model: Preview.new, url: preview_component_path(component)) do |form| %>
       <s-stack gap="base">
         <div>
           <%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
