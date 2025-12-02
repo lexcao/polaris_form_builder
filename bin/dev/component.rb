@@ -11,10 +11,10 @@ module Component
 
   MetaData = Data.define(:title, :description, :api_name, :source_url)
   Property = Data.define(:key, :type, :default, :description)
-  Example = Data.define(:name, :description, :html_code)
+  Example = Data.define(:name, :description)
   Definition = Data.define(:metadata, :properties, :examples)
 
-  OUTPUT_DIR = File.expand_path("components", __dir__)
+  OUTPUT_DIR = File.expand_path("../../data/components", __dir__)
 
   module_function
 
