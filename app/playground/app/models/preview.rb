@@ -5,6 +5,7 @@ class Preview
   include ActiveModel::Attributes
 
   attribute :name, :string
+  attribute :search, :string
 
   def as_json(*)
     attributes

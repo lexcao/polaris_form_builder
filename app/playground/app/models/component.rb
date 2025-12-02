@@ -27,14 +27,16 @@ class Example
   include StoreModel::Model
 
   attribute :name, :string
-  attribute :code, :string
   attribute :description, :string
+
+  attribute :erb_code, :string
 end
 
 class Component
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  attribute :main_example, :string
   attribute :metadata, MetaData.to_type
   attribute :properties, Property.to_array_type, default: []
   attribute :examples, Example.to_array_type, default: []

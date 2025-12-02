@@ -1,0 +1,13 @@
+{
+  "main_example": "<%= form.text_field :name, label: \"Store name\", placeholder: \"Become a merchant\" %>",
+  "examples": [
+    {
+      "name": "Basic usage",
+      "erb_code": "<%= form.text_field :name, label: \"Store name\", autocomplete: \"off\" %>"
+    },
+    {
+      "name": "With icon",
+      "erb_code": "<%= form.text_field :search, label: \"Search\", icon: \"search\", placeholder: \"Search products...\" %>"
+    }
+  ]
+}
