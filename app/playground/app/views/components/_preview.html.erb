@@ -9,7 +9,9 @@
     <%= polaris_form_with(model: Preview.new, url: preview_component_path(@component)) do |form| %>
       <s-stack gap="base">
         <%= render inline: code, locals: { form: form } %>
-        <%= form.submit "Try it" %>
+        <% if local_assigns[:try] %>
+          <%= form.submit "Try it" %>
+        <% end %>
       </s-stack>
     <% end %>
   </s-stack>

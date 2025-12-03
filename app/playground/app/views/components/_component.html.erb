@@ -19,7 +19,7 @@
       <aside class="sticky">
         <s-stack gap="base">
           <%= render partial: "components/code", locals: { code: @component.main_example } %>
-          <%= render partial: "components/preview", locals: { code: @component.main_example } %>
+          <%= render partial: "components/preview", locals: { code: @component.main_example, try: true } %>
           <% if @preview %>
             <%= render partial: "components/preview_result", locals: { preview: @preview } %>
           <% end %>
