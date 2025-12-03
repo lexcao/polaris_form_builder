@@ -21,12 +21,26 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <link rel="stylesheet" href="https://unpkg.com/prismjs@1.30.0/themes/prism.min.css">
     <%= stylesheet_link_tag :app %>
 
-    <script src="https://cdn.shopify.com/shopifycloud/polaris.js"></script>
+    <script src="https://cdn.shopify.com/shopifycloud/polaris.js" data-turbo-track="reload"></script>
     <%= javascript_importmap_tags %>
 
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-core.min.js"
+            data-turbo-track="reload"></script>
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-clike.min.js"
+            data-turbo-track="reload"></script>
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-markup.min.js"
+            data-turbo-track="reload"></script>
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-markup-templating.min.js"
+            data-turbo-track="reload"></script>
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-ruby.min.js"
+            data-turbo-track="reload"></script>
+    <script src="https://unpkg.com/prismjs@1.30.0/components/prism-erb.min.js"
+            data-turbo-track="reload"></script>
   </head>
 
   <body>

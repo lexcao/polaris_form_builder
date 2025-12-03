@@ -9,8 +9,8 @@
   <s-grid-item gridColumn="span 6" gridRow="span 1">
     <aside class="sticky">
       <s-stack gap="base">
-        <%= render "components/code", code: example.erb_code %>
-        <%= render "components/preview", code: example.erb_code %>
+        <%= render "components/code", erb: example.erb_code %>
+        <%= render "components/preview", erb: example.erb_code %>
       </s-stack>
     </aside>
   </s-grid-item>
