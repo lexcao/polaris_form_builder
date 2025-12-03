@@ -18,10 +18,10 @@
     <s-grid-item gridColumn="span 6" gridRow="span 1">
       <aside class="sticky">
         <s-stack gap="base">
-          <%= render partial: "components/code", locals: { code: @component.main_example } %>
-          <%= render partial: "components/preview", locals: { code: @component.main_example, try: true } %>
+          <%= render "components/code", code: @component.main_example %>
+          <%= render "components/preview", code: @component.main_example, try: true %>
           <% if @preview %>
-            <%= render partial: "components/preview_result", locals: { preview: @preview } %>
+            <%= render "components/preview_result", preview: @preview %>
           <% end %>
         </s-stack>
       </aside>
