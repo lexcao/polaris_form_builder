@@ -8,7 +8,7 @@ class Preview
   attribute :search, :string
 
   def as_json(*)
-    attributes
+    attributes.compact
   end
 
   def to_pretty_json

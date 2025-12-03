@@ -54,8 +54,8 @@
     <s-grid-item gridColumn="span 6" gridRow="span 1">
       <aside class="sticky">
         <s-stack gap="base">
-          <%= render partial: "components/code" %>
-          <%= render partial: "components/preview", locals: { component: component, preview: @preview } %>
+          <%= render partial: "components/code", locals: { code: @component.main_example } %>
+          <%= render partial: "components/preview", locals: { code: @component.main_example } %>
           <% if @preview %>
             <%= render partial: "components/preview_result", locals: { preview: @preview } %>
           <% end %>

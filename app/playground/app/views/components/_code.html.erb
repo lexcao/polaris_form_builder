@@ -36,15 +36,15 @@
     <s-text>
       <code data-code-switcher-target="code"
             data-code-content="erb">
-        <%%= form.text_field :name, label: "Store name", placeholder: "Become a merchant" %>
+        <%= h(code) %>
       </code>
       <code data-code-switcher-target="code"
             data-code-content="html"
             hidden>
-        &lt;s-text-field
-        label="Store name"
-        value="Jaded Pixel"
-        placeholder="Become a merchant" /&gt;
+        <%= polaris_form_with(model: Preview.new, url: preview_component_path(@component)) do |form| %>
+          <% html = ERB.new(code).result(binding.tap { |it| it.local_variable_set(:form, form) }) %>
+          <%= h(html) %>
+        <% end %>
       </code>
     </s-text>
   </s-stack>
