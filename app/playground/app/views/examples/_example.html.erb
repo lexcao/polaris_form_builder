@@ -1,0 +1,17 @@
+<s-grid gridTemplateColumns="repeat(12, 1fr)" gap="base">
+  <s-grid-item gridColumn="span 6" gridRow="span 1">
+    <h3><%= example.name %></h3>
+    <s-paragraph>
+      <%= example.description %>
+    </s-paragraph>
+  </s-grid-item>
+
+  <s-grid-item gridColumn="span 6" gridRow="span 1">
+    <aside class="sticky">
+      <s-stack gap="base">
+        <%= render partial: "components/code", locals: { code: example.erb_code } %>
+        <%= render partial: "components/preview", locals: { code: example.erb_code } %>
+      </s-stack>
+    </aside>
+  </s-grid-item>
+</s-grid>
