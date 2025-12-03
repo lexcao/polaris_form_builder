@@ -1,0 +1,29 @@
+<s-box paddingBlock="large">
+  <s-stack gap="base">
+    <s-stack direction="inline" alignItems="center" gap="small-300">
+      <s-text tone="success" type="strong"><%= property.key %></s-text>
+
+      <% if property.type.include?("|") %>
+        <% property.type.split("|").each do |type| %>
+          <s-chip>
+            <%= type %>
+          </s-chip>
+        <% end %>
+      <% else %>
+        <s-chip>
+          <%= property.type %>
+        </s-chip>
+      <% end %>
+
+      <% if property.default.present? %>
+        <s-chip>
+          Default: <%= property.default %>
+        </s-chip>
+      <% end %>
+    </s-stack>
+
+    <s-paragraph>
+      <%= property.description %>
+    </s-paragraph>
+  </s-stack>
+</s-box>

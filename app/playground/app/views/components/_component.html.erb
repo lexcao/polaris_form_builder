@@ -12,43 +12,7 @@
 
       <h2>Properties <%= component.properties.size %></h2>
       <s-divider></s-divider>
-      <% component.properties.each do |property| %>
-        <s-box padingBlock="large">
-          <s-stack gap="base">
-            <s-stack direction="inline" alignItems="center" gap="small-300">
-              <s-box paddingBlock="base">
-                <s-text tone="success" type="strong"><%= property.key %></s-text>
-              </s-box>
-
-              <s-box paddingBlock="base">
-                <% if property.type.include?("|") %>
-                  <% property.type.split("|").each do |type| %>
-                    <s-chip>
-                      <%= type %>
-                    </s-chip>
-                  <% end %>
-                <% else %>
-                  <s-chip>
-                    <%= property.type %>
-                  </s-chip>
-                <% end %>
-              </s-box>
-
-              <% if property.default.present? %>
-                <s-chip>
-                  Default: <%= property.default %>
-                </s-chip>
-              <% end %>
-            </s-stack>
-
-            <s-paragraph>
-              <%= property.description %>
-            </s-paragraph>
-
-            <s-divider></s-divider>
-          </s-stack>
-        </s-box>
-      <% end %>
+      <%= render partial: @component.properties, spacer_template: "divider" %>
     </s-grid-item>
 
     <s-grid-item gridColumn="span 6" gridRow="span 1">
