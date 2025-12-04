@@ -30,6 +30,7 @@ class Example
   attribute :description, :string
 
   attribute :erb_code, :string
+  attribute :html_code, :string
 end
 
 class Component

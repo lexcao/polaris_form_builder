@@ -8,7 +8,7 @@ class ComponentLoader
     def load_json
       Dir.glob(DIR.join("*.json")).map do |path|
         data = JSON.load_file(path, symbolize_names: true)
-        Component.new merge_examples(data)
+        Component.new data # skip merge_examples since converted when parsing
       end.tap { Rails.logger.info "[ComponentLoader] loaded #{it.size} components" }
     end
 
