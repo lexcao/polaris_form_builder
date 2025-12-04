@@ -1,5 +1,11 @@
 # Repository Guidelines
 
+## Test
+- Please use the following command to run the test with the target Ruby version
+```
+mise exec ruby@3.4.5 -- bundle exec ruby -I test {test.rb}
+```
+
 ## Task flow
 - Always use create new branches for tasks.
 
