@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "nokogiri"
 require "active_support/core_ext/string"
 require_relative 'fetch'
 
