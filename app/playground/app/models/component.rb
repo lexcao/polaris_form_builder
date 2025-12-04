@@ -47,8 +47,8 @@ class Component
   end
 
   def examples
-    super.drop(1).reject do |example|
-      example.description.blank? || example.erb_code.blank?
+    super.drop(1).reject do
+      it.description.blank? || it.erb_code.blank?
     end
   end
 
@@ -70,7 +70,7 @@ class Component
     end
 
     def find(name)
-      all.find { |component| component.name.downcase == name.downcase }
+      all.find { it.name.downcase == name.downcase }
     end
   end
 end
