@@ -120,6 +120,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-text-field\n  label=\"Store name\"\n  value=\"Jaded Pixel\"\n  placeholder=\"Become a merchant\"\n></s-text-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple text input field for entering a store name with autocomplete turned off, providing a clean and straightforward input experience.",
       "html_code": "<s-text-field label=\"Store name\" autocomplete=\"off\"></s-text-field>"

@@ -102,6 +102,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-url-field\n  label=\"Your website\"\n  details=\"Join the partner ecosystem\"\n  placeholder=\"https://shopify.com/partner\"\n></s-url-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple URL input field with a label and placeholder, showing the minimal configuration needed for collecting a URL.",
       "html_code": "<s-stack gap=\"base\">\n  <!-- Simple URL input -->\n  <s-url-field\n    label=\"Website URL\"\n    placeholder=\"https://example.com\"\n  ></s-url-field>\n</s-stack>"

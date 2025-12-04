@@ -102,6 +102,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-search-field\n  label=\"Search\"\n  labelAccessibilityVisibility=\"exclusive\"\n  placeholder=\"Search items\"\n></s-search-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a standard search input field for product discovery, with a clear label, name, and placeholder text to guide user interaction.",
       "html_code": "<s-search-field\n  label=\"Search products\"\n  name=\"search\"\n  placeholder=\"Search products...\"\n></s-search-field>"

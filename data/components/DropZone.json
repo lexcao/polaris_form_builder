@@ -78,6 +78,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-drop-zone\n  label=\"Upload\"\n  accessibilityLabel=\"Upload image of type jpg, png, or gif\"\n  accept=\".jpg,.png,.gif\"\n  multiple\n  onInput=\"console.log('onInput', event.currentTarget?.value)\"\n  onChange=\"console.log('onChange', event.currentTarget?.value)\"\n  onDropRejected=\"console.log('onDropRejected', event.currentTarget?.value)\"\n></s-drop-zone>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a basic drop zone that allows multiple file uploads with a simple label.",
       "html_code": "<s-drop-zone label=\"Drop files to upload\" multiple></s-drop-zone>"

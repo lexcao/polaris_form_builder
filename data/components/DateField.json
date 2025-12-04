@@ -126,6 +126,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-date-field defaultView=\"2025-09\" defaultValue=\"2025-09-01\"></s-date-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Simple date field for collecting a single date with a descriptive label.",
       "html_code": "<s-date-field\n  label=\"Order date\"\n  name=\"orderDate\"\n  placeholder=\"Select date\"\n></s-date-field>"

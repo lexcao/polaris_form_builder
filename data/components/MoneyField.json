@@ -102,6 +102,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-money-field\n  label=\"Regional Price\"\n  placeholder=\"99.99\"\n  details=\"Recommended price for the European market\"\n></s-money-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple money field with a label, initial value, and numeric constraints.",
       "html_code": "<s-money-field\n  label=\"Price\"\n  value=\"19.99\"\n  min=\"0\"\n  max=\"1000\"\n></s-money-field>"

@@ -102,6 +102,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-email-field\n  label=\"Email\"\n  placeholder=\"bernadette.lapresse@jadedpixel.com\"\n  details=\"Used for sending notifications\"\n></s-email-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple email field with a label and required attribute, showing the most fundamental way to use the EmailField component.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field label=\"Email address\" required></s-email-field>\n</s-stack>"

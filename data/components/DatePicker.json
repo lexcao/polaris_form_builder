@@ -72,6 +72,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-date-picker\n  view=\"2025-05\"\n  type=\"range\"\n  value=\"2025-05-28--2025-05-31\"\n></s-date-picker>"
+    },
+    {
       "name": "Single date selection",
       "description": "Demonstrates a date picker configured for selecting a single date with a default value and specific month view.",
       "html_code": "<s-date-picker\n  type=\"single\"\n  name=\"delivery-date\"\n  value=\"2024-01-15\"\n  view=\"2024-01\"\n></s-date-picker>"

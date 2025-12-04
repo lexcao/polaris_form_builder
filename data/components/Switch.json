@@ -84,6 +84,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-switch\n  label=\"Enable feature\"\n  details=\"Ensure all criteria are met before enabling\"\n></s-switch>"
+    },
+    {
       "name": "Basic switch",
       "description": "Standard toggle switch for enabling or disabling merchant preferences. This example demonstrates a simple switch with a label, allowing users to toggle a single setting on or off.",
       "html_code": "<s-switch id=\"basic-switch\" label=\"Enable notifications\"></s-switch>"

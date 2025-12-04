@@ -84,6 +84,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-select label=\"Date range\">\n  <s-option value=\"1\">Today</s-option>\n  <s-option value=\"2\">Yesterday</s-option>\n  <s-option value=\"3\">Last 7 days</s-option>\n  <s-option-group label=\"Custom ranges\">\n    <s-option value=\"4\">Last 30 days</s-option>\n    <s-option value=\"5\">Last 90 days</s-option>\n  </s-option-group>\n</s-select>"
+    },
+    {
       "name": "Basic usage",
       "description": "A simple select dropdown with pre-selected value for product sorting options.",
       "html_code": "<s-select label=\"Sort products by\" value=\"newest\">\n  <s-option value=\"newest\">Newest first</s-option>\n  <s-option value=\"oldest\">Oldest first</s-option>\n  <s-option value=\"title\">Title A–Z</s-option>\n  <s-option value=\"price-low\">Price: low to high</s-option>\n  <s-option value=\"price-high\">Price: high to low</s-option>\n</s-select>"

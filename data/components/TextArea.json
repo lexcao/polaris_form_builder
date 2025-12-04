@@ -108,6 +108,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-text-area\n  label=\"Shipping address\"\n  value=\"1776 Barnes Street, Orlando, FL 32801\"\n  rows=\"3\"\n></s-text-area>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple text area for collecting product descriptions with a placeholder and autocomplete disabled.",
       "html_code": "<s-text-area\n  label=\"Product description\"\n  placeholder=\"Enter a detailed description...\"\n  autocomplete=\"off\"\n></s-text-area>"

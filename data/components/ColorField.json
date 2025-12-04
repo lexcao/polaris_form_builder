@@ -96,6 +96,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-color-field placeholder=\"Select a color\" value=\"#FF0000\"></s-color-field>"
+    },
+    {
       "name": "Basic Usage",
       "description": "Standard color input field with hex value.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"Brand color\" name=\"color\" value=\"#FF0000\"></s-color-field>\n</s-stack>"

@@ -42,6 +42,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-color-picker value=\"#FF0000\" alpha></s-color-picker>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple color picker with a pre-selected red color, showing the basic implementation without alpha transparency.",
       "html_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <s-color-picker value=\"#FF0000\" name=\"primary-color\"></s-color-picker>\n</s-box>"

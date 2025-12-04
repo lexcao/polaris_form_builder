@@ -19,7 +19,7 @@ class Parser
     Component::Definition.new(
       metadata: @metadata,
       properties: extract_properties_for(@metadata.title),
-      examples: extract_examples
+      examples: extract_examples.prepend(extract_main_example)
     )
   end
 
@@ -81,6 +81,20 @@ class Parser
 
   def block_node?(node)
     %i[p header ul ol codeblock blockquote table].include?(node.type)
+  end
+
+  def extract_main_example
+    section_children = collect_section_children(level: 3, title: 'Examples')
+    list_items = section_children.flat_map { |node| collect_list_items(node) }
+    grouped = group_children_by_heading(list_items.first)
+
+    html_code = extract_html(grouped['html'])
+
+    Component::Example.new(
+      name: "Main example",
+      description: "",
+      html_code: html_code
+    )
   end
 
   def extract_examples
@@ -157,7 +171,7 @@ class Parser
   end
 
   def collect_list_items(node)
-    return [node] if node.type == :li
+    return [ node ] if node.type == :li
 
     node.children.flat_map { |child| collect_list_items(child) }
   end

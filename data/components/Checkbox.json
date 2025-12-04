@@ -90,6 +90,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-checkbox\n  label=\"Require a confirmation step\"\n  details=\"Ensure all criteria are met before proceeding\"\n></s-checkbox>"
+    },
+    {
       "name": "Indeterminate state",
       "description": "Checkbox in indeterminate state, commonly used for \"select all\" functionality when some items are selected.",
       "html_code": ""

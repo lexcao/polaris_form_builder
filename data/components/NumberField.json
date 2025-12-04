@@ -126,6 +126,11 @@
   ],
   "examples": [
     {
+      "name": "Main example",
+      "description": "",
+      "html_code": "<s-number-field\n  label=\"Quantity\"\n  details=\"Number of items in stock\"\n  placeholder=\"0\"\n  step=\"5\"\n  min=\"0\"\n  max=\"100\"\n></s-number-field>"
+    },
+    {
       "name": "Basic usage",
       "description": "Demonstrates a simple number field for entering order quantity with a predefined range and step value.",
       "html_code": "<s-number-field\n  label=\"Order quantity\"\n  value=\"5\"\n  min=\"1\"\n  max=\"999\"\n  step=\"1\"\n></s-number-field>"
