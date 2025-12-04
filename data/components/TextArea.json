@@ -106,5 +106,26 @@
       "description": "The current value for the field. If omitted, the field will be empty."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Basic usage",
+      "description": "Demonstrates a simple text area for collecting product descriptions with a placeholder and autocomplete disabled.",
+      "html_code": "<s-text-area\n  label=\"Product description\"\n  placeholder=\"Enter a detailed description...\"\n  autocomplete=\"off\"\n></s-text-area>"
+    },
+    {
+      "name": "Seo meta description with character limit",
+      "description": "Showcases a text area for writing SEO meta descriptions with a character limit of 160, providing guidance text and a multi-line input.",
+      "html_code": "<s-text-area\n  label=\"Meta description\"\n  max-length=\"160\"\n  details=\"Appears in search results. Keep under 160 characters for best visibility.\"\n  placeholder=\"Write a compelling description that will appear in Google search results...\"\n  rows=\"3\"\n  autocomplete=\"off\"\n></s-text-area>"
+    },
+    {
+      "name": "With error state",
+      "description": "Demonstrates the error state of a text area with a minimum length requirement, showing how validation errors are displayed in a commerce context.",
+      "html_code": "<s-text-area\n  label=\"Reason for return\"\n  error=\"Please provide a detailed explanation for the return request. This helps us improve our products and process the refund faster.\"\n  minLength=\"20\"\n  placeholder=\"Explain why the customer is returning this item...\"\n  rows=\"3\"\n  autocomplete=\"off\"\n></s-text-area>"
+    },
+    {
+      "name": "Product care instructions",
+      "description": "Illustrates a text area for entering detailed product care instructions, with an expanded height and supporting guidance text.",
+      "html_code": "<s-text-area\n  label=\"Care instructions\"\n  rows=\"6\"\n  details=\"Detailed care instructions help customers maintain their purchases and reduce returns.\"\n  placeholder=\"Provide washing, storage, and maintenance instructions...\"\n  autocomplete=\"off\"\n></s-text-area>"
+    }
+  ]
 }

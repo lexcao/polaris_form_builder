@@ -70,5 +70,26 @@
       "description": "Displayed month in YYYY-MM format. onViewChange is called when this value changes. Defaults to defaultView."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Single date selection",
+      "description": "Demonstrates a date picker configured for selecting a single date with a default value and specific month view.",
+      "html_code": "<s-date-picker\n  type=\"single\"\n  name=\"delivery-date\"\n  value=\"2024-01-15\"\n  view=\"2024-01\"\n></s-date-picker>"
+    },
+    {
+      "name": "With date restrictions",
+      "description": "Illustrates how to restrict date selection to a specific date range, preventing selection of past or future dates outside the allowed period.",
+      "html_code": "<!-- Disable past dates and far future dates -->\n<s-date-picker\n  type=\"single\"\n  name=\"appointment-date\"\n  disallow=\"past\"\n  allow=\"2024-06-01--2024-06-31\"\n  view=\"2024-06\"\n></s-date-picker>"
+    },
+    {
+      "name": "Handling onChange callbacks",
+      "description": "Demonstrates how to handle onChange callbacks for both single and range date pickers, showing how to extract and process the selected values.",
+      "html_code": "<form>\n  <s-text-field\n    label=\"Order number\"\n    placeholder=\"Search orders...\"\n  ></s-text-field>\n  <s-date-picker\n    type=\"range\"\n    name=\"order-date-range\"\n    value=\"2024-01-01--2024-01-31\"\n    view=\"2024-01\"\n  ></s-date-picker>\n  <s-button type=\"submit\">Apply filters</s-button>\n</form>"
+    },
+    {
+      "name": "With quick date selection",
+      "description": "Illustrates a date picker with quick preset buttons and onChange callback to capture user selections and update the displayed value.",
+      "html_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <s-date-picker\n    type=\"range\"\n    name=\"analytics-period\"\n    id=\"analytics-picker\"\n    value=\"2025-01-01--2025-01-31\"\n    view=\"2025-01\"\n    onchange=\"console.log('Date range changed:', event.currentTarget.value)\"\n  ></s-date-picker>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>"
+    }
+  ]
 }

@@ -88,5 +88,36 @@
       "description": "The value used in form data when the checkbox is checked."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Indeterminate state",
+      "description": "Checkbox in indeterminate state, commonly used for \"select all\" functionality when some items are selected.",
+      "html_code": ""
+    },
+    {
+      "name": "Error state",
+      "description": "Checkbox with validation error message for required form fields.",
+      "html_code": "<s-checkbox\n  label=\"I agree to the terms\"\n  error=\"You must accept the terms to continue\"\n></s-checkbox>"
+    },
+    {
+      "name": "Help text",
+      "description": "Checkbox with descriptive details text to provide additional context about the option.",
+      "html_code": "<s-checkbox\n  label=\"Send order notifications\"\n  details=\"You'll receive emails when orders are placed, fulfilled, or cancelled\"\n></s-checkbox>"
+    },
+    {
+      "name": "Disabled state",
+      "description": "Checkbox in disabled state with explanatory details about why it's unavailable.",
+      "html_code": "<s-checkbox\n  label=\"Advanced settings\"\n  disabled\n  details=\"Contact your administrator to enable advanced settings\"\n></s-checkbox>"
+    },
+    {
+      "name": "Settings group",
+      "description": "Multiple checkboxes for different configuration options with helpful details.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-checkbox label=\"Show only published products\" checked></s-checkbox>\n  <s-checkbox\n    label=\"Enable inventory tracking\"\n    details=\"Track inventory levels and receive low stock alerts\"\n    checked\n  ></s-checkbox>\n  <s-checkbox\n    label=\"View customer data\"\n    details=\"Allow staff to access customer contact information and order history\"\n  ></s-checkbox>\n</s-stack>"
+    },
+    {
+      "name": "Checkbox validation",
+      "description": "Interactive example showing required checkbox validation with dynamic error messages.",
+      "html_code": ""
+    }
+  ]
 }

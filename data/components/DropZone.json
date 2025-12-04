@@ -76,5 +76,41 @@
       "description": "This sets the input value for a file type, which cannot be set programatically, so it can only be reset."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Basic usage",
+      "description": "Demonstrates a basic drop zone that allows multiple file uploads with a simple label.",
+      "html_code": "<s-drop-zone label=\"Drop files to upload\" multiple></s-drop-zone>"
+    },
+    {
+      "name": "Image upload",
+      "description": "Shows a drop zone configured specifically for uploading multiple image files.",
+      "html_code": "<s-drop-zone accept=\"image/*\" label=\"Upload images\" multiple></s-drop-zone>"
+    },
+    {
+      "name": "With required field",
+      "description": "Illustrates a drop zone when the file upload is required.",
+      "html_code": "<s-drop-zone name=\"file\" required label=\"Upload file\"></s-drop-zone>"
+    },
+    {
+      "name": "Disabled state",
+      "description": "Displays a drop zone in a disabled state, preventing file uploads.",
+      "html_code": "<s-drop-zone label=\"Upload not available\" disabled></s-drop-zone>"
+    },
+    {
+      "name": "File type restrictions",
+      "description": "Demonstrates restricting file uploads to specific document types like PDF and DOC.",
+      "html_code": "<s-drop-zone\n  accept=\".pdf,.doc,.docx\"\n  label=\"Upload documents\"\n  multiple\n></s-drop-zone>"
+    },
+    {
+      "name": "With error state",
+      "description": "Shows a drop zone with an error message, useful for indicating file upload validation issues.",
+      "html_code": "<s-drop-zone\n  label=\"Upload file\"\n  error=\"File size must be less than 5mb\"\n></s-drop-zone>"
+    },
+    {
+      "name": "With accessibility options",
+      "description": "Illustrates advanced accessibility configuration for the drop zone, including custom accessibility labels.",
+      "html_code": "<s-drop-zone\n  label=\"Upload files\"\n  accessibilityLabel=\"Upload files using drag and drop or file selector\"\n  labelAccessibilityVisibility=\"exclusive\"\n  multiple\n></s-drop-zone>"
+    }
+  ]
 }

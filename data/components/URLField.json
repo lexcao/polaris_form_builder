@@ -100,5 +100,26 @@
       "description": "The current value for the field. If omitted, the field will be empty."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Basic usage",
+      "description": "Demonstrates a simple URL input field with a label and placeholder, showing the minimal configuration needed for collecting a URL.",
+      "html_code": "<s-stack gap=\"base\">\n  <!-- Simple URL input -->\n  <s-url-field\n    label=\"Website URL\"\n    placeholder=\"https://example.com\"\n  ></s-url-field>\n</s-stack>"
+    },
+    {
+      "name": "With validation",
+      "description": "Shows a URL input field with built-in validation, including required status, minimum and maximum length constraints, and a custom error message for invalid inputs.",
+      "html_code": "<s-url-field\n  label=\"Company website\"\n  required\n  minLength=\"10\"\n  maxLength=\"200\"\n  error=\"Please enter a valid website URL\"\n></s-url-field>"
+    },
+    {
+      "name": "With default value",
+      "description": "Illustrates a URL field pre-populated with a default value, set to read-only mode to prevent user modifications.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-url-field\n    label=\"Profile URL\"\n    value=\"https://shop.myshopify.com\"\n    readOnly\n  ></s-url-field>\n</s-stack>"
+    },
+    {
+      "name": "Disabled state",
+      "description": "Shows a URL field in a disabled state, displaying a pre-filled URL that cannot be edited by the user.",
+      "html_code": "<s-url-field\n  label=\"Store URL\"\n  value=\"https://your-store.myshopify.com\"\n  disabled\n></s-url-field>"
+    }
+  ]
 }

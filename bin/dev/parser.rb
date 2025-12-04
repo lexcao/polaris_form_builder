@@ -9,6 +9,7 @@ require_relative "component"
 
 class Parser
   def initialize(markdown_content)
+    markdown_content = ensure_utf8(markdown_content)
     @metadata = Component::MetaData.new(**extract_metadata(markdown_content))
     @document = Kramdown::Document.new(markdown_content, input: 'GFM')
     @root = @document.root
@@ -233,6 +234,14 @@ class Parser
 
   def heading_text(node)
     block_text(node)
+  end
+
+  def ensure_utf8(str)
+    str = str.to_s
+    return str if str.encoding == Encoding::UTF_8
+
+    str.force_encoding("UTF-8")
+       .encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
   end
 end
 

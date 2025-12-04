@@ -100,5 +100,26 @@
       "description": "The current value for the field. If omitted, the field will be empty."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Basic usage",
+      "description": "Demonstrates a standard search input field for product discovery, with a clear label, name, and placeholder text to guide user interaction.",
+      "html_code": "<s-search-field\n  label=\"Search products\"\n  name=\"search\"\n  placeholder=\"Search products...\"\n></s-search-field>"
+    },
+    {
+      "name": "With error state",
+      "description": "Illustrates how the search field handles and displays an error state when no results are found or when there's a search-related issue.",
+      "html_code": "<s-search-field\n  label=\"Search orders\"\n  name=\"orderSearch\"\n  error=\"No results found\"\n  value=\"xyz123\"\n></s-search-field>"
+    },
+    {
+      "name": "Disabled state",
+      "description": "Demonstrates the appearance and behavior of a search field when it is disabled, preventing user interaction.",
+      "html_code": "<s-search-field\n  label=\"Search customers\"\n  name=\"customerSearch\"\n  disabled\n  placeholder=\"Search is currently unavailable\"\n></s-search-field>"
+    },
+    {
+      "name": "With character limits",
+      "description": "Showcases a search field with minimum and maximum character length constraints, providing guidance on input requirements.",
+      "html_code": "<s-search-field\n  label=\"Search collections\"\n  name=\"collectionSearch\"\n  minLength=\"3\"\n  maxLength=\"50\"\n  placeholder=\"Enter at least 3 characters\"\n></s-search-field>"
+    }
+  ]
 }

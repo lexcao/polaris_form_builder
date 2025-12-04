@@ -94,5 +94,51 @@
       "description": "The current value for the field. If omitted, the field will be empty. The current value for the field. If omitted, the field will be empty."
     }
   ],
-  "examples": []
+  "examples": [
+    {
+      "name": "Basic Usage",
+      "description": "Standard color input field with hex value.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"Brand color\" name=\"color\" value=\"#FF0000\"></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "Required",
+      "description": "Required color field ensuring essential color values are provided.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"Brand color\" value=\"#FF0000\" required></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "With Alpha Transparency",
+      "description": "Color field supporting alpha channel for transparency control.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Background color\"\n    value=\"rgba(255, 0, 0, 0.5)\"\n    alpha\n  ></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "With Error State",
+      "description": "Color field with validation error for invalid color format inputs.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Brand color\"\n    name=\"brandColor\"\n    value=\"#invalid\"\n    error=\"Please enter a valid color format (hex, rgb, or rgba)\"\n    required\n  ></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "With Help Text",
+      "description": "Color field with contextual details providing additional guidance.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Primary color\"\n    value=\"#1a73e8\"\n    details=\"Main brand color used for buttons and links\"\n  ></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "With Placeholder",
+      "description": "Color field demonstrating how to use a placeholder to guide user input for color selection.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Theme color\"\n    placeholder=\"Enter a hex color (e.g., #FF0000)\"\n    value=\"#000000\"\n  ></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "Read Only State",
+      "description": "Color field in a read-only mode, preventing user modifications to the color value.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"System color\" name=\"color\" value=\"#1a73e8\" readOnly></s-color-field>\n</s-stack>"
+    },
+    {
+      "name": "Form Integration",
+      "description": "A multi-color field form section demonstrating how ColorField can be used to capture different color settings in a single form.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <s-color-field\n        label=\"Primary brand color\"\n        name=\"primaryColor\"\n        value=\"#1a73e8\"\n        defaultValue=\"#1a73e8\"\n        details=\"This color will be used for buttons, links, and brand elements\"\n        required\n      ></s-color-field>\n      <s-color-field\n        label=\"Secondary color\"\n        name=\"secondaryColor\"\n        value=\"#34a853\"\n        details=\"Used for secondary actions and accents\"\n      ></s-color-field>\n      <s-color-field\n        label=\"Background overlay\"\n        name=\"overlayColor\"\n        value=\"rgba(0, 0, 0, 0.5)\"\n        alpha\n        details=\"Background color for modal overlays and dropdowns\"\n      ></s-color-field>\n    </s-stack>\n  </s-section>\n</s-stack>"
+    },
+    {
+      "name": "Color validation",
+      "description": "Interactive example showing real-time hex color validation with error messages.",
+      "html_code": ""
+    }
+  ]
 }
