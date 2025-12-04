@@ -18,8 +18,8 @@
     <s-grid-item gridColumn="span 6" gridRow="span 1">
       <aside class="sticky">
         <s-stack gap="base">
-          <%= render "components/code", erb: @component.main_example %>
-          <%= render "components/preview", erb: @component.main_example, try: true %>
+          <%= render "components/code", erb: @component.main_example.erb_code %>
+          <%= render "components/preview", erb: @component.main_example.erb_code, try: true %>
           <% if @preview %>
             <%= render "components/preview_result", preview: @preview %>
           <% end %>

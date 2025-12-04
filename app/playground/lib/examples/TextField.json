@@ -1,6 +1,9 @@
 {
-  "main_example": "<%= form.text_field :name, label: \"Store name\", placeholder: \"Become a merchant\" %>",
   "examples": [
+    {
+      "name": "Main example",
+      "erb_code": "<%= form.text_field :name, label: \"Store name\", placeholder: \"Become a merchant\" %>"
+    },
     {
       "name": "Basic usage",
       "erb_code": "<%= form.text_field :name, label: \"Store name\", autocomplete: \"off\" %>"

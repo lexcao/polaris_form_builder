@@ -23,8 +23,6 @@ class ComponentLoader
       Rails.logger.info "[ComponentLoader] merging examples for #{title}"
 
       data.tap do |result|
-        result[:main_example] = example[:main_example]
-
         result[:examples] = merge_by_name(
           Array(result[:examples]),
           Array(example[:examples])

@@ -36,12 +36,21 @@ class Component
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :main_example, :string
   attribute :metadata, MetaData.to_type
   attribute :properties, Property.to_array_type, default: []
   attribute :examples, Example.to_array_type, default: []
 
   delegate :description, to: :metadata
+
+  def main_example
+    attributes["examples"]&.first
+  end
+
+  def examples
+    super.drop(1).reject do |example|
+      example.description.blank? || example.erb_code.blank?
+    end
+  end
 
   def name
     metadata.title
@@ -64,6 +73,5 @@ class Component
       all.find { |component| component.name.downcase == name.downcase }
     end
   end
-
 end
 
