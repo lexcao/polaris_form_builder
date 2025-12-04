@@ -92,37 +92,44 @@
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-checkbox\n  label=\"Require a confirmation step\"\n  details=\"Ensure all criteria are met before proceeding\"\n></s-checkbox>"
+      "html_code": "<s-checkbox\n  label=\"Require a confirmation step\"\n  details=\"Ensure all criteria are met before proceeding\"\n></s-checkbox>",
+      "erb_code": "<%= form.check_box :require_a_confirmation_step, label: \"Require a confirmation step\", details: \"Ensure all criteria are met before proceeding\" %>"
     },
     {
       "name": "Indeterminate state",
       "description": "Checkbox in indeterminate state, commonly used for \"select all\" functionality when some items are selected.",
-      "html_code": ""
+      "html_code": "",
+      "erb_code": ""
     },
     {
       "name": "Error state",
       "description": "Checkbox with validation error message for required form fields.",
-      "html_code": "<s-checkbox\n  label=\"I agree to the terms\"\n  error=\"You must accept the terms to continue\"\n></s-checkbox>"
+      "html_code": "<s-checkbox\n  label=\"I agree to the terms\"\n  error=\"You must accept the terms to continue\"\n></s-checkbox>",
+      "erb_code": "<%= form.check_box :i_agree_to_the_terms, label: \"I agree to the terms\", error: \"You must accept the terms to continue\" %>"
     },
     {
       "name": "Help text",
       "description": "Checkbox with descriptive details text to provide additional context about the option.",
-      "html_code": "<s-checkbox\n  label=\"Send order notifications\"\n  details=\"You'll receive emails when orders are placed, fulfilled, or cancelled\"\n></s-checkbox>"
+      "html_code": "<s-checkbox\n  label=\"Send order notifications\"\n  details=\"You'll receive emails when orders are placed, fulfilled, or cancelled\"\n></s-checkbox>",
+      "erb_code": "<%= form.check_box :send_order_notifications, label: \"Send order notifications\", details: \"You'll receive emails when orders are placed, fulfilled, or cancelled\" %>"
     },
     {
       "name": "Disabled state",
       "description": "Checkbox in disabled state with explanatory details about why it's unavailable.",
-      "html_code": "<s-checkbox\n  label=\"Advanced settings\"\n  disabled\n  details=\"Contact your administrator to enable advanced settings\"\n></s-checkbox>"
+      "html_code": "<s-checkbox\n  label=\"Advanced settings\"\n  disabled\n  details=\"Contact your administrator to enable advanced settings\"\n></s-checkbox>",
+      "erb_code": "<%= form.check_box :advanced_settings, label: \"Advanced settings\" %>details=\"Contact your administrator to enable advanced settings\"\n&gt;"
     },
     {
       "name": "Settings group",
       "description": "Multiple checkboxes for different configuration options with helpful details.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-checkbox label=\"Show only published products\" checked></s-checkbox>\n  <s-checkbox\n    label=\"Enable inventory tracking\"\n    details=\"Track inventory levels and receive low stock alerts\"\n    checked\n  ></s-checkbox>\n  <s-checkbox\n    label=\"View customer data\"\n    details=\"Allow staff to access customer contact information and order history\"\n  ></s-checkbox>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <s-checkbox label=\"Show only published products\" checked></s-checkbox>\n  <s-checkbox\n    label=\"Enable inventory tracking\"\n    details=\"Track inventory levels and receive low stock alerts\"\n    checked\n  ></s-checkbox>\n  <s-checkbox\n    label=\"View customer data\"\n    details=\"Allow staff to access customer contact information and order history\"\n  ></s-checkbox>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.check_box :show_only_published_products, label: \"Show only published products\" %>\n  <%= form.check_box :enable_inventory_tracking, label: \"Enable inventory tracking\", details: \"Track inventory levels and receive low stock alerts\" %>\n  <%= form.check_box :view_customer_data, label: \"View customer data\", details: \"Allow staff to access customer contact information and order history\" %>\n</s-stack>"
     },
     {
       "name": "Checkbox validation",
       "description": "Interactive example showing required checkbox validation with dynamic error messages.",
-      "html_code": ""
+      "html_code": "",
+      "erb_code": ""
     }
   ]
 }

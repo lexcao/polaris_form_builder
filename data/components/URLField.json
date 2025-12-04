@@ -104,27 +104,32 @@
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-url-field\n  label=\"Your website\"\n  details=\"Join the partner ecosystem\"\n  placeholder=\"https://shopify.com/partner\"\n></s-url-field>"
+      "html_code": "<s-url-field\n  label=\"Your website\"\n  details=\"Join the partner ecosystem\"\n  placeholder=\"https://shopify.com/partner\"\n></s-url-field>",
+      "erb_code": "<%= form.url_field :your_website, label: \"Your website\", details: \"Join the partner ecosystem\", placeholder: \"https://shopify.com/partner\" %>"
     },
     {
       "name": "Basic usage",
       "description": "Demonstrates a simple URL input field with a label and placeholder, showing the minimal configuration needed for collecting a URL.",
-      "html_code": "<s-stack gap=\"base\">\n  <!-- Simple URL input -->\n  <s-url-field\n    label=\"Website URL\"\n    placeholder=\"https://example.com\"\n  ></s-url-field>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <!-- Simple URL input -->\n  <s-url-field\n    label=\"Website URL\"\n    placeholder=\"https://example.com\"\n  ></s-url-field>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <!-- Simple URL input -->\n  <%= form.url_field :website_url, label: \"Website URL\", placeholder: \"https://example.com\" %>\n</s-stack>"
     },
     {
       "name": "With validation",
       "description": "Shows a URL input field with built-in validation, including required status, minimum and maximum length constraints, and a custom error message for invalid inputs.",
-      "html_code": "<s-url-field\n  label=\"Company website\"\n  required\n  minLength=\"10\"\n  maxLength=\"200\"\n  error=\"Please enter a valid website URL\"\n></s-url-field>"
+      "html_code": "<s-url-field\n  label=\"Company website\"\n  required\n  minLength=\"10\"\n  maxLength=\"200\"\n  error=\"Please enter a valid website URL\"\n></s-url-field>",
+      "erb_code": "<%= form.url_field :company_website, label: \"Company website\" %>minLength=\"10\"\n  maxLength=\"200\"\n  error=\"Please enter a valid website URL\"\n&gt;"
     },
     {
       "name": "With default value",
       "description": "Illustrates a URL field pre-populated with a default value, set to read-only mode to prevent user modifications.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-url-field\n    label=\"Profile URL\"\n    value=\"https://shop.myshopify.com\"\n    readOnly\n  ></s-url-field>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <s-url-field\n    label=\"Profile URL\"\n    value=\"https://shop.myshopify.com\"\n    readOnly\n  ></s-url-field>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.url_field :profile_url, label: \"Profile URL\", value: \"https://shop.myshopify.com\" %>\n</s-stack>"
     },
     {
       "name": "Disabled state",
       "description": "Shows a URL field in a disabled state, displaying a pre-filled URL that cannot be edited by the user.",
-      "html_code": "<s-url-field\n  label=\"Store URL\"\n  value=\"https://your-store.myshopify.com\"\n  disabled\n></s-url-field>"
+      "html_code": "<s-url-field\n  label=\"Store URL\"\n  value=\"https://your-store.myshopify.com\"\n  disabled\n></s-url-field>",
+      "erb_code": "<%= form.url_field :store_url, label: \"Store URL\", value: \"https://your-store.myshopify.com\" %>"
     }
   ]
 }

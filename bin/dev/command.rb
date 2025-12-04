@@ -14,7 +14,7 @@ module Command
         definition = parser.parse
         Component.persist(definition)
         rescue => e
-          puts "skip parse #{component.name} for error #{e} with #{component}"
+          puts "skip parse #{component.name} for error #{e}"
         end
       end
     end

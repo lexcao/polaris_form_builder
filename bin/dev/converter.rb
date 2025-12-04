@@ -13,6 +13,8 @@ module Converter
   module_function
 
   def html_to_erb(html, form_var: "form")
+    return "" if html.blank?
+
     fragment = Nokogiri::XML::DocumentFragment.parse(html.to_s)
 
     fragment

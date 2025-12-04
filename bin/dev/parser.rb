@@ -6,6 +6,7 @@ require 'kramdown-parser-gfm'
 require 'kramdown/utils/entities'
 
 require_relative "component"
+require_relative "converter"
 
 class Parser
   def initialize(markdown_content)
@@ -93,7 +94,8 @@ class Parser
     Component::Example.new(
       name: "Main example",
       description: "",
-      html_code: html_code
+      html_code: html_code,
+      erb_code: Converter.html_to_erb(html_code)
     )
   end
 
@@ -115,7 +117,8 @@ class Parser
     Component::Example.new(
       name: name,
       description: description,
-      html_code: html_code
+      html_code: html_code,
+      erb_code: Converter.html_to_erb(html_code)
     )
   end
 

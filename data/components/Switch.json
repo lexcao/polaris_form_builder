@@ -86,42 +86,50 @@
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-switch\n  label=\"Enable feature\"\n  details=\"Ensure all criteria are met before enabling\"\n></s-switch>"
+      "html_code": "<s-switch\n  label=\"Enable feature\"\n  details=\"Ensure all criteria are met before enabling\"\n></s-switch>",
+      "erb_code": "<%= form.switch :enable_feature, label: \"Enable feature\", details: \"Ensure all criteria are met before enabling\" %>"
     },
     {
       "name": "Basic switch",
       "description": "Standard toggle switch for enabling or disabling merchant preferences. This example demonstrates a simple switch with a label, allowing users to toggle a single setting on or off.",
-      "html_code": "<s-switch id=\"basic-switch\" label=\"Enable notifications\"></s-switch>"
+      "html_code": "<s-switch id=\"basic-switch\" label=\"Enable notifications\"></s-switch>",
+      "erb_code": "<%= form.switch :enable_notifications, label: \"Enable notifications\" %>"
     },
     {
       "name": "Disabled switch",
       "description": "Locked switch with explanatory text for unavailable premium features. This example shows a switch that is visually disabled and cannot be interacted with, typically used to indicate a feature is not currently available.",
-      "html_code": "<s-switch\n  id=\"disabled-switch\"\n  label=\"Feature locked (Premium plan required)\"\n  checked=\"true\"\n  disabled=\"true\"\n></s-switch>"
+      "html_code": "<s-switch\n  id=\"disabled-switch\"\n  label=\"Feature locked (Premium plan required)\"\n  checked=\"true\"\n  disabled=\"true\"\n></s-switch>",
+      "erb_code": "<%= form.switch :feature_locked_premium_plan_required, label: \"Feature locked (Premium plan required)\", checked: \"true\", disabled: \"true\" %>"
     },
     {
       "name": "Form integration",
       "description": "Multiple switches within a form for notification preferences submission. This example illustrates how switches can be used together in a form to allow users to configure multiple related settings simultaneously.",
-      "html_code": "<form>\n  <s-switch\n    id=\"email-notifications\"\n    label=\"Email notifications\"\n    name=\"emailNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n  <s-switch\n    id=\"sms-notifications\"\n    label=\"SMS notifications\"\n    name=\"smsNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n</form>"
+      "html_code": "<form>\n  <s-switch\n    id=\"email-notifications\"\n    label=\"Email notifications\"\n    name=\"emailNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n  <s-switch\n    id=\"sms-notifications\"\n    label=\"SMS notifications\"\n    name=\"smsNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n</form>",
+      "erb_code": "<form>\n  <%= form.switch :email_notifications, label: \"Email notifications\", value: \"enabled\" %>\n  <%= form.switch :sms_notifications, label: \"SMS notifications\", value: \"enabled\" %>\n</form>"
     },
     {
       "name": "Hidden label for accessibility",
       "description": "Switch with visually hidden label that remains accessible to screen readers. This example demonstrates how to create a switch with a label that is only perceivable by assistive technologies, maintaining accessibility while minimizing visual clutter.",
-      "html_code": "<s-switch\n  id=\"hidden-label-switch\"\n  labelAccessibilityVisibility=\"exclusive\"\n  label=\"Toggle feature\"\n  checked=\"true\"\n></s-switch>"
+      "html_code": "<s-switch\n  id=\"hidden-label-switch\"\n  labelAccessibilityVisibility=\"exclusive\"\n  label=\"Toggle feature\"\n  checked=\"true\"\n></s-switch>",
+      "erb_code": "<%= form.switch :toggle_feature, label_accessibility_visibility: \"exclusive\", label: \"Toggle feature\", checked: \"true\" %>"
     },
     {
       "name": "With details and error",
       "description": "Required switch with validation error and contextual details for user guidance. This example shows a switch that requires user interaction, provides additional context through details, and displays an error message when validation fails.",
-      "html_code": "<s-switch\n  id=\"terms-switch\"\n  label=\"Agree to terms and conditions\"\n  details=\"You must agree to continue with the purchase\"\n  error=\"Agreement is required\"\n  name=\"termsAgreement\"\n  required=\"true\"\n  value=\"agreed\"\n></s-switch>"
+      "html_code": "<s-switch\n  id=\"terms-switch\"\n  label=\"Agree to terms and conditions\"\n  details=\"You must agree to continue with the purchase\"\n  error=\"Agreement is required\"\n  name=\"termsAgreement\"\n  required=\"true\"\n  value=\"agreed\"\n></s-switch>",
+      "erb_code": "<%= form.switch :terms_agreement, label: \"Agree to terms and conditions\", details: \"You must agree to continue with the purchase\", error: \"Agreement is required\", required: \"true\", value: \"agreed\" %>"
     },
     {
       "name": "Switch with accessibility label",
       "description": "Switch with enhanced accessibility description for screen reader users. This example illustrates how to provide a more descriptive accessibility label that provides additional context beyond the visible label.",
-      "html_code": "<s-switch\n  id=\"event-switch\"\n  label=\"Feature toggle\"\n  accessibilityLabel=\"Toggle feature on or off\"\n></s-switch>"
+      "html_code": "<s-switch\n  id=\"event-switch\"\n  label=\"Feature toggle\"\n  accessibilityLabel=\"Toggle feature on or off\"\n></s-switch>",
+      "erb_code": "<%= form.switch :feature_toggle, label: \"Feature toggle\", accessibility_label: \"Toggle feature on or off\" %>"
     },
     {
       "name": "Settings panel with Stack",
       "description": "Group of related switches arranged in a vertical stack for settings configuration. This example demonstrates how to use the Stack component to create a clean, organized layout for multiple related switch settings.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-switch id=\"notifications-setting\" label=\"Push notifications\"></s-switch>\n  <s-switch id=\"autosave-setting\" label=\"Auto-save drafts\"></s-switch>\n  <s-switch\n    id=\"analytics-setting\"\n    label=\"Usage analytics\"\n    checked=\"true\"\n  ></s-switch>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <s-switch id=\"notifications-setting\" label=\"Push notifications\"></s-switch>\n  <s-switch id=\"autosave-setting\" label=\"Auto-save drafts\"></s-switch>\n  <s-switch\n    id=\"analytics-setting\"\n    label=\"Usage analytics\"\n    checked=\"true\"\n  ></s-switch>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.switch :push_notifications, label: \"Push notifications\" %>\n  <%= form.switch :auto_save_drafts, label: \"Auto-save drafts\" %>\n  <%= form.switch :usage_analytics, label: \"Usage analytics\", checked: \"true\" %>\n</s-stack>"
     }
   ]
 }

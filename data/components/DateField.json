@@ -128,57 +128,68 @@
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-date-field defaultView=\"2025-09\" defaultValue=\"2025-09-01\"></s-date-field>"
+      "html_code": "<s-date-field defaultView=\"2025-09\" defaultValue=\"2025-09-01\"></s-date-field>",
+      "erb_code": "<%= form.date_field :field, default_view: \"2025-09\", default_value: \"2025-09-01\" %>"
     },
     {
       "name": "Basic usage",
       "description": "Simple date field for collecting a single date with a descriptive label.",
-      "html_code": "<s-date-field\n  label=\"Order date\"\n  name=\"orderDate\"\n  placeholder=\"Select date\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Order date\"\n  name=\"orderDate\"\n  placeholder=\"Select date\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :order_date, label: \"Order date\", placeholder: \"Select date\" %>"
     },
     {
       "name": "With default value",
       "description": "Date field pre-populated with a specific date for editing existing data.",
-      "html_code": "<s-date-field\n  label=\"Shipping date\"\n  name=\"shippingDate\"\n  value=\"2024-03-15\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Shipping date\"\n  name=\"shippingDate\"\n  value=\"2024-03-15\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :shipping_date, label: \"Shipping date\", value: \"2024-03-15\" %>"
     },
     {
       "name": "With date restrictions",
       "description": "Shows how to restrict selectable dates to weekdays only.",
-      "html_code": "<s-date-field\n  label=\"Delivery date\"\n  name=\"deliveryDate\"\n  disallowDays=\"[0, 6]\"\n  details=\"Delivery available Monday through Friday only\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Delivery date\"\n  name=\"deliveryDate\"\n  disallowDays=\"[0, 6]\"\n  details=\"Delivery available Monday through Friday only\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :delivery_date, label: \"Delivery date\", disallow_days: \"[0, 6]\", details: \"Delivery available Monday through Friday only\" %>"
     },
     {
       "name": "With specific allowed dates",
       "description": "Demonstrates allowing only specific dates from a predefined list.",
-      "html_code": "<s-date-field\n  label=\"Available appointment dates\"\n  name=\"appointmentDate\"\n  allow='[\"2024-03-20\", \"2024-03-22\", \"2024-03-25\", \"2024-03-27\"]'\n  details=\"Select from available time slots\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Available appointment dates\"\n  name=\"appointmentDate\"\n  allow='[\"2024-03-20\", \"2024-03-22\", \"2024-03-25\", \"2024-03-27\"]'\n  details=\"Select from available time slots\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :appointment_date, label: \"Available appointment dates\", allow: \"[\\\"2024-03-20\\\", \\\"2024-03-22\\\", \\\"2024-03-25\\\", \\\"2024-03-27\\\"]\", details: \"Select from available time slots\" %>"
     },
     {
       "name": "With error state",
       "description": "Date field showing validation error for required field or invalid date entry.",
-      "html_code": "<s-date-field\n  label=\"Event date\"\n  name=\"eventDate\"\n  required\n  error=\"Select a valid event date\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Event date\"\n  name=\"eventDate\"\n  required\n  error=\"Select a valid event date\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :event_date, label: \"Event date\" %>error=\"Select a valid event date\"\n&gt;"
     },
     {
       "name": "Disabled and read-only states",
       "description": "Shows date fields in different interaction states for viewing-only or disabled forms.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-date-field\n    label=\"Creation date\"\n    name=\"createdDate\"\n    value=\"2024-01-01\"\n    readOnly\n  ></s-date-field>\n\n  <s-date-field\n    label=\"Archived date\"\n    name=\"archivedDate\"\n    value=\"2024-02-15\"\n    disabled\n  ></s-date-field>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <s-date-field\n    label=\"Creation date\"\n    name=\"createdDate\"\n    value=\"2024-01-01\"\n    readOnly\n  ></s-date-field>\n\n  <s-date-field\n    label=\"Archived date\"\n    name=\"archivedDate\"\n    value=\"2024-02-15\"\n    disabled\n  ></s-date-field>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.date_field :created_date, label: \"Creation date\", value: \"2024-01-01\" %>\n\n  <%= form.date_field :archived_date, label: \"Archived date\", value: \"2024-02-15\" %>\n</s-stack>"
     },
     {
       "name": "Form integration",
       "description": "Complete form example showing date field with other form elements.",
-      "html_code": "<form>\n  <s-stack gap=\"base\">\n    <s-text-field\n      label=\"Customer name\"\n      name=\"customerName\"\n      required\n    ></s-text-field>\n\n    <s-date-field\n      label=\"Order date\"\n      name=\"orderDate\"\n      value=\"2024-03-15\"\n      required\n    ></s-date-field>\n\n    <s-date-field\n      label=\"Requested delivery date\"\n      name=\"deliveryDate\"\n      disallowDays=\"[0, 6]\"\n      details=\"Weekdays only\"\n    ></s-date-field>\n\n    <s-button type=\"submit\" variant=\"primary\">Process order</s-button>\n  </s-stack>\n</form>"
+      "html_code": "<form>\n  <s-stack gap=\"base\">\n    <s-text-field\n      label=\"Customer name\"\n      name=\"customerName\"\n      required\n    ></s-text-field>\n\n    <s-date-field\n      label=\"Order date\"\n      name=\"orderDate\"\n      value=\"2024-03-15\"\n      required\n    ></s-date-field>\n\n    <s-date-field\n      label=\"Requested delivery date\"\n      name=\"deliveryDate\"\n      disallowDays=\"[0, 6]\"\n      details=\"Weekdays only\"\n    ></s-date-field>\n\n    <s-button type=\"submit\" variant=\"primary\">Process order</s-button>\n  </s-stack>\n</form>",
+      "erb_code": "<form>\n  <s-stack gap=\"base\">\n    <%= form.text_field :customer_name, label: \"Customer name\" %>\n\n    <%= form.date_field :order_date, label: \"Order date\", value: \"2024-03-15\" %>\n\n    <%= form.date_field :delivery_date, label: \"Requested delivery date\", disallow_days: \"[0, 6]\", details: \"Weekdays only\" %>\n\n    <s-button type=\"submit\" variant=\"primary\">Process order</s-button>\n  </s-stack>\n</form>"
     },
     {
       "name": "Date range selection",
       "description": "Example showing two date fields for selecting a date range.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <s-date-field\n      label=\"Start date\"\n      name=\"startDate\"\n      id=\"report-start\"\n    ></s-date-field>\n\n    <s-date-field\n      label=\"End date\"\n      name=\"endDate\"\n      id=\"report-end\"\n    ></s-date-field>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>"
+      "html_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <s-date-field\n      label=\"Start date\"\n      name=\"startDate\"\n      id=\"report-start\"\n    ></s-date-field>\n\n    <s-date-field\n      label=\"End date\"\n      name=\"endDate\"\n      id=\"report-end\"\n    ></s-date-field>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <%= form.date_field :start_date, label: \"Start date\" %>\n\n    <%= form.date_field :end_date, label: \"End date\" %>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>"
     },
     {
       "name": "Date fields with validation",
       "description": "Demonstrates date fields with business logic restrictions and validation.",
-      "html_code": "<s-section>\n  <s-heading>Promotion settings</s-heading>\n  <s-stack gap=\"base\">\n    <s-text-field\n      label=\"Promotion name\"\n      name=\"promoName\"\n      value=\"Spring sale\"\n    ></s-text-field>\n\n    <s-date-field\n      label=\"Start date\"\n      name=\"promoStart\"\n      value=\"2024-04-01\"\n      details=\"Promotion begins at midnight\"\n    ></s-date-field>\n\n    <s-date-field\n      label=\"End date\"\n      name=\"promoEnd\"\n      value=\"2024-04-30\"\n      details=\"Promotion ends at 11:59 PM\"\n    ></s-date-field>\n\n    <s-checkbox\n      name=\"autoPublish\"\n      label=\"Automatically publish on start date\"\n    ></s-checkbox>\n  </s-stack>\n</s-section>"
+      "html_code": "<s-section>\n  <s-heading>Promotion settings</s-heading>\n  <s-stack gap=\"base\">\n    <s-text-field\n      label=\"Promotion name\"\n      name=\"promoName\"\n      value=\"Spring sale\"\n    ></s-text-field>\n\n    <s-date-field\n      label=\"Start date\"\n      name=\"promoStart\"\n      value=\"2024-04-01\"\n      details=\"Promotion begins at midnight\"\n    ></s-date-field>\n\n    <s-date-field\n      label=\"End date\"\n      name=\"promoEnd\"\n      value=\"2024-04-30\"\n      details=\"Promotion ends at 11:59 PM\"\n    ></s-date-field>\n\n    <s-checkbox\n      name=\"autoPublish\"\n      label=\"Automatically publish on start date\"\n    ></s-checkbox>\n  </s-stack>\n</s-section>",
+      "erb_code": "<s-section>\n  <s-heading>Promotion settings</s-heading>\n  <s-stack gap=\"base\">\n    <%= form.text_field :promo_name, label: \"Promotion name\", value: \"Spring sale\" %>\n\n    <%= form.date_field :promo_start, label: \"Start date\", value: \"2024-04-01\", details: \"Promotion begins at midnight\" %>\n\n    <%= form.date_field :promo_end, label: \"End date\", value: \"2024-04-30\", details: \"Promotion ends at 11:59 PM\" %>\n\n    <%= form.check_box :auto_publish, label: \"Automatically publish on start date\" %>\n  </s-stack>\n</s-section>"
     },
     {
       "name": "Date field validation",
       "description": "Interactive example showing required date field validation with dynamic error messages.",
-      "html_code": "<s-date-field\n  label=\"Event date\"\n  name=\"eventDate\"\n  required\n  error=\"Select a valid event date\"\n></s-date-field>"
+      "html_code": "<s-date-field\n  label=\"Event date\"\n  name=\"eventDate\"\n  required\n  error=\"Select a valid event date\"\n></s-date-field>",
+      "erb_code": "<%= form.date_field :event_date, label: \"Event date\" %>error=\"Select a valid event date\"\n&gt;"
     }
   ]
 }

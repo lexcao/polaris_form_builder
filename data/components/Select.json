@@ -86,37 +86,44 @@
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-select label=\"Date range\">\n  <s-option value=\"1\">Today</s-option>\n  <s-option value=\"2\">Yesterday</s-option>\n  <s-option value=\"3\">Last 7 days</s-option>\n  <s-option-group label=\"Custom ranges\">\n    <s-option value=\"4\">Last 30 days</s-option>\n    <s-option value=\"5\">Last 90 days</s-option>\n  </s-option-group>\n</s-select>"
+      "html_code": "<s-select label=\"Date range\">\n  <s-option value=\"1\">Today</s-option>\n  <s-option value=\"2\">Yesterday</s-option>\n  <s-option value=\"3\">Last 7 days</s-option>\n  <s-option-group label=\"Custom ranges\">\n    <s-option value=\"4\">Last 30 days</s-option>\n    <s-option value=\"5\">Last 90 days</s-option>\n  </s-option-group>\n</s-select>",
+      "erb_code": "<%= form.select :date_range, label: \"Date range\" %>"
     },
     {
       "name": "Basic usage",
       "description": "A simple select dropdown with pre-selected value for product sorting options.",
-      "html_code": "<s-select label=\"Sort products by\" value=\"newest\">\n  <s-option value=\"newest\">Newest first</s-option>\n  <s-option value=\"oldest\">Oldest first</s-option>\n  <s-option value=\"title\">Title A–Z</s-option>\n  <s-option value=\"price-low\">Price: low to high</s-option>\n  <s-option value=\"price-high\">Price: high to low</s-option>\n</s-select>"
+      "html_code": "<s-select label=\"Sort products by\" value=\"newest\">\n  <s-option value=\"newest\">Newest first</s-option>\n  <s-option value=\"oldest\">Oldest first</s-option>\n  <s-option value=\"title\">Title A–Z</s-option>\n  <s-option value=\"price-low\">Price: low to high</s-option>\n  <s-option value=\"price-high\">Price: high to low</s-option>\n</s-select>",
+      "erb_code": "<%= form.select :sort_products_by, label: \"Sort products by\", value: \"newest\" %>"
     },
     {
       "name": "With placeholder",
       "description": "Select dropdown with helpful placeholder text guiding category selection.",
-      "html_code": "<s-select\n  label=\"Product category\"\n  placeholder=\"Choose category for better organization\"\n>\n  <s-option value=\"clothing\">Clothing & apparel</s-option>\n  <s-option value=\"accessories\">Accessories & jewelry</s-option>\n  <s-option value=\"home-garden\">Home & garden</s-option>\n  <s-option value=\"electronics\">Electronics & tech</s-option>\n  <s-option value=\"books\">Books & media</s-option>\n</s-select>"
+      "html_code": "<s-select\n  label=\"Product category\"\n  placeholder=\"Choose category for better organization\"\n>\n  <s-option value=\"clothing\">Clothing & apparel</s-option>\n  <s-option value=\"accessories\">Accessories & jewelry</s-option>\n  <s-option value=\"home-garden\">Home & garden</s-option>\n  <s-option value=\"electronics\">Electronics & tech</s-option>\n  <s-option value=\"books\">Books & media</s-option>\n</s-select>",
+      "erb_code": "<%= form.select :product_category, label: \"Product category\", placeholder: \"Choose category for better organization\" %>"
     },
     {
       "name": "With error state",
       "description": "Select in error state showing specific business context and actionable error message.",
-      "html_code": "<s-select\n  label=\"Shipping origin\"\n  error=\"Select your primary shipping location to calculate accurate rates for customers\"\n  required\n>\n  <s-option value=\"ca\">Canada</s-option>\n  <s-option value=\"us\">United states</s-option>\n  <s-option value=\"mx\">Mexico</s-option>\n  <s-option value=\"uk\">United kingdom</s-option>\n</s-select>"
+      "html_code": "<s-select\n  label=\"Shipping origin\"\n  error=\"Select your primary shipping location to calculate accurate rates for customers\"\n  required\n>\n  <s-option value=\"ca\">Canada</s-option>\n  <s-option value=\"us\">United states</s-option>\n  <s-option value=\"mx\">Mexico</s-option>\n  <s-option value=\"uk\">United kingdom</s-option>\n</s-select>",
+      "erb_code": "<%= form.select :shipping_origin, label: \"Shipping origin\", error: \"Select your primary shipping location to calculate accurate rates for customers\" %>"
     },
     {
       "name": "With option groups",
       "description": "Grouped select options organized by geographical regions for international shipping.",
-      "html_code": "<s-select label=\"Shipping destination\">\n  <s-option-group label=\"North america\">\n    <s-option value=\"ca\">Canada</s-option>\n    <s-option value=\"us\">United states</s-option>\n    <s-option value=\"mx\">Mexico</s-option>\n  </s-option-group>\n  <s-option-group label=\"Europe\">\n    <s-option value=\"uk\">United kingdom</s-option>\n    <s-option value=\"fr\">France</s-option>\n    <s-option value=\"de\">Germany</s-option>\n    <s-option value=\"it\">Italy</s-option>\n  </s-option-group>\n  <s-option-group label=\"Asia pacific\">\n    <s-option value=\"au\">Australia</s-option>\n    <s-option value=\"jp\">Japan</s-option>\n    <s-option value=\"sg\">Singapore</s-option>\n  </s-option-group>\n</s-select>"
+      "html_code": "<s-select label=\"Shipping destination\">\n  <s-option-group label=\"North america\">\n    <s-option value=\"ca\">Canada</s-option>\n    <s-option value=\"us\">United states</s-option>\n    <s-option value=\"mx\">Mexico</s-option>\n  </s-option-group>\n  <s-option-group label=\"Europe\">\n    <s-option value=\"uk\">United kingdom</s-option>\n    <s-option value=\"fr\">France</s-option>\n    <s-option value=\"de\">Germany</s-option>\n    <s-option value=\"it\">Italy</s-option>\n  </s-option-group>\n  <s-option-group label=\"Asia pacific\">\n    <s-option value=\"au\">Australia</s-option>\n    <s-option value=\"jp\">Japan</s-option>\n    <s-option value=\"sg\">Singapore</s-option>\n  </s-option-group>\n</s-select>",
+      "erb_code": "<%= form.select :shipping_destination, label: \"Shipping destination\" %>"
     },
     {
       "name": "With icon",
       "description": "Select dropdown with sort icon for filtering order management views.",
-      "html_code": "<s-select label=\"Filter orders by\" icon=\"sort\">\n  <s-option value=\"date\">Order date</s-option>\n  <s-option value=\"status\">Fulfillment status</s-option>\n  <s-option value=\"total\">Order total</s-option>\n  <s-option value=\"customer\">Customer name</s-option>\n</s-select>"
+      "html_code": "<s-select label=\"Filter orders by\" icon=\"sort\">\n  <s-option value=\"date\">Order date</s-option>\n  <s-option value=\"status\">Fulfillment status</s-option>\n  <s-option value=\"total\">Order total</s-option>\n  <s-option value=\"customer\">Customer name</s-option>\n</s-select>",
+      "erb_code": "<%= form.select :filter_orders_by, label: \"Filter orders by\", icon: \"sort\" %>"
     },
     {
       "name": "Disabled state",
       "description": "Select in disabled state preventing user interaction with pre-selected value.",
-      "html_code": "<s-select label=\"Product type\" disabled value=\"physical\">\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n</s-select>"
+      "html_code": "<s-select label=\"Product type\" disabled value=\"physical\">\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n</s-select>",
+      "erb_code": "<%= form.select :product_type, label: \"Product type\" %>value=\"physical\"&gt;\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>"
     }
   ]
 }
