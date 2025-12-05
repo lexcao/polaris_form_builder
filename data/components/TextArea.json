@@ -129,7 +129,7 @@
       "name": "With error state",
       "description": "Demonstrates the error state of a text area with a minimum length requirement, showing how validation errors are displayed in a commerce context.",
       "html_code": "<s-text-area\n  label=\"Reason for return\"\n  error=\"Please provide a detailed explanation for the return request. This helps us improve our products and process the refund faster.\"\n  minLength=\"20\"\n  placeholder=\"Explain why the customer is returning this item...\"\n  rows=\"3\"\n  autocomplete=\"off\"\n></s-text-area>",
-      "erb_code": "<%= form.text_area :reason_for_return, label: \"Reason for return\", error: \"Please provide a detailed explanation for the return request. This helps us improve our products and process the refund faster.\", min_length: \"20\", placeholder: \"Explain why the customer is returning this item...\", rows: \"3\", autocomplete: \"off\" %>"
+      "erb_code": "<%= form.text_area :reason_for_return, label: \"Reason for return\", error: \"Please provide a detailed explanation for the return request. This helps us improve our products and process the refund faster.\", minlength: \"20\", placeholder: \"Explain why the customer is returning this item...\", rows: \"3\", autocomplete: \"off\" %>"
     },
     {
       "name": "Product care instructions",

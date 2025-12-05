@@ -117,13 +117,13 @@
       "name": "Disabled state",
       "description": "Checkbox in disabled state with explanatory details about why it's unavailable.",
       "html_code": "<s-checkbox\n  label=\"Advanced settings\"\n  disabled\n  details=\"Contact your administrator to enable advanced settings\"\n></s-checkbox>",
-      "erb_code": "<%= form.check_box :advanced_settings, label: \"Advanced settings\" %>details=\"Contact your administrator to enable advanced settings\"\n&gt;"
+      "erb_code": "<%= form.check_box :advanced_settings, label: \"Advanced settings\", disabled: false, details: \"Contact your administrator to enable advanced settings\" %>"
     },
     {
       "name": "Settings group",
       "description": "Multiple checkboxes for different configuration options with helpful details.",
       "html_code": "<s-stack gap=\"base\">\n  <s-checkbox label=\"Show only published products\" checked></s-checkbox>\n  <s-checkbox\n    label=\"Enable inventory tracking\"\n    details=\"Track inventory levels and receive low stock alerts\"\n    checked\n  ></s-checkbox>\n  <s-checkbox\n    label=\"View customer data\"\n    details=\"Allow staff to access customer contact information and order history\"\n  ></s-checkbox>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.check_box :show_only_published_products, label: \"Show only published products\" %>\n  <%= form.check_box :enable_inventory_tracking, label: \"Enable inventory tracking\", details: \"Track inventory levels and receive low stock alerts\" %>\n  <%= form.check_box :view_customer_data, label: \"View customer data\", details: \"Allow staff to access customer contact information and order history\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.check_box :show_only_published_products, label: \"Show only published products\", checked: false %>\n  <%= form.check_box :enable_inventory_tracking, label: \"Enable inventory tracking\", details: \"Track inventory levels and receive low stock alerts\", checked: false %>\n  <%= form.check_box :view_customer_data, label: \"View customer data\", details: \"Allow staff to access customer contact information and order history\" %>\n</s-stack>"
     },
     {
       "name": "Checkbox validation",

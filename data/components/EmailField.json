@@ -111,13 +111,13 @@
       "name": "Basic usage",
       "description": "Demonstrates a simple email field with a label and required attribute, showing the most fundamental way to use the EmailField component.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field label=\"Email address\" required></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :email_address, label: \"Email address\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :email_address, label: \"Email address\", required: true %>\n</s-stack>"
     },
     {
       "name": "With error and help text",
       "description": "Showcases an email field with additional details and an error message, illustrating how to provide contextual information and validation feedback.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Contact email\"\n    details=\"We'll send your order confirmation here\"\n    error=\"Please enter a valid email address\"\n    required\n  ></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :contact_email, label: \"Contact email\", details: \"We'll send your order confirmation here\", error: \"Please enter a valid email address\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :contact_email, label: \"Contact email\", details: \"We'll send your order confirmation here\", error: \"Please enter a valid email address\", required: true %>\n</s-stack>"
     },
     {
       "name": "Optional field with placeholder",
@@ -129,13 +129,13 @@
       "name": "Read-only display",
       "description": "Shows how to render an email field in a read-only state, useful for displaying existing email addresses that cannot be modified.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Account email\"\n    value=\"user@example.com\"\n    readOnly\n  ></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :account_email, label: \"Account email\", value: \"user@example.com\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :account_email, label: \"Account email\", value: \"user@example.com\", readonly: false %>\n</s-stack>"
     },
     {
       "name": "With length constraints",
       "description": "Demonstrates setting minimum and maximum length constraints for the email input, providing additional validation beyond the standard email format check.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Business email\"\n    minLength=\"5\"\n    maxLength=\"100\"\n    required\n  ></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :business_email, label: \"Business email\", min_length: \"5\", max_length: \"100\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :business_email, label: \"Business email\", minlength: \"5\", maxlength: \"100\", required: true %>\n</s-stack>"
     },
     {
       "name": "Email validation",

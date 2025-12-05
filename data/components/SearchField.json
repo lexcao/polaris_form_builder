@@ -105,7 +105,7 @@
       "name": "Main example",
       "description": "",
       "html_code": "<s-search-field\n  label=\"Search\"\n  labelAccessibilityVisibility=\"exclusive\"\n  placeholder=\"Search items\"\n></s-search-field>",
-      "erb_code": "<%= form.search_field :search, label: \"Search\", label_accessibility_visibility: \"exclusive\", placeholder: \"Search items\" %>"
+      "erb_code": "<%= form.search_field :search, label: \"Search\", labelaccessibilityvisibility: \"exclusive\", placeholder: \"Search items\" %>"
     },
     {
       "name": "Basic usage",
@@ -123,13 +123,13 @@
       "name": "Disabled state",
       "description": "Demonstrates the appearance and behavior of a search field when it is disabled, preventing user interaction.",
       "html_code": "<s-search-field\n  label=\"Search customers\"\n  name=\"customerSearch\"\n  disabled\n  placeholder=\"Search is currently unavailable\"\n></s-search-field>",
-      "erb_code": "<%= form.search_field :customer_search, label: \"Search customers\" %>placeholder=\"Search is currently unavailable\"\n&gt;"
+      "erb_code": "<%= form.search_field :customer_search, label: \"Search customers\", disabled: false, placeholder: \"Search is currently unavailable\" %>"
     },
     {
       "name": "With character limits",
       "description": "Showcases a search field with minimum and maximum character length constraints, providing guidance on input requirements.",
       "html_code": "<s-search-field\n  label=\"Search collections\"\n  name=\"collectionSearch\"\n  minLength=\"3\"\n  maxLength=\"50\"\n  placeholder=\"Enter at least 3 characters\"\n></s-search-field>",
-      "erb_code": "<%= form.search_field :collection_search, label: \"Search collections\", min_length: \"3\", max_length: \"50\", placeholder: \"Enter at least 3 characters\" %>"
+      "erb_code": "<%= form.search_field :collection_search, label: \"Search collections\", minlength: \"3\", maxlength: \"50\", placeholder: \"Enter at least 3 characters\" %>"
     }
   ]
 }

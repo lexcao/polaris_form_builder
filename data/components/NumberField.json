@@ -141,13 +141,13 @@
       "name": "With prefix and suffix",
       "description": "Illustrates a number field for entering product prices with currency prefix and suffix, using decimal input mode.",
       "html_code": "<s-number-field\n  label=\"Product price\"\n  value=\"29.99\"\n  prefix=\"$\"\n  suffix=\"CAD\"\n  inputMode=\"decimal\"\n  step=\"0.01\"\n  min=\"0\"\n></s-number-field>",
-      "erb_code": "<%= form.number_field :product_price, label: \"Product price\", value: \"29.99\", prefix: \"$\", suffix: \"CAD\", input_mode: \"decimal\", step: \"0.01\", min: \"0\" %>"
+      "erb_code": "<%= form.number_field :product_price, label: \"Product price\", value: \"29.99\", prefix: \"$\", suffix: \"CAD\", inputmode: \"decimal\", step: \"0.01\", min: \"0\" %>"
     },
     {
       "name": "Multiple examples",
       "description": "Showcases multiple number fields for different use cases: inventory tracking, percentage discount, and shipping weight, demonstrating various input modes and configurations.",
       "html_code": "<s-stack gap=\"base\">\n  <s-number-field\n    label=\"Inventory count\"\n    value=\"150\"\n    min=\"0\"\n    step=\"1\"\n    inputMode=\"numeric\"\n    details=\"Current stock available for sale\"\n  ></s-number-field>\n\n  <s-number-field\n    label=\"Discount percentage\"\n    value=\"15\"\n    suffix=\"%\"\n    min=\"0\"\n    max=\"100\"\n    step=\"0.1\"\n    inputMode=\"decimal\"\n  ></s-number-field>\n\n  <s-number-field\n    label=\"Shipping weight\"\n    value=\"2.5\"\n    suffix=\"kg\"\n    min=\"0.1\"\n    step=\"0.1\"\n    inputMode=\"decimal\"\n  ></s-number-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.number_field :inventory_count, label: \"Inventory count\", value: \"150\", min: \"0\", step: \"1\", input_mode: \"numeric\", details: \"Current stock available for sale\" %>\n\n  <%= form.number_field :discount_percentage, label: \"Discount percentage\", value: \"15\", suffix: \"%\", min: \"0\", max: \"100\", step: \"0.1\", input_mode: \"decimal\" %>\n\n  <%= form.number_field :shipping_weight, label: \"Shipping weight\", value: \"2.5\", suffix: \"kg\", min: \"0.1\", step: \"0.1\", input_mode: \"decimal\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.number_field :inventory_count, label: \"Inventory count\", value: \"150\", min: \"0\", step: \"1\", inputmode: \"numeric\", details: \"Current stock available for sale\" %>\n\n  <%= form.number_field :discount_percentage, label: \"Discount percentage\", value: \"15\", suffix: \"%\", min: \"0\", max: \"100\", step: \"0.1\", inputmode: \"decimal\" %>\n\n  <%= form.number_field :shipping_weight, label: \"Shipping weight\", value: \"2.5\", suffix: \"kg\", min: \"0.1\", step: \"0.1\", inputmode: \"decimal\" %>\n</s-stack>"
     }
   ]
 }

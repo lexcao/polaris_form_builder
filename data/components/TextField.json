@@ -147,7 +147,7 @@
       "name": "Required field with validation",
       "description": "Illustrates a text field marked as required, ensuring that users must provide input before form submission, with built-in validation support.",
       "html_code": "<s-text-field label=\"Store name\" required></s-text-field>",
-      "erb_code": "<%= form.text_field :store_name, label: \"Store name\" %>"
+      "erb_code": "<%= form.text_field :store_name, label: \"Store name\", required: true %>"
     },
     {
       "name": "With prefix and suffix",

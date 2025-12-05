@@ -45,19 +45,19 @@
       "name": "Main example",
       "description": "",
       "html_code": "<s-color-picker value=\"#FF0000\" alpha></s-color-picker>",
-      "erb_code": "<%= form.color_picker :field, value: \"#FF0000\" %>"
+      "erb_code": "<%= form.color_picker :field, value: \"#FF0000\", alpha: \"\" %>"
     },
     {
       "name": "Basic usage",
       "description": "Demonstrates a simple color picker with a pre-selected red color, showing the basic implementation without alpha transparency.",
       "html_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <s-color-picker value=\"#FF0000\" name=\"primary-color\"></s-color-picker>\n</s-box>",
-      "erb_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <%= form.color_picker :primary_color, value: \"#FF0000\" %>\n</s-box>"
+      "erb_code": "<s-box padding=\"large\" border=\"base\" borderradius=\"base\">\n  <%= form.color_picker :primary_color, value: \"#FF0000\" %>\n</s-box>"
     },
     {
       "name": "With alpha transparency",
       "description": "Illustrates a color picker with alpha transparency enabled, allowing selection of colors with varying opacity levels.",
       "html_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <s-color-picker\n    value=\"#FF0000FF\"\n    alpha\n    name=\"color-with-alpha\"\n  ></s-color-picker>\n</s-box>",
-      "erb_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <%= form.color_picker :field, value: \"#FF0000FF\" %>name=\"color-with-alpha\"\n  &gt;</s-box>"
+      "erb_code": "<s-box padding=\"large\" border=\"base\" borderradius=\"base\">\n  <%= form.color_picker :color_with_alpha, value: \"#FF0000FF\", alpha: \"\" %>\n</s-box>"
     }
   ]
 }

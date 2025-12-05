@@ -105,7 +105,7 @@
       "name": "With error state",
       "description": "Select in error state showing specific business context and actionable error message.",
       "html_code": "<s-select\n  label=\"Shipping origin\"\n  error=\"Select your primary shipping location to calculate accurate rates for customers\"\n  required\n>\n  <s-option value=\"ca\">Canada</s-option>\n  <s-option value=\"us\">United states</s-option>\n  <s-option value=\"mx\">Mexico</s-option>\n  <s-option value=\"uk\">United kingdom</s-option>\n</s-select>",
-      "erb_code": "<%= form.select :shipping_origin, label: \"Shipping origin\", error: \"Select your primary shipping location to calculate accurate rates for customers\" %>"
+      "erb_code": "<%= form.select :shipping_origin, label: \"Shipping origin\", error: \"Select your primary shipping location to calculate accurate rates for customers\", required: true %>"
     },
     {
       "name": "With option groups",
@@ -123,7 +123,7 @@
       "name": "Disabled state",
       "description": "Select in disabled state preventing user interaction with pre-selected value.",
       "html_code": "<s-select label=\"Product type\" disabled value=\"physical\">\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n</s-select>",
-      "erb_code": "<%= form.select :product_type, label: \"Product type\" %>value=\"physical\"&gt;\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>"
+      "erb_code": "<%= form.select :product_type, label: \"Product type\", disabled: false, value: \"physical\" %>"
     }
   ]
 }
