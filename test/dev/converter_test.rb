@@ -75,11 +75,24 @@ class ConverterTest < Minitest::Test
     # 期望：
     #   max-length   → max_length
     #   autoComplete → auto_complete
-    expected_substr = 'max_length: "10", auto_complete: "off"'
+    expected_substr = 'max_length: "10", autocomplete: "off"'
 
     converted = Converter.html_to_erb(html)
 
     assert_includes converted, expected_substr
+  end
+
+  # boolean attribute: required → required: true
+  def test_boolean_required_attribute
+    html = <<~HTML
+      <s-text-field label="Store name" required></s-text-field>
+    HTML
+
+    expected = %(
+      <%= form.text_field :store_name, label: "Store name", required: true %>
+    )
+
+    assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
   # form_var 自定义

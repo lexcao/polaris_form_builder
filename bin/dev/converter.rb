@@ -3,19 +3,23 @@
 require "nokogiri"
 require "active_support/core_ext/string"
 require "active_support/core_ext/object"
+require "action_view/helpers/tag_helper"
+require "set"
 require_relative "meta_data"
 
 module Converter
   SPECIAL_COMPONENTS = {
     "checkbox" => "check_box"
   }.freeze
+  BOOLEAN_ATTRIBUTES =
+    Set.new(::ActionView::Helpers::TagHelper::BOOLEAN_ATTRIBUTES.map(&:to_s))
 
   module_function
 
   def html_to_erb(html, form_var: "form")
     return "" if html.blank?
 
-    fragment = Nokogiri::XML::DocumentFragment.parse(html.to_s)
+    fragment = Nokogiri::HTML::DocumentFragment.parse(html.to_s)
 
     fragment
       .children
@@ -128,7 +132,7 @@ module Converter
   # 单个属性：key="value" → key: "value"
   def ruby_kw_pair(attr)
     key = ruby_key(attr.name)
-    val = ruby_value(attr.value)
+    val = ruby_value(attr)
     "#{key}: #{val}"
   end
 
@@ -142,7 +146,24 @@ module Converter
 
   # 值处理：目前简单字符串 → inspect
   # 你之后可以在这里扩展 true/false/数字等类型转换
-  def ruby_value(raw)
+  def ruby_value(attr)
+    raw = attr.value
+    attr_name = attr.name.to_s.downcase
+
+    return boolean_value(raw) if boolean_attribute?(attr_name)
+
+    string_value(raw)
+  end
+
+  def boolean_attribute?(name)
+    BOOLEAN_ATTRIBUTES.include?(name)
+  end
+
+  def boolean_value(raw)
+    raw.blank? || raw.to_s.downcase == "true"
+  end
+
+  def string_value(raw)
     raw.inspect
   end
 end
