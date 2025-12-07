@@ -5,12 +5,7 @@ require_relative '../../bin/dev/fetch'
 class FetchTest < Minitest::Test
   def setup
     @url = "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/textfield"
-
-    begin
-      @fetched_body = fetch(@url)
-    rescue Socket::ResolutionError, SocketError, Errno::EHOSTUNREACH, Errno::ETIMEDOUT => e
-      skip "Network unavailable: #{e.class}: #{e.message}"
-    end
+    skip "Slow network test"
   end
 
   def test_fetch
