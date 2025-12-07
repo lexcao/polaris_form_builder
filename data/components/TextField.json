@@ -159,7 +159,7 @@
       "name": "With accessory",
       "description": "Demonstrates the flexibility of adding interactive elements like buttons to text fields, enabling immediate actions based on the entered input.",
       "html_code": "<s-tooltip id=\"info-tooltip\">This is info tooltip</s-tooltip>\n<s-text-field label=\"Discount code\">\n  <s-icon slot=\"accessory\" interestFor=\"info-tooltip\" type=\"info\" />\n</s-text-field>",
-      "erb_code": "<s-tooltip id=\"info-tooltip\">This is info tooltip</s-tooltip>\n<%= form.text_field :discount_code, label: \"Discount code\", accessory: raw('<s-icon slot=\"accessory\" interestFor=\"info-tooltip\" type=\"info\" />') %>"
+      "erb_code": "<s-tooltip id=\"info-tooltip\">This is info tooltip</s-tooltip>\n<%= form.text_field :discount_code, label: \"Discount code\" do %>\n  <s-icon slot=\"accessory\" interestfor=\"info-tooltip\" type=\"info\"></s-icon>\n<% end %>"
     }
   ]
 }

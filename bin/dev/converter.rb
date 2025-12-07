@@ -59,15 +59,17 @@ module Converter
     helper_name = component_method_name(node.name)
     field_name = infer_field_name(node)
     kwargs = ruby_attributes(node)
+    children = convert_children(node, form_var)
 
-    args =
-      if kwargs.empty?
-        ":#{field_name}"
-      else
-        ":#{field_name}, #{kwargs}"
-      end
+    args = kwargs.empty? ? ":#{field_name}" : ":#{field_name}, #{kwargs}"
 
-    "<%= #{form_var}.#{helper_name} #{args} %>"
+    if children.present?
+      <<~ERB
+        <%= #{form_var}.#{helper_name} #{args} do %>#{children}<% end %>
+      ERB
+    else
+      "<%= #{form_var}.#{helper_name} #{args} %>"
+    end
   end
 
   # -------------------------
@@ -165,5 +167,14 @@ module Converter
 
   def string_value(raw)
     raw.inspect
+  end
+
+  def convert_children(node, form_var)
+    return "" unless node.element_children.any? || node.children.any? { |child| child.text? && child.text.strip.present? }
+
+    node
+      .children
+      .map { |child| convert_node(child, form_var) }
+      .join
   end
 end

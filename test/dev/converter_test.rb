@@ -108,6 +108,38 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html, form_var: "f"))
   end
 
+  def test_field_with_accessory_slot_children
+    html = <<~HTML
+      <s-text-field label="Discount code">
+        <s-icon slot="accessory" type="info"></s-icon>
+      </s-text-field>
+    HTML
+
+    expected = <<~ERB
+      <%= form.text_field :discount_code, label: "Discount code" do %>
+        <s-icon slot="accessory" type="info"></s-icon>
+      <% end %>
+    ERB
+
+    assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
+  end
+
+  def test_field_with_custom_slot_children
+    html = <<~HTML
+      <s-text-field label="Order quantity">
+        <s-badge slot="suffix">Unit</s-badge>
+      </s-text-field>
+    HTML
+
+    expected = <<~ERB
+      <%= form.text_field :order_quantity, label: "Order quantity" do %>
+        <s-badge slot="suffix">Unit</s-badge>
+      <% end %>
+    ERB
+
+    assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
+  end
+
   private
 
   def normalize(str)

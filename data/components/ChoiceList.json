@@ -63,31 +63,31 @@
       "name": "Main example",
       "description": "",
       "html_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<s-choice-list\n  label=\"Company name\"\n  name=\"Company name\"\n  details=\"The company name will be displayed on the checkout page.\"\n  onChange=\"handleChange(event)\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n</s-choice-list>",
-      "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" %>"
+      "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
     },
     {
       "name": "Basic usage",
       "description": "Demonstrates a basic ChoiceList with single selection, showing how to create a group of radio button choices.",
       "html_code": "<s-choice-list label=\"Product visibility\" name=\"visibility\">\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected>Required</s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\" %>"
+      "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected=\"selected\">Required</s-choice>\n<% end %>"
     },
     {
       "name": "Multiple selections",
       "description": "Illustrates a ChoiceList with multiple selection enabled, allowing users to choose multiple options with additional descriptive details for each choice.",
       "html_code": "<s-choice-list label=\"Checkout options\" name=\"checkout\" multiple>\n  <s-choice value=\"shipping\" selected>\n    Use the shipping address as the billing address by default\n    <s-text slot=\"details\">\n      Reduces the number of fields required to check out. The billing address\n      can still be edited.\n    </s-text>\n  </s-choice>\n  <s-choice value=\"confirmation\">\n    Require a confirmation step\n    <s-text slot=\"details\">\n      Customers must review their order details before purchasing.\n    </s-text>\n  </s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :checkout, label: \"Checkout options\", multiple: false %>"
+      "erb_code": "<%= form.choice_list :checkout, label: \"Checkout options\", multiple: false do %>\n  <s-choice value=\"shipping\" selected=\"selected\">\n    Use the shipping address as the billing address by default\n    <s-text slot=\"details\">\n      Reduces the number of fields required to check out. The billing address\n      can still be edited.\n    </s-text>\n  </s-choice>\n  <s-choice value=\"confirmation\">\n    Require a confirmation step\n    <s-text slot=\"details\">\n      Customers must review their order details before purchasing.\n    </s-text>\n  </s-choice>\n<% end %>"
     },
     {
       "name": "With error state",
       "description": "Shows how to display an error message in a ChoiceList when an invalid selection is made or a validation constraint is not met.",
       "html_code": "<s-choice-list\n  label=\"Product visibility\"\n  name=\"visibility\"\n  error=\"Product visibility cannot be hidden at this time\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected>Required</s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\", error: \"Product visibility cannot be hidden at this time\" %>"
+      "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\", error: \"Product visibility cannot be hidden at this time\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected=\"selected\">Required</s-choice>\n<% end %>"
     },
     {
       "name": "Multiple choices with details",
       "description": "Showcases a multiple-selection ChoiceList with each option including detailed information.",
       "html_code": "<s-choice-list\n  label=\"Available shipping methods\"\n  name=\"shipping-methods\"\n  multiple\n>\n  <s-choice value=\"standard\" selected>\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected>\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :shipping_methods, label: \"Available shipping methods\", multiple: false %>"
+      "erb_code": "<%= form.choice_list :shipping_methods, label: \"Available shipping methods\", multiple: false do %>\n  <s-choice value=\"standard\" selected=\"selected\">\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected=\"selected\">\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n<% end %>"
     },
     {
       "name": "Choice list validation",
