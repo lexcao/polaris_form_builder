@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "title": "Example",
+    "description": "Example component used for testing example-driven specs."
+  },
+  "properties": [],
+  "examples": [
+    {
+      "name": "Simple example",
+      "description": "Basic text field rendering for generator verification.",
+      "html_code": "<s-text-field></s-text-field>",
+      "erb_code": "<%= form.text_field :title %>"
+    }
+  ]
+}
