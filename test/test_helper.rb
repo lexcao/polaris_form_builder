@@ -77,23 +77,37 @@ end
 
 module ComponentExampleTest
   def self.included(base)
-    component_name = base.name.delete_prefix("Test")
-    metadata = component_metadata(component_name)
-    examples = metadata.fetch("examples", [])
+    base.extend(ClassMethods)
+    base.generate_example_tests
+  end
 
-    examples.each_with_index do |example, index|
-      method_name = example_test_name(example, index)
-      base.define_method(method_name) do
-        example_name = example.fetch("name", "Example")
-        form_with(model: Post.new) do |form|
-          concat render_erb(example.fetch("erb_code"), locals: {form: form})
+  module ClassMethods
+    def generate_example_tests
+      component = component_name
+      examples = load_examples(component)
+
+      examples.each_with_index do |example, index|
+        method_name = ComponentExampleTest.example_test_name(example, index)
+        define_method(method_name) do
+          example_name = example.fetch("name", "Example")
+          form_with(model: Post.new) do |form|
+            concat render_erb(example.fetch("erb_code"), locals: {form: form})
+          end
+
+          expected = example.fetch("html_code").strip
+          rendered = normalized_rendered_form
+          assert_dom_equal expected, rendered, "Example: #{example_name}"
+          assert_equal closing_tags(expected), closing_tags(rendered), "Closing tags mismatch for example: #{example_name}"
         end
-
-        expected = example.fetch("html_code").strip
-        rendered = normalized_rendered_form
-        assert_dom_equal expected, rendered, "Example: #{example_name}"
-        assert_equal closing_tags(expected), closing_tags(rendered), "Closing tags mismatch for example: #{example_name}"
       end
+    end
+
+    def component_name
+      name.delete_prefix("Test")
+    end
+
+    def load_examples(component_name)
+      ComponentExampleTest.load_examples(component_name)
     end
   end
 
@@ -107,7 +121,12 @@ module ComponentExampleTest
 
   def self.component_metadata(component_name)
     path = File.expand_path("../data/components/#{component_name}.json", __dir__)
-    JSON.load_file(path)
+    JSON.parse(File.read(path))
+  end
+
+  def self.load_examples(component_name)
+    metadata = component_metadata(component_name)
+    metadata.fetch("examples", [])
   end
 
   def self.example_test_name(example, index)
