@@ -27,12 +27,12 @@ mise exec ruby@3.4.5 -- bundle exec ruby -I test {test.rb}
 - Prefer snake_case for methods and variables; class/module names follow CamelCase.
 - Keep form-builder APIs aligned with Rails `FormBuilder`; accept keyword args and let Rails helpers handle HTML safety. Use `@template.tag`/`content_tag` to emit Polaris elements.
 - When rendering Polaris components in tests, mirror existing ERB snippets and favor clear option hashes over positional args.
+- Please read the separate file STYLE.md for some guidance on coding style.
 
 ## Testing Guidelines
 - Framework: Minitest (`test/*_test.rb`). Name files `*_test.rb` and derive from `TestCase` in `test/test_helper.rb` to inherit Rails/Polaris setup and helpers like `form_body`.
 - Use `bundle exec rake test` before opening a PR. Add focused unit cases for new fields/helpers and, when touching parsing behavior, extend `test/dev/parser_test.rb`.
 - For integration behaviors that depend on routing or layouts, add fixtures under `test/dummy/`.
-
 ## Commit & Pull Request Guidelines
 - Follow the existing Conventional Commit style (`feat(scope): ...`, `fix: ...`, `build: ...`).
 - Commits should stay scoped and include test updates when behavior changes.
