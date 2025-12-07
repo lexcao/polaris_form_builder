@@ -3,7 +3,11 @@
 ## Test
 - Please use the following command to run the test with the target Ruby version
 ```
+# Test for sinle file
 mise exec ruby@3.4.5 -- bundle exec ruby -I test {test.rb}
+
+# Test all
+mise exec ruby@3.4.5 -- rake test
 ```
 
 ## Task flow
