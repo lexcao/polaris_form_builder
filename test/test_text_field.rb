@@ -3,6 +3,8 @@
 require "test_helper"
 
 class TestTextField < TestCase
+  include ComponentExampleTest
+
   def test_simple_text_field
     form_with(model: Post.new) do |f|
       concat f.text_field(:title)
