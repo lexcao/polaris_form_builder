@@ -4,6 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "polaris_form_builder"
 
 require "minitest/autorun"
+require "nokogiri"
 require "json"
 
 require "action_view/test_case"
@@ -91,13 +92,19 @@ module ComponentExampleTest
         define_method(method_name) do
           example_name = example.fetch("name", "Example")
           form_with(model: Post.new) do |form|
-            concat render_erb(example.fetch("erb_code"), locals: {form: form})
+            concat render_erb(example.fetch("erb_code"), locals: { form: form })
           end
 
-          expected = example.fetch("html_code").strip
-          rendered = normalized_rendered_form
-          assert_dom_equal expected, rendered, "Example: #{example_name}"
-          assert_equal closing_tags(expected), closing_tags(rendered), "Closing tags mismatch for example: #{example_name}"
+          expected = normalize example.fetch("html_code")
+          rendered = normalize form_body(@rendered)
+          assert_dom_equal expected, rendered, <<~DOC
+          Example: #{example_name} failed
+            expected: #{expected}
+            rendered: #{rendered}
+
+          Re-run with:
+          bundle exec ruby -I test test/test_text_field.rb -n #{method_name} -v
+          DOC
         end
       end
     end
@@ -111,12 +118,13 @@ module ComponentExampleTest
     end
   end
 
-  def normalized_rendered_form
-    form_body(@rendered).gsub(/\sname="[^"]*"/, "")
-  end
-
-  def closing_tags(html)
-    html.scan(%r{</([a-z0-9\-]+)>}i).flatten
+  def normalize(html)
+    html = html.strip
+    html = html.gsub(/\sname="[^"]*"/, "")
+    html = html.gsub(%r{<(s-[\w:-]+)([^>/]*?)\s*/>}i, '<\1\2></\1>')
+    html = Nokogiri::HTML5::DocumentFragment.parse(html).to_html
+    html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
+    html
   end
 
   def self.component_metadata(component_name)

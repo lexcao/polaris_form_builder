@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "action_view"
-require "erb"
-require "cgi"
 
 module PolarisFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -13,17 +11,28 @@ module PolarisFormBuilder
       name = "#{@object_name}[#{method}]"
       error = object.errors[method].presence&.join(", ") if object.respond_to?(:errors)
 
-      attrs = {
+      attr = {
         name: name,
         value: value,
         error: error
       }.compact
 
-      @template.content_tag(
-        "s-text-field",
-        nil,
-        attrs.merge(options)
-      )
+      options = attr.merge(options)
+
+      content = nil
+      if block_given?
+        # Use the buffer from the block's binding to avoid writing to a different
+        # output buffer and duplicating content when the builder is reused.
+        capture_buffer = block.binding.eval("@output_buffer") rescue nil
+        capture_buffer ||= @template.output_buffer
+        content = if capture_buffer.respond_to?(:capture)
+          capture_buffer.capture(&block)
+        else
+          @template.capture(&block)
+        end
+      end
+
+      @template.content_tag("s-text-field", content, options)
     end
 
     def submit(value = nil, options = {})
