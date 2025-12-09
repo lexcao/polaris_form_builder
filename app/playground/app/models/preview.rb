@@ -4,8 +4,7 @@ class Preview
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attribute :name, :string
-  attribute :search, :string
+  attribute :store_name, :string
 
   def as_json(*)
     attributes.compact

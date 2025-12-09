@@ -44,7 +44,7 @@ class ComponentsController < ApplicationController
   end
 
   def preview_params
-    params.expect(preview: [ :name ])
+    params.expect(preview: [ :store_name ])
   end
 
 end
