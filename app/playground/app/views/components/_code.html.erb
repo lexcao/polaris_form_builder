@@ -36,11 +36,11 @@
     <s-text data-turbo-permanent>
       <pre data-code-switcher-target="code"
            class="language-erb"
-           data-code-content="erb"><code class="language-erb"><%= h(normalize_indent erb) %></code></pre>
+           data-code-content="erb"><code class="language-erb"><%= example_renderer.render_erb_for_display(erb) %></code></pre>
       <pre data-code-switcher-target="code"
            class="language-html"
            data-code-content="html"
-           hidden><code class="language-html"><%= polaris_form_with(model: Preview.new, url: preview_component_path(@component)) do |form| %><% html = ERB.new(erb).result(binding.tap { |it| it.local_variable_set(:form, form) }) %><%= h(normalize_indent html) %><% end %></code></pre>
+           hidden><code class="language-html"><%= example_renderer.render_html_for_display(erb) %></code></pre>
     </s-text>
   </s-stack>
 </s-box>
