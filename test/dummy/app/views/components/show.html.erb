@@ -1,0 +1,4 @@
+<%= polaris_form_with model: @preview, scope: :preview, url: submit_component_path(@component), method: :post do |form| %>
+  <%= render inline: @example.fetch("erb_code"), locals: { form: form } %>
+  <%= form.submit submit_label %>
+<% end %>
