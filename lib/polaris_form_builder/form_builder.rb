@@ -17,22 +17,9 @@ module PolarisFormBuilder
         error: error
       }.compact
 
-      options = attr.merge(options)
+      content = capture_block(&block)
 
-      content = nil
-      if block_given?
-        # Use the buffer from the block's binding to avoid writing to a different
-        # output buffer and duplicating content when the builder is reused.
-        capture_buffer = block.binding.eval("@output_buffer") rescue nil
-        capture_buffer ||= @template.output_buffer
-        content = if capture_buffer.respond_to?(:capture)
-          capture_buffer.capture(&block)
-        else
-          @template.capture(&block)
-        end
-      end
-
-      @template.content_tag("s-text-field", content, options)
+      @template.content_tag("s-text-field", content, options.merge(attr))
     end
 
     def submit(value = nil, options = {})
@@ -53,6 +40,23 @@ module PolarisFormBuilder
         value,
         attrs.merge(options)
       )
+    end
+
+    private
+
+    def capture_block(&block)
+      if block_given?
+        # Use the buffer from the block's binding to avoid writing to a different
+        # output buffer and duplicating content when the builder is reused.
+        capture_buffer = block.binding.eval("@output_buffer") rescue nil
+        capture_buffer ||= @template.output_buffer
+
+        if capture_buffer.respond_to?(:capture)
+          capture_buffer.capture(&block)
+        else
+          @template.capture(&block)
+        end
+      end
     end
   end
 end
