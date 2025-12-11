@@ -12,7 +12,7 @@ class ComponentsController < ApplicationController
 
   def submit
     if @preview.valid?
-      redirect_to component_path(@component), notice: "Preview saved.", status: :see_other
+      redirect_to component_path(@component, preview: preview_params), notice: "Preview saved.", status: :see_other
     else
       render :show, status: :unprocessable_entity
     end
@@ -30,6 +30,8 @@ class ComponentsController < ApplicationController
 
   def load_example
     @example = ComponentExampleLoader.load(component_key, name: "Main example")
+  rescue ComponentExampleLoader::ExampleNotFound => e
+    raise ActionController::RoutingError, e.message
   end
 
   def build_preview
@@ -45,7 +47,9 @@ class ComponentsController < ApplicationController
   def component_fields
     {
       text_field: %i[store_name],
-    }.fetch(component_key) { [] }
+    }.fetch(component_key) do
+      raise ActionController::RoutingError, "Unknown component #{component_key}"
+    end
   end
 
   def component_class_name

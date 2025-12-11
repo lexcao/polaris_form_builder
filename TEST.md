@@ -16,8 +16,8 @@
    - `before_action :load_example`：从 JSON 取 `examples.detect { |e| e["name"] == "Main example" }`。
    - `before_action :build_preview`：`@preview = PreviewForm.new(permitted_params)`，`permitted_params` 只允许当前组件的字段。
    - `show`：渲染视图。
-   - `submit`：`if @preview.valid?` -> redirect/back（可 303 see_other 到 show）；否则 render `show`, status: `:unprocessable_entity`.
-   - `component_fields`：根据组件名返回字段数组（先做 TextField -> `%i[store_name]`，后续按组件清单扩展）。
+  - `submit`：`if @preview.valid?` -> 303 see_other 到 show，同时带上 `preview:` 查询参数，确保成功后回显用户输入；否则 render `show`, status: `:unprocessable_entity`.
+  - `component_fields`：根据组件名返回字段数组（先做 TextField -> `%i[store_name]`，后续按组件清单扩展）；未知组件直接 404（RoutingError）避免静默空字段。
 
 2) `app/models/preview_form.rb`
    - `include ActiveModel::Model`, `include ActiveModel::Attributes`（可选），定义超集字段（覆盖所有组件需要的字段，TextField 先有 `attr_accessor :store_name`）。
@@ -50,9 +50,9 @@
 
 7) TextField 测试（模板）：`test/integration/components/text_field_test.rb`
    - `setup`：`@component = "text_field"`, `@field = "store_name"`.
-   - `test "renders main example"`：GET `/components/text_field`，`assert_response :success`，`assert_select 's-text-field[name=?]', "preview[store_name]"`，`assert_submit "Save Text Field"`.
+   - `test "renders main example"`：GET `/components/text_field`，`assert_response :success`，`assert_select 's-text-field[name=?][value=?]', "preview[store_name]", "Jaded Pixel"`，`assert_submit "Save Text Field"`.
    - `test "shows errors on invalid submit"`：POST `params: { preview: { store_name: "" } }`，`assert_response :unprocessable_entity`，`assert_select 's-text-field[error=?]', "can't be blank"`.
-   - `test "persists value on success"`：POST `store_name: "Hello"`，期望 `assert_response :see_other`（或 302），随后 GET follow_redirect / GET show 再次渲染时 `assert_select 's-text-field[value=?]', "Hello"`.
+   - `test "persists value on success"`：POST `store_name: "Hello"`，期望 `assert_response :see_other`（或 302），随后 follow_redirect 再渲染时 `assert_select 's-text-field[value=?]', "Hello"`。
    - 可选：断言示例内容存在（若 `erb_code` 带内嵌 slot/label），例如 `assert_select 's-text-field[label=?]', 'Store name'`。
 
 ## 命名与生成约定
