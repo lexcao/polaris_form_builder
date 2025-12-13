@@ -165,7 +165,7 @@
       "name": "Disabled and read-only states",
       "description": "Shows date fields in different interaction states for viewing-only or disabled forms.",
       "html_code": "<s-stack gap=\"base\">\n  <s-date-field\n    label=\"Creation date\"\n    name=\"createdDate\"\n    value=\"2024-01-01\"\n    readOnly\n  ></s-date-field>\n\n  <s-date-field\n    label=\"Archived date\"\n    name=\"archivedDate\"\n    value=\"2024-02-15\"\n    disabled\n  ></s-date-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.date_field :created_date, label: \"Creation date\", value: \"2024-01-01\", readonly: false %>\n\n  <%= form.date_field :archived_date, label: \"Archived date\", value: \"2024-02-15\", disabled: false %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.date_field :created_date, label: \"Creation date\", value: \"2024-01-01\", readonly: true %>\n\n  <%= form.date_field :archived_date, label: \"Archived date\", value: \"2024-02-15\", disabled: true %>\n</s-stack>"
     },
     {
       "name": "Form integration",

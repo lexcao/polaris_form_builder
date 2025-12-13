@@ -95,6 +95,18 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
+  def test_boolean_attribute_not_in_html_boolean_list
+    html = <<~HTML
+      <s-checkbox label="Select all" indeterminate checked></s-checkbox>
+    HTML
+
+    expected = %(
+      <%= form.check_box :select_all, label: "Select all", indeterminate: true, checked: true %>
+    )
+
+    assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
+  end
+
   # form_var 自定义
   def test_custom_form_var
     html = <<~HTML

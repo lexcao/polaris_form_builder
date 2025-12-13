@@ -123,7 +123,7 @@
       "name": "Disabled state",
       "description": "Demonstrates the appearance and behavior of a search field when it is disabled, preventing user interaction.",
       "html_code": "<s-search-field\n  label=\"Search customers\"\n  name=\"customerSearch\"\n  disabled\n  placeholder=\"Search is currently unavailable\"\n></s-search-field>",
-      "erb_code": "<%= form.search_field :customer_search, label: \"Search customers\", disabled: false, placeholder: \"Search is currently unavailable\" %>"
+      "erb_code": "<%= form.search_field :customer_search, label: \"Search customers\", disabled: true, placeholder: \"Search is currently unavailable\" %>"
     },
     {
       "name": "With character limits",

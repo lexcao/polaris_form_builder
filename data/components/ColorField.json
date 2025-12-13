@@ -117,7 +117,7 @@
       "name": "With Alpha Transparency",
       "description": "Color field supporting alpha channel for transparency control.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Background color\"\n    value=\"rgba(255, 0, 0, 0.5)\"\n    alpha\n  ></s-color-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :background_color, label: \"Background color\", value: \"rgba(255, 0, 0, 0.5)\", alpha: \"\" %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :background_color, label: \"Background color\", value: \"rgba(255, 0, 0, 0.5)\", alpha: true %>\n</s-stack>"
     },
     {
       "name": "With Error State",
@@ -141,13 +141,13 @@
       "name": "Read Only State",
       "description": "Color field in a read-only mode, preventing user modifications to the color value.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"System color\" name=\"color\" value=\"#1a73e8\" readOnly></s-color-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :color, label: \"System color\", value: \"#1a73e8\", readonly: false %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :color, label: \"System color\", value: \"#1a73e8\", readonly: true %>\n</s-stack>"
     },
     {
       "name": "Form Integration",
       "description": "A multi-color field form section demonstrating how ColorField can be used to capture different color settings in a single form.",
       "html_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <s-color-field\n        label=\"Primary brand color\"\n        name=\"primaryColor\"\n        value=\"#1a73e8\"\n        defaultValue=\"#1a73e8\"\n        details=\"This color will be used for buttons, links, and brand elements\"\n        required\n      ></s-color-field>\n      <s-color-field\n        label=\"Secondary color\"\n        name=\"secondaryColor\"\n        value=\"#34a853\"\n        details=\"Used for secondary actions and accents\"\n      ></s-color-field>\n      <s-color-field\n        label=\"Background overlay\"\n        name=\"overlayColor\"\n        value=\"rgba(0, 0, 0, 0.5)\"\n        alpha\n        details=\"Background color for modal overlays and dropdowns\"\n      ></s-color-field>\n    </s-stack>\n  </s-section>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <%= form.color_field :primary_color, label: \"Primary brand color\", value: \"#1a73e8\", defaultvalue: \"#1a73e8\", details: \"This color will be used for buttons, links, and brand elements\", required: true %>\n      <%= form.color_field :secondary_color, label: \"Secondary color\", value: \"#34a853\", details: \"Used for secondary actions and accents\" %>\n      <%= form.color_field :overlay_color, label: \"Background overlay\", value: \"rgba(0, 0, 0, 0.5)\", alpha: \"\", details: \"Background color for modal overlays and dropdowns\" %>\n    </s-stack>\n  </s-section>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <%= form.color_field :primary_color, label: \"Primary brand color\", value: \"#1a73e8\", defaultvalue: \"#1a73e8\", details: \"This color will be used for buttons, links, and brand elements\", required: true %>\n      <%= form.color_field :secondary_color, label: \"Secondary color\", value: \"#34a853\", details: \"Used for secondary actions and accents\" %>\n      <%= form.color_field :overlay_color, label: \"Background overlay\", value: \"rgba(0, 0, 0, 0.5)\", alpha: true, details: \"Background color for modal overlays and dropdowns\" %>\n    </s-stack>\n  </s-section>\n</s-stack>"
     },
     {
       "name": "Color validation",

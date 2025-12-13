@@ -129,7 +129,7 @@
       "name": "Read-only display",
       "description": "Shows how to render an email field in a read-only state, useful for displaying existing email addresses that cannot be modified.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Account email\"\n    value=\"user@example.com\"\n    readOnly\n  ></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :account_email, label: \"Account email\", value: \"user@example.com\", readonly: false %>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :account_email, label: \"Account email\", value: \"user@example.com\", readonly: true %>\n</s-stack>"
     },
     {
       "name": "With length constraints",
