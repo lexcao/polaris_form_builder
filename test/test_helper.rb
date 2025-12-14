@@ -119,10 +119,36 @@ module ComponentExampleTest
   end
 
   def normalize(html)
+    # The goal of this helper is "snapshot-style" comparison against the SoT `html_code`,
+    # not to validate Rails semantics. Semantic behavior that Rails adds (e.g. the
+    # unchecked hidden input for `check_box`) should be asserted in dedicated tests
+    # like `test/test_checkbox.rb`.
     html = html.strip
+
+    # Checkbox is a special case:
+    # - Rails `check_box` renders an extra unchecked hidden input by default.
+    # - Rails also defaults the checked value to "1".
+    # The SoT `html_code` examples typically model only the Polaris component tag, so we
+    # normalize these Rails-specific artifacts away for the example-driven assertions.
+    is_checkbox = html.match?(/<\s*s-checkbox\b/i)
+
+    # The exact `name="..."` is not stable across different form scopes, and most SoT
+    # examples are not intended to assert it.
     html = html.gsub(/\sname="[^"]*"/, "")
+
+    # Drop Rails' unchecked hidden input for checkboxes (see `TestCheckbox` for behavior coverage).
+    html = html.gsub(/<input\b[^>]*type=(?:"hidden"|'hidden'|hidden)[^>]*>/i, "") if is_checkbox
+
+    # Ensure custom elements are not self-closed so Nokogiri doesn't change structure.
     html = html.gsub(%r{<(s-[\w:-]+)([^>/]*?)\s*/>}i, '<\1\2></\1>')
+
+    # Canonicalize HTML (attribute order/quoting/whitespace) for stable comparisons.
     html = Nokogiri::HTML5::DocumentFragment.parse(html).to_html
+
+    # The checkbox default `value="1"` is a Rails detail; SoT examples commonly omit it.
+    html = html.gsub(/(<s-checkbox\b[^>]*?)\svalue="1"/i, '\1') if is_checkbox
+
+    # Normalize boolean attributes: `checked="checked"` => `checked`.
     html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
     html
   end

@@ -1,9 +1,14 @@
 # 新组件落地流水线（以 TextField / Checkbox 为参照）
 
 ## 参考：现有 TextField
-- **FormBuilder 实现**：`lib/polaris_form_builder/form_builder.rb` 的 `text_field` 从对象读取值与错误，构建 `name/value/error`，支持 block slot，通过 `@template.content_tag("s-text-field", ...)` 渲染。
+- **FormBuilder 实现**：`lib/polaris_form_builder/form_builder.rb` 的 `text_field` 先用 Rails `super` 生成 `<input ...>`（复用 Rails 的 `name/value/checked/disabled/...` 语义），再用 `PolarisTag` 将 tag 变换为 `<s-text-field ...>`，剔除不需要的属性（例如 `type`），并在必要时 unwrap `field_error_proc` 的 wrapper，确保最终输出是单一 Polaris 组件 tag；支持 block 作为 slot 内容。
 - **Unit Test**：`test/test_text_field.rb` 验证基础渲染 `<s-text-field name="post[title]"></s-text-field>`，覆盖属性注入与闭合标签。
 - **Integration Test**：`test/dummy/test/integration/components/text_field_test.rb` 覆盖主示例 GET、invalid 提交显示错误（422）、valid 提交重定向并再渲染提交值。
+
+## 参考：现有 Checkbox
+- **FormBuilder 实现**：`lib/polaris_form_builder/form_builder.rb` 的 `check_box` 复用 Rails `super` 的表单语义（默认会包含 unchecked 的 hidden input），再将 `<input type="checkbox" ...>` 变换为 `<s-checkbox ...>`；对 SoT example 对比时，测试基建会忽略 hidden input 与 checkbox 的默认 `value="1"`。
+- **Unit Test**：`test/test_checkbox.rb` 覆盖 SoT examples，以及 `include_hidden`、`value:` 映射、checked 语义等行为断言。
+- **Integration Test**：`test/dummy/test/integration/components/checkbox_test.rb` 覆盖 GET 主示例、invalid 提交展示 error（422）、valid 提交重定向并反映 checked 状态。
 
 ## 0. 关键约束：`data/components/<Component>.json` 是 SoT
 - `data/components/<Component>.json` 视为只读输入（source of truth），实现与测试都要 follow 它。
@@ -24,10 +29,9 @@
 - `s-<kebab-case>` → `<snake_case>`（去掉 `s-` 前缀，并把 `-` 转成 `_`）。
   - 例如：`s-text-field` → `text_field`，`s-checkbox` → `checkbox`。
 
-但 Ruby helper 可能有 Rails 特例（例如 `check_box`），建议 **两者都支持**（canonical 仍以 tag 推导出来的 component key 为准）：
-- **Builder alias**：例如 `alias_method :checkbox, :check_box`。
-- **Dummy alias**：在 dummy controller 内做 canonicalization，把 `check_box` 映射到 `checkbox`，确保 loader 能找到 `Checkbox.json`。
-- **Converter alias**：`bin/dev/converter.rb` 里维护特殊映射（已有 `checkbox` → `check_box`）。
+但 Ruby helper 可能有 Rails 特例（例如 `check_box`）。建议以 Rails 的 helper 命名为准（跟随 SoT 的 `erb_code`），而 component key 仍以 tag 推导出来的 canonical 为准：
+- **Dummy canonicalization**：dummy 的路由参数用 canonical（例如 `checkbox`），loader 才能找到 `Checkbox.json`。
+- **Converter alias**：`bin/dev/converter.rb` 里维护特殊映射（例如 `checkbox` → `check_box`），用于从 HTML 生成 ERB。
 
 ## 2. 新组件落地步骤
 1. 建分支  
@@ -41,6 +45,8 @@
    - 实现要求：
      - **Correctness first**：优先保证行为正确（包含边界条件与错误路径），不要为了“看起来像 Rails”牺牲正确性。
      - **DHH style**：代码保持 clean & simple，避免抽象过度与不必要的间接层；优先小而直白的方法、清晰命名、少魔法。
+     - **Prefer `super` + `PolarisTag`**：优先用 Rails `super` 生成基础 tag（拿到 `name/value/checked/...` 等 Rails 语义），再用 `PolarisTag` 做 tag 变换与属性规整；避免手拼字符串或重复实现 Rails 细节。
+     - **Multi-tag output**：允许保留 Rails 为语义完整性生成的额外 tag（例如 `check_box` 的 unchecked hidden input）；若业务上必须单 tag，再显式选择 `include_hidden: false` 并补足对应语义。
      - **Require hygiene**：不要在实现代码里为测试补 require；测试缺失的依赖应加到 `test/test_helper.rb`（或对应 dev tool）。
      - **Rails-like attributes**：boolean attributes 用 `true` 表示存在（由 Rails 输出 `checked="checked"` / `disabled="disabled"`），测试侧用 attribute presence 断言。
      - **Rails API compatibility**：如果实现的是 Rails `FormBuilder` 同名方法（例如 `check_box`），尽量保持方法签名与核心语义一致（包括参数顺序与默认值），避免破坏调用方习惯。
