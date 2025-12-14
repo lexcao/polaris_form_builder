@@ -81,19 +81,19 @@
       "name": "Main example",
       "description": "",
       "html_code": "<s-drop-zone\n  label=\"Upload\"\n  accessibilityLabel=\"Upload image of type jpg, png, or gif\"\n  accept=\".jpg,.png,.gif\"\n  multiple\n  onInput=\"console.log('onInput', event.currentTarget?.value)\"\n  onChange=\"console.log('onChange', event.currentTarget?.value)\"\n  onDropRejected=\"console.log('onDropRejected', event.currentTarget?.value)\"\n></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :upload, label: \"Upload\", accessibilitylabel: \"Upload image of type jpg, png, or gif\", accept: \".jpg,.png,.gif\", multiple: false, oninput: \"console.log('onInput', event.currentTarget?.value)\", onchange: \"console.log('onChange', event.currentTarget?.value)\", ondroprejected: \"console.log('onDropRejected', event.currentTarget?.value)\" %>"
+      "erb_code": "<%= form.drop_zone :upload, label: \"Upload\", accessibilitylabel: \"Upload image of type jpg, png, or gif\", accept: \".jpg,.png,.gif\", multiple: true, oninput: \"console.log('onInput', event.currentTarget?.value)\", onchange: \"console.log('onChange', event.currentTarget?.value)\", ondroprejected: \"console.log('onDropRejected', event.currentTarget?.value)\" %>"
     },
     {
       "name": "Basic usage",
       "description": "Demonstrates a basic drop zone that allows multiple file uploads with a simple label.",
       "html_code": "<s-drop-zone label=\"Drop files to upload\" multiple></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :drop_files_to_upload, label: \"Drop files to upload\", multiple: false %>"
+      "erb_code": "<%= form.drop_zone :drop_files_to_upload, label: \"Drop files to upload\", multiple: true %>"
     },
     {
       "name": "Image upload",
       "description": "Shows a drop zone configured specifically for uploading multiple image files.",
       "html_code": "<s-drop-zone accept=\"image/*\" label=\"Upload images\" multiple></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :upload_images, accept: \"image/*\", label: \"Upload images\", multiple: false %>"
+      "erb_code": "<%= form.drop_zone :upload_images, accept: \"image/*\", label: \"Upload images\", multiple: true %>"
     },
     {
       "name": "With required field",
@@ -105,13 +105,13 @@
       "name": "Disabled state",
       "description": "Displays a drop zone in a disabled state, preventing file uploads.",
       "html_code": "<s-drop-zone label=\"Upload not available\" disabled></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :upload_not_available, label: \"Upload not available\", disabled: false %>"
+      "erb_code": "<%= form.drop_zone :upload_not_available, label: \"Upload not available\", disabled: true %>"
     },
     {
       "name": "File type restrictions",
       "description": "Demonstrates restricting file uploads to specific document types like PDF and DOC.",
       "html_code": "<s-drop-zone\n  accept=\".pdf,.doc,.docx\"\n  label=\"Upload documents\"\n  multiple\n></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :upload_documents, accept: \".pdf,.doc,.docx\", label: \"Upload documents\", multiple: false %>"
+      "erb_code": "<%= form.drop_zone :upload_documents, accept: \".pdf,.doc,.docx\", label: \"Upload documents\", multiple: true %>"
     },
     {
       "name": "With error state",
@@ -123,7 +123,7 @@
       "name": "With accessibility options",
       "description": "Illustrates advanced accessibility configuration for the drop zone, including custom accessibility labels.",
       "html_code": "<s-drop-zone\n  label=\"Upload files\"\n  accessibilityLabel=\"Upload files using drag and drop or file selector\"\n  labelAccessibilityVisibility=\"exclusive\"\n  multiple\n></s-drop-zone>",
-      "erb_code": "<%= form.drop_zone :upload_files, label: \"Upload files\", accessibilitylabel: \"Upload files using drag and drop or file selector\", labelaccessibilityvisibility: \"exclusive\", multiple: false %>"
+      "erb_code": "<%= form.drop_zone :upload_files, label: \"Upload files\", accessibilitylabel: \"Upload files using drag and drop or file selector\", labelaccessibilityvisibility: \"exclusive\", multiple: true %>"
     }
   ]
 }

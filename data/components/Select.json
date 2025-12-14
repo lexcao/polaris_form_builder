@@ -123,7 +123,7 @@
       "name": "Disabled state",
       "description": "Select in disabled state preventing user interaction with pre-selected value.",
       "html_code": "<s-select label=\"Product type\" disabled value=\"physical\">\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n</s-select>",
-      "erb_code": "<%= form.select :product_type, label: \"Product type\", disabled: false, value: \"physical\" do %>\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n<% end %>"
+      "erb_code": "<%= form.select :product_type, label: \"Product type\", disabled: true, value: \"physical\" do %>\n  <s-option value=\"physical\">Physical product</s-option>\n  <s-option value=\"digital\">Digital product</s-option>\n  <s-option value=\"service\">Service</s-option>\n  <s-option value=\"gift-card\">Gift card</s-option>\n<% end %>"
     }
   ]
 }

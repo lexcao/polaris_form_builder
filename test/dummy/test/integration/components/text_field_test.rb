@@ -29,6 +29,6 @@ class Components::TextFieldTest < Components::BaseTest
 
     follow_redirect!
     assert_response :success
-    assert_component "s-text-field", name: "preview[store_name]", value: "Acme"
+    assert_component "s-text-field", name: "preview[store_name]", value: "Jaded Pixel"
   end
 end
