@@ -10,8 +10,10 @@ Minitest::TestTask.create(:test_unit) do |t|
 end
 
 task :test_integration do
+  dummy_gemfile = File.expand_path("test/dummy/Gemfile", __dir__)
+
   Dir.chdir("test/dummy") do
-    sh "bin/rails test"
+    sh({ "BUNDLE_GEMFILE" => dummy_gemfile }, "bundle exec rails test")
   end
 end
 
