@@ -45,7 +45,7 @@ class ExampleRenderer
         .gsub(/<!--\s*END inline template\s*-->\s*/, "")
   end
 
-  # 去掉首尾空行，并移除共同的最小缩进，便于展示
+  # Remove leading/trailing blank lines and strip common minimal indentation for display
   def normalize_indent(code)
     return "" if code.blank?
 

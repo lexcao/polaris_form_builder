@@ -104,3 +104,10 @@
 5) 增加测试基类 + `text_field_test.rb` 三个用例。
 6) 跑 `mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/text_field_test.rb`。
 7) 后续组件按映射表补字段和测试文件。
+
+## CI
+本仓库提供统一入口 `bin/ci`，用于本地与 GitHub Actions，覆盖三层测试（unit / dummy integration / playground E2E）与 RuboCop。
+
+```bash
+mise exec ruby@3.4.5 -- bin/ci
+```

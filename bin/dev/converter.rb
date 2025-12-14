@@ -29,7 +29,7 @@ module Converter
   end
 
   # -------------------------
-  # 2. tag 处理方法
+  # 2. Tag processing
   # -------------------------
   def convert_node(node, form_var)
     case node
@@ -46,7 +46,7 @@ module Converter
     end
   end
 
-  # 普通标签：原样输出，只递归处理子节点
+  # Non-field tags: keep as-is; only process children
   def convert_normal_tag(node, form_var)
     open = "<#{node.name}#{html_attributes(node)}>"
     inner = node.children.map { |child| convert_node(child, form_var) }.join
@@ -54,7 +54,7 @@ module Converter
     "#{open}#{inner}#{close}"
   end
 
-  # field 组件：替换为 `<%= form.xxx :field_name, ... %>`
+  # Field components: replace with `<%= form.xxx :field_name, ... %>`
   def convert_field_tag(node, form_var)
     helper_name = component_method_name(node.name)
     field_name = infer_field_name(node)
@@ -73,7 +73,7 @@ module Converter
   end
 
   # -------------------------
-  # 1. A：field component 名字转换
+  # 1. Field component name mapping
   # -------------------------
   def component_method_name(tag_name)
     # s-text-field → text_field
@@ -90,10 +90,10 @@ module Converter
     tag_name.to_s.sub(/\As-/, "").tr("-", "").downcase
   end
 
-  # 简单推断 symbol 名：
-  # 1. 有 name → from name
-  # 2. 否则用 label
-  # 3. fallback :field
+  # Infer a symbol name:
+  # 1) Prefer `name`
+  # 2) Otherwise use `label`
+  # 3) Fall back to :field
   def infer_field_name(node)
     if (name = node["name"]).present?
       # order-quantity / orderQuantity / order[quantity] → order_quantity
@@ -108,46 +108,51 @@ module Converter
   end
 
   # -------------------------
-  # 3. attributes 替换方法
+  # 3. Attribute conversion
   # -------------------------
 
-  # 把 HTML 属性保留在普通标签上：  label="Store name"
+  # Keep HTML attributes on normal tags, e.g. label="Store name"
   def html_attributes(node)
     return "" if node.attribute_nodes.empty?
 
-    " " + node.attribute_nodes.map { |a| %{#{a.name}="#{a.value}"} }.join(" ")
+    " " + node.attribute_nodes.map { |a| %(#{a.name}="#{a.value}") }.join(" ")
   end
 
-  # 把组件属性转成 Ruby keyword 参数：
+  # Convert component attributes into Ruby keyword args:
   #
   #   label="Store name", placeholder="Become a merchant"
   #   → 'label: "Store name", placeholder: "Become a merchant"'
   #
   def ruby_attributes(node)
     node.attribute_nodes
-        .reject { |a| %w[name id].include?(a.name) } # name/id 用来推断 field_name，不写入 options
+        .reject { |a| %w[name id].include?(a.name) } # name/id are used to infer field_name; do not emit as kwargs
         .map { |a| ruby_kw_pair(a) }
         .compact
         .join(", ")
   end
 
-  # 单个属性：key="value" → key: "value"
+  # Single attribute: key="value" -> key: "value"
   def ruby_kw_pair(attr)
     key = ruby_key(attr.name)
     val = ruby_value(attr)
     "#{key}: #{val}"
   end
 
-  # key 处理：横杠 → 下划线，并 underscore
+  # Key normalization: kebab-case -> snake_case; camelCase -> snake_case
   #
   #   "maxLength" / "max-length" → max_length
   #
   def ruby_key(name)
-    name.tr("-", "_").underscore.to_sym
+    normalized = name.tr("-", "_").underscore
+
+    return :autocomplete if normalized == "auto_complete"
+    return :readonly if normalized == "read_only"
+
+    normalized.to_sym
   end
 
-  # 值处理：目前简单字符串 → inspect
-  # 你之后可以在这里扩展 true/false/数字等类型转换
+  # Value normalization: currently treat everything as a string (via `inspect`).
+  # Extend here later for booleans/numbers if needed.
   def ruby_value(attr)
     raw = attr.value
     attr_name = attr.name.to_s.downcase

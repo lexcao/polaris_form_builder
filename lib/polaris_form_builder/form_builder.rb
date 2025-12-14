@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "action_view"
+ActionView::Helpers.const_defined?(:FormBuilder)
 
 module PolarisFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
@@ -32,7 +33,7 @@ module PolarisFormBuilder
         type: "submit",
         name: "commit",
         variant: "primary",
-        value: value,
+        value: value
       }
 
       @template.content_tag(

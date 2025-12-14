@@ -46,5 +46,4 @@ class ComponentsController < ApplicationController
   def preview_params
     params.expect(preview: [ :store_name ])
   end
-
 end

@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "rubygems"
+require "bundler/setup"
+
+require "active_support/continuous_integration"
+
+CI = ActiveSupport::ContinuousIntegration
+
+CI.run do
+  step "Setup", "bin/setup"
+
+  step "Lint: RuboCop", "bin/rubocop -f github"
+
+  step "Tests: Unit", "bundle exec rake test_unit"
+
+  step "Tests: Dummy integration", "cd test/dummy && env -u BUNDLE_GEMFILE bin/ci"
+
+  step "Tests: Playground E2E", "cd app/playground && env -u BUNDLE_GEMFILE bin/ci"
+end

@@ -46,7 +46,7 @@ class ComponentsController < ApplicationController
 
   def component_fields
     {
-      text_field: %i[store_name],
+      text_field: %i[store_name]
     }.fetch(component_key) do
       raise ActionController::RoutingError, "Unknown component #{component_key}"
     end

@@ -7,13 +7,13 @@ export default class extends Controller {
   switch(event) {
     const selected = event.currentTarget.dataset.codeTab
 
-    // 切换 tab 样式
+    // Toggle tab styles
     this.tabTargets.forEach((tab) => {
       const active = tab.dataset.codeTab === selected
       tab.setAttribute("color", active ? "strong" : "subdued")
     })
 
-    // 切换代码内容
+    // Toggle code blocks
     this.codeTargets.forEach((block) => {
       block.hidden = block.dataset.codeContent !== selected
     })

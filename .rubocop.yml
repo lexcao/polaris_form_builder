@@ -1,0 +1,9 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+AllCops:
+  TargetRubyVersion: 3.4
+  Exclude:
+    - "vendor/**/*"
+    - "app/playground/db/schema.rb"
+    - "test/dummy/db/schema.rb"

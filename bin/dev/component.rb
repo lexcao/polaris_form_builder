@@ -23,5 +23,4 @@ module Component
 
     File.write(file, JSON.pretty_generate(component))
   end
-
 end

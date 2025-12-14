@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
-require_relative '../../bin/dev/converter'
+require "minitest/autorun"
+require_relative "../../bin/dev/converter"
 
 class ConverterTest < Minitest::Test
-  # 简单 TextField：从 label 推断 field 名 + attributes 转换
+  # Basic TextField: infer field name from label + convert attributes
   def test_text_field_from_label
     html = <<~HTML
       <s-text-field label="Store name" placeholder="Become a merchant"></s-text-field>
@@ -17,7 +17,7 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
-  # 从 name 属性推断 field 名
+  # Infer field name from the `name` attribute
   def test_field_name_from_name_attribute
     html = <<~HTML
       <s-text-field name="order-quantity" label="Order quantity"></s-text-field>
@@ -30,7 +30,7 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
-  # checkbox 特殊映射： s-checkbox → form.check_box
+  # Special mapping: s-checkbox -> form.check_box
   def test_checkbox_special_mapping
     html = <<~HTML
       <s-checkbox label="Accept terms"></s-checkbox>
@@ -43,7 +43,7 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
-  # 外层标签保持不变，只替换内部 field component
+  # Preserve outer tags; only replace inner field components
   def test_nested_tags_are_preserved
     html = <<~HTML
       <s-stack gap="base">
@@ -62,7 +62,7 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
-  # attributes key 转换：横杠 / camelCase → snake_case
+  # Transform attribute keys: kebab-case / camelCase -> snake_case
   def test_attribute_key_transform
     html = <<~HTML
       <s-text-field
@@ -72,9 +72,9 @@ class ConverterTest < Minitest::Test
       ></s-text-field>
     HTML
 
-    # 期望：
-    #   max-length   → max_length
-    #   autoComplete → auto_complete
+    # Expectations:
+    #   max-length   -> max_length
+    #   autoComplete -> autocomplete
     expected_substr = 'max_length: "10", autocomplete: "off"'
 
     converted = Converter.html_to_erb(html)
@@ -82,7 +82,7 @@ class ConverterTest < Minitest::Test
     assert_includes converted, expected_substr
   end
 
-  # boolean attribute: required → required: true
+  # Boolean attribute: required -> required: true
   def test_boolean_required_attribute
     html = <<~HTML
       <s-text-field label="Store name" required></s-text-field>
@@ -95,7 +95,7 @@ class ConverterTest < Minitest::Test
     assert_equal normalize(expected), normalize(Converter.html_to_erb(html))
   end
 
-  # form_var 自定义
+  # Custom `form_var`
   def test_custom_form_var
     html = <<~HTML
       <s-text-field label="Store name"></s-text-field>

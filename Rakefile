@@ -6,14 +6,14 @@ require "minitest/test_task"
 Minitest::TestTask.create(:test_unit) do |t|
   t.libs << "test"
   t.libs << "lib"
-  t.test_globs = ["test/test_*.rb", "test/dev/*_test.rb"]
+  t.test_globs = [ "test/test_*.rb", "test/dev/*_test.rb" ]
 end
 
 task :test_integration do
   Dir.chdir("test/dummy") do
-    sh "bin/rails test"
+    sh "env -u BUNDLE_GEMFILE bin/rails test"
   end
 end
 
-task test: [:test_unit, :test_integration]
+task test: [ :test_unit, :test_integration ]
 task default: :test
