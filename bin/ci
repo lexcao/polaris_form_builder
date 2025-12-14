@@ -15,7 +15,10 @@ CI.run do
 
   step "Tests: Unit", "bundle exec rake test_unit"
 
-  step "Tests: Dummy integration", "cd test/dummy && env -u BUNDLE_GEMFILE bin/ci"
+  step "Setup: Dummy", "cd test/dummy && env -u BUNDLE_GEMFILE ruby bin/setup --skip-server"
+  step "Tests: Dummy integration", "cd test/dummy && env -u BUNDLE_GEMFILE bin/rails test"
 
-  step "Tests: Playground E2E", "cd app/playground && env -u BUNDLE_GEMFILE bin/ci"
+  step "Setup: Playground", "cd app/playground && env -u BUNDLE_GEMFILE ruby bin/setup --skip-server"
+  step "Tests: Playground E2E", "cd app/playground && env -u BUNDLE_GEMFILE bin/rails test"
+  step "Tests: Playground seeds", "cd app/playground && env -u BUNDLE_GEMFILE env RAILS_ENV=test bin/rails db:seed:replant"
 end
