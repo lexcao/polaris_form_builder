@@ -18,6 +18,16 @@ class ComponentsController < ApplicationController
   end
 
   private
+  def component_key
+    @component_key ||= @component.name.to_s.underscore.to_sym
+  end
+
+  def component_fields
+    {
+      checkbox: %i[require_a_confirmation_step],
+      text_field: %i[store_name],
+    }.fetch(component_key, [])
+  end
 
   def set_component
     @component = Component.find(params.expect(:name))
@@ -44,7 +54,9 @@ class ComponentsController < ApplicationController
   end
 
   def preview_params
-    params.expect(preview: [ :store_name ])
+    return {} unless params.key?(:preview)
+
+    params.require(:preview).permit(*component_fields)
   end
 
 end
