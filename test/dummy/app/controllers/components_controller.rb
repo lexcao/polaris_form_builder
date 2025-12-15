@@ -35,7 +35,7 @@ class ComponentsController < ApplicationController
   end
 
   def build_preview
-    @preview = PreviewForm.new(preview_params)
+    @preview = PreviewForm.new(preview_params.merge(component_key: component_key))
   end
 
   def preview_params
@@ -46,6 +46,7 @@ class ComponentsController < ApplicationController
 
   def component_fields
     {
+      checkbox: %i[require_a_confirmation_step],
       text_field: %i[store_name],
     }.fetch(component_key) do
       raise ActionController::RoutingError, "Unknown component #{component_key}"

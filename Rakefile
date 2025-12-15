@@ -17,5 +17,14 @@ task :test_integration do
   end
 end
 
-task test: [:test_unit, :test_integration]
+task :test_playground do
+  playground_gemfile = File.expand_path("app/playground/Gemfile", __dir__)
+
+  Dir.chdir("app/playground") do
+    sh({ "BUNDLE_GEMFILE" => playground_gemfile, "RAILS_ENV" => "test" }, "bundle exec rails db:prepare")
+    sh({ "BUNDLE_GEMFILE" => playground_gemfile, "RAILS_ENV" => "test" }, "bundle exec rails test")
+  end
+end
+
+task test: [:test_unit, :test_integration, :test_playground]
 task default: :test
