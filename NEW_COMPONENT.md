@@ -66,9 +66,20 @@
      ```bash
      mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb
      ```
-5. 回归检查  
+5. Playground Preview（建议同步维护，避免 E2E 里“看起来不工作”）  
+   Playground 会直接执行 SoT 的 `erb_code`，因此它能很好地暴露“builder 是否真的生效 / 表单语义是否正确 / round-trip 是否工作”。但要让 “Try it” 真正可用，需要补齐 preview plumbing：
+   - `app/playground/app/controllers/components_controller.rb`：`preview_params` 必须按 component key permit 对应字段（checkbox 往往不止一个 field）。
+   - `app/playground/app/models/preview.rb`：为会出现在 examples 里的 field 增加属性（checkbox 推荐 `:boolean`），否则无法回显 checked 状态。
+   - `app/playground/app/views/components/_preview.html.erb`：form 的 model 用 `@preview`（例如 `@preview || Preview.new`），才能在 redirect 回 show 时回显用户输入。
+   - `app/playground/test/components_preview_test.rb`：加一个 round-trip 回归用例（POST preview → redirect → assert checked + result JSON）。
+   - 运行：  
+     ```bash
+     BUNDLE_GEMFILE=app/playground/Gemfile RAILS_ENV=test bundle exec rails db:prepare
+     BUNDLE_GEMFILE=app/playground/Gemfile RAILS_ENV=test bundle exec rails test
+     ```
+6. 回归检查  
    - 确认命名、API、dummy wiring、tests 与 SoT 输入的一致性；对任何不一致点做显式记录（skip 或 snapshot）。
-6. 提交与 PR  
+7. 提交与 PR  
    ```bash
    git status
    git commit -am "feat(<component>): add <component> field"
