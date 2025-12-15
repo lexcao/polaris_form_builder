@@ -15,3 +15,7 @@ gem "actionpack", "~> 8.1.0"
 gem "activemodel", "~> 8.1.0"
 
 gem "nokogiri", "~> 1.18"
+
+group :development, :test do
+  gem "rubocop-rails-omakase", require: false
+end

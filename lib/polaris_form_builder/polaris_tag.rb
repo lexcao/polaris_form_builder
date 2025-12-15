@@ -8,24 +8,24 @@ module PolarisFormBuilder
     end
 
     def tag_name(new_name)
-      @steps << [:tag_name, new_name.to_s]
+      @steps << [ :tag_name, new_name.to_s ]
       self
     end
 
     def exclude_attributes(*keys)
-      @steps << [:exclude_attributes, keys.flatten.map(&:to_s)]
+      @steps << [ :exclude_attributes, keys.flatten.map(&:to_s) ]
       self
     end
 
     def content(children)
       return self if children.nil?
 
-      @steps << [:content, children]
+      @steps << [ :content, children ]
       self
     end
 
     def close
-      @steps << [:close]
+      @steps << [ :close ]
       self
     end
 

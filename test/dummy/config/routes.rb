@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :posts
-  resources :components, param: :component, only: [:show] do
+  resources :components, param: :component, only: [ :show ] do
     post :submit, on: :member
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

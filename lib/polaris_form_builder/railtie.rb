@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'helpers'
+require_relative "helpers"
 
 module PolarisFormBuilder
   class Railtie < ::Rails::Railtie
-    initializer 'polaris_form_builder.view_helpers' do
+    initializer "polaris_form_builder.view_helpers" do
       ActiveSupport.on_load(:action_view) do
         include PolarisFormBuilder::Helpers
       end

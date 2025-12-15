@@ -5,8 +5,8 @@ require_relative "lib/polaris_form_builder/version"
 Gem::Specification.new do |spec|
   spec.name = "polaris_form_builder"
   spec.version = PolarisFormBuilder::VERSION
-  spec.authors = ["Lex Cao"]
-  spec.email = ["lexcao@foxmail.com"]
+  spec.authors = [ "Lex Cao" ]
+  spec.email = [ "lexcao@foxmail.com" ]
 
   spec.summary = "Rails form builder helpers for Shopify Polaris web components."
   spec.description = "Rails form helpers and view bindings to build forms with Shopify Polaris web components."
@@ -27,5 +27,5 @@ Gem::Specification.new do |spec|
     end
   end
 
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
-require_relative '../../bin/dev/meta_data'
+require "minitest/autorun"
+require_relative "../../bin/dev/meta_data"
 
 class MetaDataTest < Minitest::Test
   def test

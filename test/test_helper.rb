@@ -49,7 +49,7 @@ class TestCase < ActionView::TestCase
     if input =~ /<form[^>]*>(.*?)<\/form>/m
       content = $1.strip
       # Remove the first hidden input element
-      content.sub(/<input[^>]*type="hidden"[^>]*>/, '')
+      content.sub(/<input[^>]*type="hidden"[^>]*>/, "")
     else
       input
     end

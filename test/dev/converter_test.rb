@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'minitest/autorun'
-require_relative '../../bin/dev/converter'
+require "minitest/autorun"
+require_relative "../../bin/dev/converter"
 
 class ConverterTest < Minitest::Test
   # 简单 TextField：从 label 推断 field 名 + attributes 转换

@@ -5,4 +5,8 @@ set -vx
 
 bundle install
 
+cd app/playground && bundle install && cd ../..
+
+cd test/dummy && bundle install && cd ../..
+
 # Do any other automated setup that you need to do here

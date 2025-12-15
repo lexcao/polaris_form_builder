@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require "active_support/continuous_integration"
+
+ActiveSupport::ContinuousIntegration.run do
+  step "Setup", "bin/setup"
+
+  step "Style: Ruby", "bin/rubocop"
+
+  step "Tests", "rake test"
+end

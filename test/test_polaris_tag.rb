@@ -54,4 +54,3 @@ class TestPolarisTag < TestCase
     assert_dom_equal '<s-text-field name="user[name]">X</s-text-field>', tag.to_html
   end
 end
-
