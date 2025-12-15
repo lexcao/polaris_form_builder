@@ -117,7 +117,7 @@ class ConverterTest < Minitest::Test
       <%= f.text_field :store_name, label: "Store name" %>
     )
 
-    assert_equal normalize(expected), normalize(Converter.html_to_erb(html, form_var: "f"))
+    assert_equal normalize(expected), normalize(Converter.html_to_erb(html, form_var: 'f'))
   end
 
   def test_field_with_accessory_slot_children
@@ -155,6 +155,6 @@ class ConverterTest < Minitest::Test
   private
 
   def normalize(str)
-    str.to_s.gsub(/\s+/, " ").strip
+    str.to_s.gsub(/\s+/, ' ').strip
   end
 end

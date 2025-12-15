@@ -53,54 +53,56 @@ module PolarisFormBuilder
     end
 
     private
-      def apply_tag_name(html, new_name)
-        if match = html.match(/\A<\s*([^\s>\/]+)/m)
-          old_name = Regexp.escape(match[1])
-          html = html.sub(/\A<\s*#{old_name}/m, "<#{new_name}")
-          html.sub(%r{</\s*#{old_name}\s*>\z}m, "</#{new_name}>")
-        else
-          html
-        end
+
+    def apply_tag_name(html, new_name)
+      if (match = html.match(%r{\A<\s*([^\s>/]+)}m))
+        old_name = Regexp.escape(match[1])
+        html = html.sub(/\A<\s*#{old_name}/m, "<#{new_name}")
+        html.sub(%r{</\s*#{old_name}\s*>\z}m, "</#{new_name}>")
+      else
+        html
       end
+    end
 
-      def apply_insert_children(html, children)
-        html = apply_ensure_close_tag(html)
+    def apply_insert_children(html, children)
+      html = apply_ensure_close_tag(html)
 
-        html.sub(/\A(<[^>]+>).*?(<\/[^>]+>)\z/m) do
-          "#{$1}#{children}#{$2}"
-        end
+      html.sub(%r{\A(<[^>]+>).*?(</[^>]+>)\z}m) do
+        "#{::Regexp.last_match(1)}#{children}#{::Regexp.last_match(2)}"
       end
+    end
 
-      def apply_ensure_close_tag(html)
-        if html.match?(%r{\A<[^>]+/>\z}m)
-          html = html.sub(%r{\s*/\>\z}m, ">") + closing_tag_for(html)
-          html
-        elsif html.match?(%r{\A<[^>]+>\z}m)
-          html + closing_tag_for(html)
-        elsif html.match?(%r{\A<[^>]+>.*<\/[^>]+>\z}m)
-          html
-        else
-          raise ArgumentError, "Expected a single HTML tag"
-        end
+    def apply_ensure_close_tag(html)
+      case html
+      when %r{\A<[^>]+/>\z}m
+        html.sub(%r{\s*/>\z}m, '>') + closing_tag_for(html)
+
+      when /\A<[^>]+>\z/m
+        html + closing_tag_for(html)
+      when %r{\A<[^>]+>.*</[^>]+>\z}m
+        html
+      else
+        raise ArgumentError, 'Expected a single HTML tag'
       end
+    end
 
-      def closing_tag_for(html)
-        if match = html.match(/\A<\s*([^\s>\/]+)/m)
-          "</#{match[1]}>"
-        else
-          ""
-        end
+    def closing_tag_for(html)
+      if (match = html.match(%r{\A<\s*([^\s>/]+)}m))
+        "</#{match[1]}>"
+      else
+        ''
       end
+    end
 
-      def apply_remove_attribute(html, key)
-        key = Regexp.escape(key.to_s)
+    def apply_remove_attribute(html, key)
+      key = Regexp.escape(key.to_s)
 
-        html.sub(/\A<[^>]+>/m) do |opening|
-          opening
-            .gsub(/\s#{key}(?:=(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/m, "")
-            .gsub(/\s+>/m, ">")
-            .gsub(/\s+\/>/m, " />")
-        end
+      html.sub(/\A<[^>]+>/m) do |opening|
+        opening
+          .gsub(/\s#{key}(?:=(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/m, '')
+          .gsub(/\s+>/m, '>')
+          .gsub(%r{\s+/>}m, ' />')
       end
+    end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "form_builder"
+require_relative 'form_builder'
 
 module PolarisFormBuilder
   module Helpers

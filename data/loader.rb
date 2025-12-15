@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "json"
-require "active_support/core_ext/string/inflections"
+require 'json'
+require 'active_support/core_ext/string/inflections'
 
 module ComponentExampleLoader
   class ExampleNotFound < StandardError; end
 
-  def self.load(component, name: "Main example")
+  def self.load(component, name: 'Main example')
     data = JSON.parse(File.read(component_path(component)))
-    example = Array(data["examples"]).find { |item| item["name"] == name }
+    example = Array(data['examples']).find { |item| item['name'] == name }
     raise ExampleNotFound, "Example #{name.inspect} not found for #{component}" unless example
 
     example

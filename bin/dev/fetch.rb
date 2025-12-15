@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "digest"
-require "net/http"
-require "uri"
+require 'digest'
+require 'net/http'
+require 'uri'
 
 def fetch(url)
   uri = URI(url)
@@ -10,7 +10,7 @@ def fetch(url)
 end
 
 module Fetch
-  CACHE_DIR = File.expand_path("tmp", __dir__)
+  CACHE_DIR = File.expand_path('tmp', __dir__)
 
   module_function
 
@@ -26,6 +26,6 @@ module Fetch
   end
 
   def cache_key(url)
-    "cache_" + Digest::SHA256.hexdigest(url)
+    "cache_#{Digest::SHA256.hexdigest(url)}"
   end
 end

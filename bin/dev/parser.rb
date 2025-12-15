@@ -5,8 +5,8 @@ require 'kramdown'
 require 'kramdown-parser-gfm'
 require 'kramdown/utils/entities'
 
-require_relative "component"
-require_relative "converter"
+require_relative 'component'
+require_relative 'converter'
 
 class Parser
   def initialize(markdown_content)
@@ -38,7 +38,7 @@ class Parser
   end
 
   def extract_properties_for(name)
-    section_children = collect_section_children(level: 2, title: "Properties")
+    section_children = collect_section_children(level: 2, title: 'Properties')
     section_children = collect_section_children(level: 2, title: name) if section_children.empty?
 
     list = find_first_list(section_children)
@@ -92,8 +92,8 @@ class Parser
     html_code = extract_html(grouped['html'])
 
     Component::Example.new(
-      name: "Main example",
-      description: "",
+      name: 'Main example',
+      description: '',
       html_code: html_code,
       erb_code: Converter.html_to_erb(html_code)
     )
@@ -174,7 +174,7 @@ class Parser
   end
 
   def collect_list_items(node)
-    return [ node ] if node.type == :li
+    return [node] if node.type == :li
 
     node.children.flat_map { |child| collect_list_items(child) }
   end
@@ -185,9 +185,7 @@ class Parser
 
     @root.children.each do |child|
       if heading?(child)
-        if collecting && child.options[:level] <= level
-          break
-        end
+        break if collecting && child.options[:level] <= level
 
         if heading?(child, level) && heading_text(child) == title
           collecting = true
@@ -235,9 +233,9 @@ class Parser
     when :entity
       Kramdown::Utils::Entities.entity(node.value).char
     when :tr
-      node.children.map { |child| element_to_text(child) }.join.delete_suffix(" | ")
+      node.children.map { |child| element_to_text(child) }.join.delete_suffix(' | ')
     when :td
-      node.children.map { |child| element_to_text(child) }.join << " | "
+      node.children.map { |child| element_to_text(child) }.join << ' | '
     when :smart_quote
       node.value.to_s.include?('ldquo') || node.value.to_s.include?('rdquo') ? '"' : "'"
     else
@@ -257,8 +255,8 @@ class Parser
     str = str.to_s
     return str if str.encoding == Encoding::UTF_8
 
-    str.force_encoding("UTF-8")
-       .encode("UTF-8", invalid: :replace, undef: :replace, replace: "?")
+    str.force_encoding('UTF-8')
+       .encode('UTF-8', invalid: :replace, undef: :replace, replace: '?')
   end
 end
 
@@ -281,15 +279,15 @@ if __FILE__ == $PROGRAM_NAME
   parser = Parser.new(content)
   result = parser.parse
 
-  puts "=" * 80
+  puts '=' * 80
   puts "NAME: #{result.name}" if result.name
   if result.metadata
     puts "TITLE: #{result.metadata.title}" if result.metadata.title
     puts "DESCRIPTION: #{result.metadata.description}" if result.metadata.description
   end
-  puts "=" * 80
+  puts '=' * 80
   puts "PROPERTIES (#{result.properties.length} found)"
-  puts "=" * 80
+  puts '=' * 80
   result.properties.each do |prop|
     puts "\nKey: #{prop.key}"
     puts "Type: #{prop.type}"
@@ -297,14 +295,14 @@ if __FILE__ == $PROGRAM_NAME
     puts "Description: #{prop.description[0..100]}..." if prop.description
   end
 
-  puts "\n" + ("=" * 80)
+  puts "\n#{'=' * 80}"
   puts "EXAMPLES (#{result.examples.length} found)"
-  puts "=" * 80
+  puts '=' * 80
   result.examples.each do |example|
     puts "\nName: #{example.name}"
     puts "Description: #{example.description[0..100]}..." if example.description
     puts "HTML Code (#{example.html_code.lines.count} lines):"
-    puts example.html_code[0..150] + "..." if example.html_code.length > 150
+    puts "#{example.html_code[0..150]}..." if example.html_code.length > 150
     puts example.html_code if example.html_code.length <= 150
   end
 end

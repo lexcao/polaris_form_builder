@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class TestCheckbox < TestCase
   include ComponentExampleTest
@@ -33,11 +33,11 @@ class TestCheckbox < TestCase
   def test_check_box_value_option_maps_to_checked_value
     post = Post.new
     def post.published
-      "yes"
+      'yes'
     end
 
     form_with(model: post) do |form|
-      concat form.check_box(:published, value: "yes")
+      concat form.check_box(:published, value: 'yes')
     end
 
     body = form_body(@rendered)
@@ -49,7 +49,7 @@ class TestCheckbox < TestCase
   def test_checked_from_object_value
     post = Post.new
     def post.published
-      "1"
+      '1'
     end
 
     form_with(model: post) do |form|

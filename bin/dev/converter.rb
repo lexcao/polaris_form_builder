@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require "nokogiri"
-require "active_support/core_ext/string"
-require "active_support/core_ext/object"
-require_relative "meta_data"
+require 'nokogiri'
+require 'active_support/core_ext/string'
+require 'active_support/core_ext/object'
+require_relative 'meta_data'
 
 module Converter
   SPECIAL_COMPONENTS = {
-    "checkbox" => "check_box"
+    'checkbox' => 'check_box'
   }.freeze
 
   module_function
 
-  def html_to_erb(html, form_var: "form")
-    return "" if html.blank?
+  def html_to_erb(html, form_var: 'form')
+    return '' if html.blank?
 
     fragment = Nokogiri::HTML::DocumentFragment.parse(html.to_s)
 
@@ -73,7 +73,7 @@ module Converter
   # -------------------------
   def component_method_name(tag_name)
     # s-text-field → text_field
-    base = tag_name.to_s.sub(/\As-/, "").tr("-", "_")
+    base = tag_name.to_s.sub(/\As-/, '').tr('-', '_')
     # checkbox → check_box
     SPECIAL_COMPONENTS.fetch(base, base)
   end
@@ -83,7 +83,7 @@ module Converter
   end
 
   def component_key(tag_name)
-    tag_name.to_s.sub(/\As-/, "").tr("-", "").downcase
+    tag_name.to_s.sub(/\As-/, '').tr('-', '').downcase
   end
 
   # 简单推断 symbol 名：
@@ -91,14 +91,14 @@ module Converter
   # 2. 否则用 label
   # 3. fallback :field
   def infer_field_name(node)
-    if (name = node["name"]).present?
-      # order-quantity / orderQuantity / order[quantity] → order_quantity
-      base = name.tr("[]", "").tr("-", "_").underscore
-    elsif (label = node["label"]).present?
-      base = label.parameterize.underscore
-    else
-      base = "field"
-    end
+    base = if (name = node['name']).present?
+             # order-quantity / orderQuantity / order[quantity] → order_quantity
+             name.tr('[]', '').tr('-', '_').underscore
+           elsif (label = node['label']).present?
+             label.parameterize.underscore
+           else
+             'field'
+           end
 
     base.to_sym
   end
@@ -109,9 +109,9 @@ module Converter
 
   # 把 HTML 属性保留在普通标签上：  label="Store name"
   def html_attributes(node)
-    return "" if node.attribute_nodes.empty?
+    return '' if node.attribute_nodes.empty?
 
-    " " + node.attribute_nodes.map { |a| %{#{a.name}="#{a.value}"} }.join(" ")
+    ' ' + node.attribute_nodes.map { |a| %(#{a.name}="#{a.value}") }.join(' ')
   end
 
   # 把组件属性转成 Ruby keyword 参数：
@@ -124,7 +124,7 @@ module Converter
         .reject { |a| %w[name id].include?(a.name) } # name/id 用来推断 field_name，不写入 options
         .map { |a| ruby_kw_pair(a) }
         .compact
-        .join(", ")
+        .join(', ')
   end
 
   # 单个属性：key="value" → key: "value"
@@ -139,7 +139,7 @@ module Converter
   #   "maxLength" / "max-length" → max_length
   #
   def ruby_key(name)
-    name.tr("-", "_").underscore.to_sym
+    name.tr('-', '_').underscore.to_sym
   end
 
   # 值处理：目前简单字符串 → inspect
@@ -148,8 +148,8 @@ module Converter
     raw = attr.value
     return true if raw.to_s.casecmp(attr.name.to_s).zero?
     return true if raw.blank?
-    return true if raw.to_s.casecmp("true").zero?
-    return false if raw.to_s.casecmp("false").zero?
+    return true if raw.to_s.casecmp('true').zero?
+    return false if raw.to_s.casecmp('false').zero?
 
     string_value(raw)
   end
@@ -159,7 +159,9 @@ module Converter
   end
 
   def convert_children(node, form_var)
-    return "" unless node.element_children.any? || node.children.any? { |child| child.text? && child.text.strip.present? }
+    return '' unless node.element_children.any? || node.children.any? do |child|
+      child.text? && child.text.strip.present?
+    end
 
     node
       .children

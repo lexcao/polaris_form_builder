@@ -1,0 +1,42 @@
+plugins:
+  - rubocop-rails
+
+AllCops:
+  NewCops: disable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.4
+  Exclude:
+    - "app/playground/**/*"
+    - "bin/dev/**/*"
+    - "test/dummy/**/*"
+    - "vendor/**/*"
+    - "tmp/**/*"
+
+Rails:
+  Enabled: true
+
+Rails/RakeEnvironment:
+  Enabled: false
+
+Rails/RefuteMethods:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 160
+  Exclude:
+    - "test/dev/parser_test.rb"
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/ClassLength:
+  Max: 200
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false

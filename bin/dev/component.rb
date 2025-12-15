@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "json"
+require 'json'
 
 module Component
   class Data < Data
@@ -14,7 +14,7 @@ module Component
   Example = Data.define(:name, :description, :html_code, :erb_code)
   Definition = Data.define(:metadata, :properties, :examples)
 
-  OUTPUT_DIR = File.expand_path("../../data/components", __dir__)
+  OUTPUT_DIR = File.expand_path('../../data/components', __dir__)
 
   module_function
 
@@ -23,5 +23,4 @@ module Component
 
     File.write(file, JSON.pretty_generate(component))
   end
-
 end

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative "./dev/command"
+require_relative './dev/command'
 
 if __FILE__ == $PROGRAM_NAME
   if ARGV.empty?
@@ -18,5 +18,3 @@ if __FILE__ == $PROGRAM_NAME
     puts "Unknown step: #{step}"
   end
 end
-
-
