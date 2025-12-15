@@ -10,15 +10,19 @@ Minitest::TestTask.create(:test_unit) do |t|
 end
 
 task :test_integration do
-  puts "Test integration..."
   Dir.chdir("test/dummy") do
+    puts "Test integration...#{pwd}"
+
+    ENV["BUNDLE_GEMFILE"] = File.expand_path("Gemfile", pwd)
     sh("bin/rails test")
   end
 end
 
 task :test_playground do
-  puts "Test playground..."
   Dir.chdir("app/playground") do
+    puts "Test playground...#{pwd}"
+
+    ENV["BUNDLE_GEMFILE"] = File.expand_path("Gemfile", pwd)
     sh("bin/rails test")
   end
 end
