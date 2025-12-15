@@ -15,10 +15,12 @@ CI.run do
 
   step "Tests: Unit", "bundle exec rake test_unit"
 
-  step "Setup: Dummy", "cd test/dummy && env -u BUNDLE_GEMFILE ruby bin/setup --skip-server"
-  step "Tests: Dummy integration", "cd test/dummy && env -u BUNDLE_GEMFILE bin/rails test"
+  step "Install: Dummy", "cd test/dummy && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bundle install"
+  step "Setup: Dummy", "cd test/dummy && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bin/rails db:prepare"
+  step "Tests: Dummy integration", "cd test/dummy && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bin/rails test"
 
-  step "Setup: Playground", "cd app/playground && env -u BUNDLE_GEMFILE ruby bin/setup --skip-server"
-  step "Tests: Playground E2E", "cd app/playground && env -u BUNDLE_GEMFILE bin/rails test"
-  step "Tests: Playground seeds", "cd app/playground && env -u BUNDLE_GEMFILE env RAILS_ENV=test bin/rails db:seed:replant"
+  step "Install: Playground", "cd app/playground && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bundle install"
+  step "Setup: Playground", "cd app/playground && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bin/rails db:prepare"
+  step "Tests: Playground E2E", "cd app/playground && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS bin/rails test"
+  step "Tests: Playground seeds", "cd app/playground && env -u BUNDLE_GEMFILE -u RUBYGEMS_GEMDEPS env RAILS_ENV=test bin/rails db:seed:replant"
 end
