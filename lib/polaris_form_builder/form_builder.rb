@@ -27,6 +27,26 @@ module PolarisFormBuilder
       @template.raw(tag.close.to_html)
     end
 
+    def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
+      options = options.dup
+
+      if (value = options.delete(:value) || options.delete("value"))
+        checked_value = value
+      end
+
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = super(method, options.merge(attrs), checked_value, unchecked_value)
+      hidden_html, checkbox_html = extract_check_box_inputs(html)
+
+      tag = PolarisTag.new(checkbox_html)
+        .tag_name("s-checkbox")
+        .exclude_attributes("type")
+
+      @template.raw("#{hidden_html}#{tag.close.to_html}")
+    end
+
     def submit(value = nil, options = {})
       value, options = nil, value if value.is_a?(Hash)
       value ||= submit_default_value
@@ -61,6 +81,24 @@ module PolarisFormBuilder
           match[:inner]
         else
           html
+        end
+      end
+
+      def extract_check_box_inputs(html)
+        inputs = html.to_s.scan(/<input\b[^>]*>/i)
+        checkbox = inputs.find { |tag| input_type(tag) == "checkbox" }
+
+        if checkbox
+          hidden = inputs.select { |tag| input_type(tag) == "hidden" }.join
+          [hidden, checkbox]
+        else
+          raise ArgumentError, "Expected check_box to render an input[type=checkbox]"
+        end
+      end
+
+      def input_type(tag)
+        if (match = tag.match(/\stype\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/i))
+          (match[1] || match[2] || match[3]).to_s.downcase
         end
       end
 
