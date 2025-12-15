@@ -135,6 +135,7 @@ DEPENDENCIES
   actionpack (~> 8.1.0)
   actionview (~> 8.1.0)
   activemodel (~> 8.1.0)
+  activesupport (~> 8.1.0)
   kramdown (~> 2.5)
   kramdown-parser-gfm (~> 1.1)
   minitest (~> 5.16)
