@@ -37,4 +37,3 @@ class Components::CheckboxTest < Components::BaseTest
     assert_component "s-checkbox", name: "preview[require_a_confirmation_step]", checked: "checked"
   end
 end
-

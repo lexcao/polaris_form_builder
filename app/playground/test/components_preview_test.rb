@@ -11,4 +11,3 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_select "input[type=?]", "checkbox", count: 0
   end
 end
-
