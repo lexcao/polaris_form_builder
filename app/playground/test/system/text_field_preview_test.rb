@@ -27,8 +27,8 @@ class TextFieldPreviewTest < ApplicationSystemTestCase
       within(host.shadow_root) do
         input = find("input, textarea", visible: :all)
         input.click
-        input.send_keys([:command, "a"], :backspace)
-        input.send_keys([:control, "a"], :backspace)
+        input.send_keys([ :command, "a" ], :backspace)
+        input.send_keys([ :control, "a" ], :backspace)
         input.send_keys(with)
       end
     end
