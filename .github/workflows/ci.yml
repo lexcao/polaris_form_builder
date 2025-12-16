@@ -8,7 +8,6 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
-
     steps:
       - name: Install system packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-0 libvips curl ffmpeg
@@ -18,7 +17,6 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
 
       - name: Run CI
         run: bin/ci
