@@ -18,8 +18,5 @@ jobs:
         with:
           ruby-version: .ruby-version
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Run CI
         run: bin/ci
