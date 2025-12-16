@@ -56,7 +56,7 @@ module PolarisFormBuilder
         type: "submit",
         name: "commit",
         variant: "primary",
-        value: value,
+        value: value
       }
 
       @template.content_tag(
@@ -89,7 +89,7 @@ module PolarisFormBuilder
 
         if checkbox
           hidden = inputs.select { |tag| input_type(tag) == "hidden" }.join
-          [hidden, checkbox]
+          [ hidden, checkbox ]
         else
           raise ArgumentError, "Expected check_box to render an input[type=checkbox]"
         end

@@ -1,6 +1,6 @@
-require 'minitest/autorun'
+require "minitest/autorun"
 
-require_relative '../../bin/dev/fetch'
+require_relative "../../bin/dev/fetch"
 
 class FetchTest < Minitest::Test
   def setup

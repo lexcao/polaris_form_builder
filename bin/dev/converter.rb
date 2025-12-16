@@ -111,7 +111,7 @@ module Converter
   def html_attributes(node)
     return "" if node.attribute_nodes.empty?
 
-    " " + node.attribute_nodes.map { |a| %{#{a.name}="#{a.value}"} }.join(" ")
+    " " + node.attribute_nodes.map { |a| %(#{a.name}="#{a.value}") }.join(" ")
   end
 
   # 把组件属性转成 Ruby keyword 参数：

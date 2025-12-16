@@ -25,7 +25,7 @@ class ComponentsController < ApplicationController
   def component_fields
     {
       checkbox: %i[require_a_confirmation_step],
-      text_field: %i[store_name],
+      text_field: %i[store_name]
     }.fetch(component_key, [])
   end
 
@@ -58,5 +58,4 @@ class ComponentsController < ApplicationController
 
     params.require(:preview).permit(*component_fields)
   end
-
 end

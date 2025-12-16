@@ -75,4 +75,3 @@ class Component
     end
   end
 end
-

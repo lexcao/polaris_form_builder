@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install system packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-0 libvips curl ffmpeg
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Bundle for app Playground
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMFILE: app/playground/Gemfile
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Bundle for test Dummy
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMFILE: test/dummy/Gemfile
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run CI
+        run: bin/ci
