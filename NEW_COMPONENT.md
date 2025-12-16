@@ -79,9 +79,22 @@
      ```
 6. 回归检查  
    - 确认命名、API、dummy wiring、tests 与 SoT 输入的一致性；对任何不一致点做显式记录（skip 或 snapshot）。
-7. 提交与 PR  
+7. System Test（本地跑一遍 CI 同等检查）  
+   - 目标：在提交 PR 前尽量保证和 CI 一致，避免把基础失败带到远端。
+   - 运行：  
+     ```bash
+     mise exec ruby@3.4.5 -- bin/ci
+     ```
+8. 提交代码  
    ```bash
    git status
    git commit -am "feat(<component>): add <component> field"
+   ```
+9. 提交 PR  
+   ```bash
    gh pr create --fill
+   ```
+10. 检查 PR CI 状态（CI 通过后才算完成）  
+   ```bash
+   gh pr checks --watch
    ```
