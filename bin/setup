@@ -5,6 +5,6 @@ set -vx
 
 bundle install
 
-cd app/playground && bundle install && cd ../..
+BUNDLE_GEMFILE=app/playground/Gemfile bundle install
 
-cd test/dummy && bundle install && cd ../..
+BUNDLE_GEMFILE=test/dummy/Gemfile bundle install

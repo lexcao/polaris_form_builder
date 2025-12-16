@@ -20,8 +20,21 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Setup bundle
-        run: bin/setup
+      - name: Bundle for app Playground
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMFILE: app/playground/Gemfile
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Bundle for test Dummy
+        uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_GEMFILE: test/dummy/Gemfile
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
 
       - name: Run CI
         run: bin/ci
