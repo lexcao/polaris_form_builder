@@ -38,4 +38,3 @@ class Components::TextAreaTest < Components::BaseTest
     assert_component "s-text-area", name: "preview[shipping_address]"
   end
 end
-
