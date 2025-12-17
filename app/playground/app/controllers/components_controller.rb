@@ -25,6 +25,7 @@ class ComponentsController < ApplicationController
   def component_fields
     {
       checkbox: %i[require_a_confirmation_step],
+      text_area: %i[shipping_address],
       text_field: %i[store_name]
     }.fetch(component_key, [])
   end

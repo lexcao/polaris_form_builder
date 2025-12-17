@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "action_view"
+require "cgi"
+require "erb"
 require_relative "polaris_tag"
 
 module PolarisFormBuilder
@@ -44,6 +46,27 @@ module PolarisFormBuilder
         .exclude_attributes("type")
 
       @template.raw("#{hidden_html}#{tag.close.to_html}")
+    end
+
+    def text_area(method, options = {})
+      options = options.dup
+      normalize_text_area_options!(options)
+
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = super(method, options.merge(attrs))
+      html = unwrap_field_error_proc(html)
+
+      html = text_area_html_with_value_attribute(html)
+
+      tag = PolarisTag.new(html)
+        .tag_name("s-text-area")
+        .exclude_attributes("cols")
+
+      tag = tag.exclude_attributes("rows") unless rows_explicitly_set?(options)
+
+      @template.raw(tag.content("").close.to_html)
     end
 
     def submit(value = nil, options = {})
@@ -112,6 +135,54 @@ module PolarisFormBuilder
             capture_buffer.capture(&block)
           else
             @template.capture(&block)
+          end
+        end
+      end
+
+      def normalize_text_area_options!(options)
+        if options.key?(:"max-length") || options.key?("max-length")
+          options
+        elsif options.key?(:max_length) || options.key?("max_length")
+          value = options.delete(:max_length) || options.delete("max_length")
+          options[:"max-length"] = value unless value.nil?
+        end
+
+        if options.key?(:"minLength") || options.key?("minLength")
+          options
+        elsif (value = options.delete(:minlength) || options.delete("minlength"))
+          options[:"minLength"] = value
+        end
+
+        if options.key?(:"readOnly") || options.key?("readOnly")
+          options
+        elsif options.key?(:readonly) || options.key?("readonly") || options.key?(:read_only) || options.key?("read_only")
+          value = options.delete(:readonly) || options.delete("readonly") || options.delete(:read_only) || options.delete("read_only")
+          options[:"readOnly"] = value
+        end
+      end
+
+      def rows_explicitly_set?(options)
+        options.key?(:rows) || options.key?("rows")
+      end
+
+      def text_area_html_with_value_attribute(html)
+        html = html.to_s
+
+        match = html.match(/\A<\s*textarea\b[^>]*>(?<content>.*)<\/\s*textarea\s*>\z/m)
+        return html unless match
+
+        content = match[:content].to_s
+        return html if content.match?(/\A\s*\z/m)
+
+        raw_value = CGI.unescapeHTML(content).strip
+        escaped_value = ERB::Util.html_escape(raw_value)
+
+        html.sub(/\A<\s*textarea\b([^>]*)>/m) do
+          attrs = Regexp.last_match(1)
+          if attrs.match?(/\svalue=/m)
+            "<textarea#{attrs}>"
+          else
+            "<textarea#{attrs} value=\"#{escaped_value}\">"
           end
         end
       end

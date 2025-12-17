@@ -6,6 +6,7 @@ class Preview
 
   attribute :store_name, :string
   attribute :require_a_confirmation_step, :boolean
+  attribute :shipping_address, :string
 
   def as_json(*)
     attributes.compact
