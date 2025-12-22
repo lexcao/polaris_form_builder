@@ -1,13 +1,17 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Components" %>
 
-<h1>Components</h1>
-
-<div id="components">
-  <% @components.each do |component| %>
-    <p>
-      <%= link_to component.name, component %>
-    </p>
+<s-page heading="Form components">
+  <% if notice.present? %>
+    <s-box padding="base" borderRadius="large" background="strong">
+      <s-paragraph><%= notice %></s-paragraph>
+    </s-box>
   <% end %>
-</div>
+
+  <s-grid gridTemplateColumns="repeat(12, 1fr)" gap="large">
+    <% @components.sort_by(&:name).each do |component| %>
+      <s-grid-item gridColumn="span 3" gridRow="span 1">
+        <%= render "components/home_card", component: component %>
+      </s-grid-item>
+    <% end %>
+  </s-grid>
+</s-page>
