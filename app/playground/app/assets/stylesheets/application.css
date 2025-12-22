@@ -10,8 +10,8 @@
  */
 
 .sticky {
-    position: sticky;
-    top: 2rem;
+  position: sticky;
+  top: 2rem;
 }
 
 pre[class*="language-"],

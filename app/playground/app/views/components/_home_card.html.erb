@@ -1,0 +1,18 @@
+<s-clickable href="<%= component_path(component) %>">
+  <s-box border="base" borderRadius="large" overflow="hidden" background="base">
+    <s-image
+      src="<%= component_screenshot_url(component) %>"
+      alt="<%= "#{component.name} component screenshot" %>"
+      loading="lazy"
+      aspectRatio="16/9"
+      objectFit="cover"
+    ></s-image>
+    <s-divider></s-divider>
+    <s-box padding="base" background="strong" blockSize="140px" overflow="hidden">
+      <s-stack gap="small">
+        <s-text type="strong"><%= component.name %></s-text>
+        <s-text color="subdued"><%= truncate(component.description.to_s, length: 90) %></s-text>
+      </s-stack>
+    </s-box>
+  </s-box>
+</s-clickable>

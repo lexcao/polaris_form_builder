@@ -1,0 +1,30 @@
+<s-box padding="base" borderRadius="large" background="strong">
+  <s-stack gap="base">
+    <s-stack gap="small">
+      <s-text type="strong">Form components</s-text>
+      <s-paragraph>Polaris web components</s-paragraph>
+    </s-stack>
+
+    <nav aria-label="Form components">
+      <s-stack gap="small">
+        <% home_active = controller_name == "components" && action_name == "index" %>
+        <% if home_active %>
+          <s-text type="strong">Home</s-text>
+        <% else %>
+          <s-link href="<%= components_path %>">Home</s-link>
+        <% end %>
+
+        <s-divider></s-divider>
+
+        <% Component.all.sort_by(&:name).each do |component| %>
+          <% active = defined?(@component) && @component&.name == component.name %>
+          <% if active %>
+            <s-text type="strong"><%= component.name %></s-text>
+          <% else %>
+            <s-link href="<%= component_path(component) %>"><%= component.name %></s-link>
+          <% end %>
+        <% end %>
+      </s-stack>
+    </nav>
+  </s-stack>
+</s-box>
