@@ -1,5 +1,43 @@
 # 新组件落地流水线（以 TextField / Checkbox 为参照）
 
+## 快速参考：实现模式
+
+### 标准实现模式（Tier 1 简单输入组件）
+
+大多数输入组件（NumberField、EmailField、PasswordField 等）可以复用以下模式：
+
+```ruby
+def number_field(method, options = {}, &block)
+  polaris_text_input("s-number-field", method, options, &block)
+end
+
+private
+
+def polaris_text_input(tag_name, method, options = {}, &block)
+  error = method_error(method)
+  attrs = { error: error }.compact
+
+  html = super(method, options.merge(attrs))
+
+  tag = PolarisTag.new(html)
+    .tag_name(tag_name)
+    .exclude_attributes("type")
+    .content(capture_block(&block))
+
+  @template.raw(tag.close.to_html)
+end
+```
+
+### 组件复杂度分类
+
+| Tier | 组件 | 实现方式 |
+|------|------|----------|
+| 1 | NumberField, EmailField, PasswordField, URLField, SearchField, TextArea | 直接使用 `polaris_text_input` |
+| 2 | Switch, Select, MoneyField, ColorField | 需要额外处理（options、prefix/suffix 等） |
+| 3 | ChoiceList, DatePicker, ColorPicker, DropZone | 可能需要放弃 super，自定义实现 |
+
+---
+
 ## 参考：现有 TextField
 - **FormBuilder 实现**：`lib/polaris_form_builder/form_builder.rb` 的 `text_field` 先用 Rails `super` 生成 `<input ...>`（复用 Rails 的 `name/value/checked/disabled/...` 语义），再用 `PolarisTag` 将 tag 变换为 `<s-text-field ...>`，剔除不需要的属性（例如 `type`），并在必要时 unwrap `field_error_proc` 的 wrapper，确保最终输出是单一 Polaris 组件 tag；支持 block 作为 slot 内容。
 - **Unit Test**：`test/test_text_field.rb` 验证基础渲染 `<s-text-field name="post[title]"></s-text-field>`，覆盖属性注入与闭合标签。
@@ -94,7 +132,50 @@
    ```bash
    gh pr create --fill
    ```
-10. 检查 PR CI 状态（CI 通过后才算完成）  
+10. 检查 PR CI 状态（CI 通过后才算完成）
    ```bash
    gh pr checks --watch
    ```
+
+---
+
+## 3. 测试覆盖清单
+
+### 单元测试 (`test/test_<component>.rb`)
+
+| 测试类型 | 必须覆盖 | 示例 |
+|----------|----------|------|
+| Example-driven | SoT JSON 中的所有 examples | `include ComponentExampleTest` 自动生成 |
+| 基础渲染 | 正确的标签名、name 属性 | `assert_dom_equal '<s-text-field name="post[title]">...'` |
+| 错误注入 | error 属性正确映射 | 通过 `object.errors` 模拟 |
+| 值回显 | value 属性从 object 正确读取 | 设置 model 属性后验证输出 |
+| 特殊语义（如 checkbox） | checked 状态、hidden input | 参考 `test_checkbox.rb` |
+
+### 集成测试 (`test/dummy/test/integration/components/<component>_test.rb`)
+
+| 测试用例 | 断言 | HTTP 状态 |
+|----------|------|-----------|
+| renders main example | 组件渲染、属性正确 | 200 |
+| shows errors on invalid submit | error 属性包含校验消息 | 422 |
+| redirects on valid submit | 重定向后值回显正确 | 303 → 200 |
+
+### Playground 系统测试
+
+| 测试用例 | 验证点 |
+|----------|--------|
+| round-trip | POST → redirect → 值回显 + Result JSON |
+
+---
+
+## 4. 校验覆盖率
+
+运行以下命令检查组件覆盖情况：
+
+```bash
+bundle exec rake validate_components
+```
+
+该任务会检查：
+- JSON 定义的组件是否有对应的 FormBuilder 方法
+- FormBuilder 方法是否有对应的单元测试
+- 是否有对应的集成测试

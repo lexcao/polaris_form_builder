@@ -29,3 +29,6 @@ end
 
 task test: [ :test_unit, :test_integration, :test_playground ]
 task default: :test
+
+# Load custom rake tasks
+Dir["bin/tasks/**/*.rake"].each { |task| load task }
