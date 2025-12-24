@@ -11,12 +11,9 @@ module PolarisFormBuilder
       error = method_error(method)
       attrs = { error: error }.compact
 
-      html = super(method, options.merge(attrs))
-
-      # When the object has errors, ActionView wraps the generated tag using
-      # `ActionView::Base.field_error_proc` (default: `<div class="field_with_errors">...</div>`).
-      # We unwrap it so the final output is a single Polaris component tag.
-      html = unwrap_field_error_proc(html)
+      html = without_field_error_proc do
+        super(method, options.merge(attrs))
+      end
 
       tag = PolarisTag.new(html)
         .tag_name("s-text-field")
@@ -36,7 +33,9 @@ module PolarisFormBuilder
       error = method_error(method)
       attrs = { error: error }.compact
 
-      html = super(method, options.merge(attrs), checked_value, unchecked_value)
+      html = without_field_error_proc do
+        super(method, options.merge(attrs), checked_value, unchecked_value)
+      end
       hidden_html, checkbox_html = extract_check_box_inputs(html)
 
       tag = PolarisTag.new(checkbox_html)
@@ -67,19 +66,20 @@ module PolarisFormBuilder
     end
 
     private
+      # Temporarily disable field_error_proc wrapping when calling super.
+      # This ensures Polaris components aren't wrapped with error divs regardless
+      # of whether polaris_form_with or form_with(builder: ...) is used.
+      def without_field_error_proc
+        original = ::ActionView::Base.field_error_proc
+        ::ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag }
+        yield
+      ensure
+        ::ActionView::Base.field_error_proc = original
+      end
+
       def method_error(method)
         if object.respond_to?(:errors) && object.errors[method].present?
           object.errors[method].join(", ")
-        end
-      end
-
-      def unwrap_field_error_proc(html)
-        html = html.to_s
-
-        if match = html.match(/\A<(?<tag>[a-z0-9:_-]+)[^>]*class="[^"]*\bfield_with_errors\b[^"]*"[^>]*>(?<inner>.*)<\/\k<tag>>\z/m)
-          match[:inner]
-        else
-          html
         end
       end
 
