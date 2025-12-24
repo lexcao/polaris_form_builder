@@ -11,6 +11,30 @@ module PolarisFormBuilder
       polaris_text_input("s-text-field", method, options, &block)
     end
 
+    def number_field(method, options = {}, &block)
+      polaris_text_input("s-number-field", method, options, &block)
+    end
+
+    def email_field(method, options = {}, &block)
+      polaris_text_input("s-email-field", method, options, &block)
+    end
+
+    def password_field(method, options = {}, &block)
+      polaris_text_input("s-password-field", method, options, &block)
+    end
+
+    def url_field(method, options = {}, &block)
+      polaris_text_input("s-url-field", method, options, &block)
+    end
+
+    def search_field(method, options = {}, &block)
+      polaris_text_input("s-search-field", method, options, &block)
+    end
+
+    def text_area(method, options = {}, &block)
+      polaris_text_area("s-text-area", method, options, &block)
+    end
+
     def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
       options = options.dup
 
@@ -72,6 +96,25 @@ module PolarisFormBuilder
 
       def text_field_without_polaris(method, options = {})
         ActionView::Helpers::FormBuilder.instance_method(:text_field).bind(self).call(method, options)
+      end
+
+      def polaris_text_area(tag_name, method, options = {}, &block)
+        error = method_error(method)
+        attrs = { error: error }.compact
+
+        html = without_field_error_proc do
+          text_area_without_polaris(method, options.merge(attrs))
+        end
+
+        tag = PolarisTag.new(html)
+          .tag_name(tag_name)
+          .content(capture_block(&block))
+
+        @template.raw(tag.close.to_html)
+      end
+
+      def text_area_without_polaris(method, options = {})
+        ActionView::Helpers::FormBuilder.instance_method(:text_area).bind(self).call(method, options)
       end
 
       # Temporarily disable field_error_proc wrapping when calling super.
