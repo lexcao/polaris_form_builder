@@ -79,7 +79,7 @@ module PolarisFormBuilder
 
       def method_error(method)
         if object.respond_to?(:errors) && object.errors[method].present?
-          object.errors[method].join(", ")
+          object.errors[method].to_sentence
         end
       end
 
