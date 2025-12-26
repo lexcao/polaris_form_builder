@@ -24,6 +24,16 @@ module PolarisFormBuilder
       self
     end
 
+    def normalize_attribute_names
+      @steps << [ :normalize_attribute_names ]
+      self
+    end
+
+    def content_to_value_attribute
+      @steps << [ :content_to_value_attribute ]
+      self
+    end
+
     def close
       @steps << [ :close ]
       self
@@ -40,6 +50,10 @@ module PolarisFormBuilder
           payload.each do |key|
             html = apply_remove_attribute(html, key)
           end
+        when :normalize_attribute_names
+          html = apply_normalize_attribute_names(html)
+        when :content_to_value_attribute
+          html = apply_content_to_value_attribute(html)
         when :content
           html = apply_insert_children(html, payload)
         when :close
@@ -100,6 +114,32 @@ module PolarisFormBuilder
             .gsub(/\s#{key}(?:=(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/m, "")
             .gsub(/\s+>/m, ">")
             .gsub(/\s+\/>/m, " />")
+        end
+      end
+
+      def apply_normalize_attribute_names(html)
+        html.sub(/\A<[^>]+>/m) do |opening|
+          opening.gsub(/\s([a-z_]+)=/) do
+            " #{$1.tr('_', '-')}="
+          end
+        end
+      end
+
+      def apply_content_to_value_attribute(html)
+        if match = html.match(/\A(<[^>]+>)(.*?)(<\/[^>]+>)\z/m)
+          opening, content, closing = match[1], match[2], match[3]
+          content = content.strip
+
+          return html if content.empty?
+
+          if opening.include?(' value=')
+            html
+          else
+            opening = opening.sub(/>/, %( value="#{content}">))
+            "#{opening}#{closing}"
+          end
+        else
+          html
         end
       end
   end

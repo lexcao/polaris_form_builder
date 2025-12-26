@@ -88,7 +88,7 @@ module PolarisFormBuilder
 
         tag = PolarisTag.new(html)
           .tag_name(tag_name)
-          .exclude_attributes("type")
+          .exclude_attributes("type", "size")
           .content(capture_block(&block))
 
         @template.raw(tag.close.to_html)
@@ -108,6 +108,8 @@ module PolarisFormBuilder
 
         tag = PolarisTag.new(html)
           .tag_name(tag_name)
+          .normalize_attribute_names
+          .content_to_value_attribute
           .content(capture_block(&block))
 
         @template.raw(tag.close.to_html)
