@@ -47,7 +47,13 @@ class ComponentsController < ApplicationController
   def component_fields
     {
       checkbox: %i[require_a_confirmation_step],
-      text_field: %i[store_name]
+      text_field: %i[store_name],
+      number_field: %i[quantity],
+      email_field: %i[email],
+      password_field: %i[password],
+      url_field: %i[your_website],
+      search_field: %i[search],
+      text_area: %i[shipping_address]
     }.fetch(component_key) do
       raise ActionController::RoutingError, "Unknown component #{component_key}"
     end
