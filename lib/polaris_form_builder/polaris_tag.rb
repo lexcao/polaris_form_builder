@@ -132,7 +132,7 @@ module PolarisFormBuilder
 
           return html if content.empty?
 
-          if opening.include?(' value=')
+          if opening.include?(" value=")
             html
           else
             opening = opening.sub(/>/, %( value="#{content}">))
