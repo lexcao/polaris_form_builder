@@ -104,17 +104,50 @@ end
      ```bash
      mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb
      ```
-5. Playground Preview（建议同步维护，避免 E2E 里“看起来不工作”）  
-   Playground 会直接执行 SoT 的 `erb_code`，因此它能很好地暴露“builder 是否真的生效 / 表单语义是否正确 / round-trip 是否工作”。但要让 “Try it” 真正可用，需要补齐 preview plumbing：
-   - `app/playground/app/controllers/components_controller.rb`：`preview_params` 必须按 component key permit 对应字段（checkbox 往往不止一个 field）。
-   - `app/playground/app/models/preview.rb`：为会出现在 examples 里的 field 增加属性（checkbox 推荐 `:boolean`），否则无法回显 checked 状态。
-   - `app/playground/app/views/components/_preview.html.erb`：form 的 model 用 `@preview`（例如 `@preview || Preview.new`），才能在 redirect 回 show 时回显用户输入。
-   - `app/playground/test/components_preview_test.rb`：加一个 round-trip 回归用例（POST preview → redirect → assert checked + result JSON）。
-   - 运行：  
-     ```bash
-     BUNDLE_GEMFILE=app/playground/Gemfile RAILS_ENV=test bundle exec rails db:prepare
-     BUNDLE_GEMFILE=app/playground/Gemfile RAILS_ENV=test bundle exec rails test
+5. Playground Preview（**必须**同步维护）
+   Playground 会直接执行 SoT 的 `erb_code`，因此它能很好地暴露"builder 是否真的生效 / 表单语义是否正确 / round-trip 是否工作"。要让 "Try it" 功能可用，需要补齐 preview plumbing：
+
+   **必须修改的文件**（3 个）：
+   - `app/playground/app/models/preview.rb`：为 Main example 中的字段增加 attribute
+     - 字段名必须与 JSON Main example 的 ERB 代码中使用的字段名一致
+     - 类型：checkbox 用 `:boolean`，其他用 `:string`
+     ```ruby
+     attribute :quantity, :string  # for NumberField Main example
      ```
+
+   - `app/playground/app/controllers/components_controller.rb`：在 `component_fields` 方法中添加字段映射
+     - Key 使用 component_key 格式（underscore，如 `number_field`）
+     - Value 使用字段名数组
+     ```ruby
+     number_field: %i[quantity]
+     ```
+
+   - `app/playground/test/components_preview_test.rb`：添加 round-trip 测试
+     - URL 使用 parameterized 格式（如 `"numberfield"`，**不是** `"number_field"`）
+     - 验证 value 属性回显 + Result JSON
+     ```ruby
+     test "preview stores numberfield value and re-renders" do
+       post preview_component_url("numberfield"), params: { preview: { quantity: "5" } }
+       assert_response :redirect
+
+       follow_redirect!
+       assert_response :success
+
+       assert_select "s-number-field[value=?]", "5"
+       assert_select "h3", "Result"
+       assert_includes response.body, "&quot;quantity&quot;: &quot;5&quot;"
+     end
+     ```
+
+   **注意事项**：
+   - Component URL 格式：使用 `Component#to_param`（即 `name.parameterize`），例如 "NumberField" → "numberfield"
+   - 字段名来源：必须与 JSON Main example 的 `erb_code` 中使用的 symbol 一致
+   - TextArea 特殊情况：如果 Main example 有 hardcoded value，测试需断言该 value（而不是提交的值）
+
+   **运行测试**：
+   ```bash
+   bundle exec bin/ci  # Playground 测试会自动运行
+   ```
 6. 回归检查  
    - 确认命名、API、dummy wiring、tests 与 SoT 输入的一致性；对任何不一致点做显式记录（skip 或 snapshot）。
 7. System Test（本地跑一遍 CI 同等检查）  
