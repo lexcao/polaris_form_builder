@@ -54,7 +54,14 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    assert_select "s-password-field[value=?]", "secret123"
+    # password_field should NOT re-render password value for security (Rails default behavior)
+    assert_select "s-password-field" do |elements|
+      elements.each do |element|
+        refute element.attribute("value")&.value&.include?("secret123"), "Password should not be rendered in HTML"
+      end
+    end
+
+    # But the password should still be stored in the Result JSON
     assert_select "h3", "Result"
     assert_includes response.body, "&quot;password&quot;: &quot;secret123&quot;"
   end

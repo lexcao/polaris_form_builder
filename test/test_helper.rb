@@ -28,7 +28,7 @@ end
 class Post
   include ActiveModel::API
 
-  attr_accessor :title
+  attr_accessor :title, :password, :description, :quantity
 end
 
 class TestCase < ActionView::TestCase

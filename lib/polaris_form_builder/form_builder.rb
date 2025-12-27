@@ -8,31 +8,86 @@ module PolarisFormBuilder
     include ActionView::Helpers::FormTagHelper
 
     def text_field(method, options = {}, &block)
-      polaris_text_input("s-text-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:text_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-text-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def number_field(method, options = {}, &block)
-      polaris_text_input("s-number-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:number_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-number-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def email_field(method, options = {}, &block)
-      polaris_text_input("s-email-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:email_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-email-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def password_field(method, options = {}, &block)
-      polaris_text_input("s-password-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:password_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-password-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def url_field(method, options = {}, &block)
-      polaris_text_input("s-url-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:url_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-url-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def search_field(method, options = {}, &block)
-      polaris_text_input("s-search-field", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:search_field).bind(self).call(method, options.merge(attrs))
+      end
+
+      transform_to_polaris("s-search-field", html, exclude: [ "type", "size" ], &block)
     end
 
     def text_area(method, options = {}, &block)
-      polaris_text_area("s-text-area", method, options, &block)
+      error = method_error(method)
+      attrs = { error: error }.compact
+
+      html = without_field_error_proc do
+        ActionView::Helpers::FormBuilder.instance_method(:text_area).bind(self).call(method, options.merge(attrs))
+      end
+
+      tag = PolarisTag.new(html)
+        .tag_name("s-text-area")
+        .normalize_attribute_names
+        .content_to_value_attribute
+        .content(capture_block(&block))
+
+      @template.raw(tag.close.to_html)
     end
 
     def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
@@ -78,45 +133,14 @@ module PolarisFormBuilder
     end
 
     private
-      def polaris_text_input(tag_name, method, options = {}, &block)
-        error = method_error(method)
-        attrs = { error: error }.compact
-
-        html = without_field_error_proc do
-          text_field_without_polaris(method, options.merge(attrs))
-        end
-
+      # Transform Rails-generated HTML into Polaris web component format
+      def transform_to_polaris(tag_name, html, exclude: [ "type", "size" ], &block)
         tag = PolarisTag.new(html)
           .tag_name(tag_name)
-          .exclude_attributes("type", "size")
+          .exclude_attributes(*exclude)
           .content(capture_block(&block))
 
         @template.raw(tag.close.to_html)
-      end
-
-      def text_field_without_polaris(method, options = {})
-        ActionView::Helpers::FormBuilder.instance_method(:text_field).bind(self).call(method, options)
-      end
-
-      def polaris_text_area(tag_name, method, options = {}, &block)
-        error = method_error(method)
-        attrs = { error: error }.compact
-
-        html = without_field_error_proc do
-          text_area_without_polaris(method, options.merge(attrs))
-        end
-
-        tag = PolarisTag.new(html)
-          .tag_name(tag_name)
-          .normalize_attribute_names
-          .content_to_value_attribute
-          .content(capture_block(&block))
-
-        @template.raw(tag.close.to_html)
-      end
-
-      def text_area_without_polaris(method, options = {})
-        ActionView::Helpers::FormBuilder.instance_method(:text_area).bind(self).call(method, options)
       end
 
       # Temporarily disable field_error_proc wrapping when calling super.

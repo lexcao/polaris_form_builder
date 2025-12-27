@@ -128,14 +128,20 @@ module PolarisFormBuilder
       def apply_content_to_value_attribute(html)
         if match = html.match(/\A(<[^>]+>)(.*?)(<\/[^>]+>)\z/m)
           opening, content, closing = match[1], match[2], match[3]
-          content = content.strip
 
-          return html if content.empty?
+          # Skip if empty or only a single newline (Rails text_area default)
+          return html if content.empty? || content == "\n"
+
+          # Rails text_area prepends a newline for formatting - remove it
+          # but preserve other newlines and whitespace
+          content = content.sub(/\A\n/, "")
 
           if opening.include?(" value=")
             html
           else
-            opening = opening.sub(/>/, %( value="#{content}">))
+            # Escape HTML attribute value (quotes, ampersands, etc.)
+            escaped_content = content.gsub('"', "&quot;").gsub("'", "&#39;")
+            opening = opening.sub(/>/, %( value="#{escaped_content}">))
             "#{opening}#{closing}"
           end
         else

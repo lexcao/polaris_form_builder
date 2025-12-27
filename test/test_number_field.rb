@@ -23,4 +23,24 @@ class TestNumberField < TestCase
     assert_includes form_body(@rendered), 'max="100"'
     assert_includes form_body(@rendered), 'step="5"'
   end
+
+  def test_number_field_with_in_option
+    form_with(model: Post.new) do |f|
+      concat f.number_field(:quantity, in: 1..100)
+    end
+
+    # Rails number_field converts in: to min/max attributes
+    assert_includes form_body(@rendered), 'min="1"'
+    assert_includes form_body(@rendered), 'max="100"'
+  end
+
+  def test_number_field_with_within_option
+    form_with(model: Post.new) do |f|
+      concat f.number_field(:quantity, within: 5..20)
+    end
+
+    # Rails number_field also accepts within: as an alias for in:
+    assert_includes form_body(@rendered), 'min="5"'
+    assert_includes form_body(@rendered), 'max="20"'
+  end
 end
