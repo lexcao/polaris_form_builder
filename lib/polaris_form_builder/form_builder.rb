@@ -90,6 +90,38 @@ module PolarisFormBuilder
       @template.raw(tag.close.to_html)
     end
 
+    def select(method, options = {}, &block)
+      options = options.dup
+
+      # Get current value from object
+      current_value = object.public_send(method) if object.respond_to?(method)
+
+      # Get error message
+      error = method_error(method)
+
+      # Build attributes
+      attrs = {
+        name: "#{object_name}[#{method}]"
+      }
+      attrs[:value] = current_value if current_value.present?
+      attrs[:error] = error if error
+
+      # Merge user-provided options
+      attrs.merge!(options)
+
+      # Build opening tag
+      attr_string = attrs.map { |k, v| %( #{k}="#{ERB::Util.html_escape(v)}") }.join
+      opening_tag = "<s-select#{attr_string}>"
+
+      # Capture block content using the same method as other fields
+      content = capture_block(&block) || ""
+
+      # Build closing tag
+      closing_tag = "</s-select>"
+
+      @template.raw("#{opening_tag}#{content}#{closing_tag}")
+    end
+
     def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
       options = options.dup
 
