@@ -12,7 +12,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:text_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-text-field", html, exclude: [ "type", "size" ], &block)
@@ -23,7 +23,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:number_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-number-field", html, exclude: [ "type", "size" ], &block)
@@ -34,7 +34,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:email_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-email-field", html, exclude: [ "type", "size" ], &block)
@@ -45,7 +45,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:password_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-password-field", html, exclude: [ "type", "size" ], &block)
@@ -56,7 +56,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:url_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-url-field", html, exclude: [ "type", "size" ], &block)
@@ -67,7 +67,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:search_field).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       transform_to_polaris("s-search-field", html, exclude: [ "type", "size" ], &block)
@@ -78,7 +78,7 @@ module PolarisFormBuilder
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        ActionView::Helpers::FormBuilder.instance_method(:text_area).bind(self).call(method, options.merge(attrs))
+        super(method, options.merge(attrs))
       end
 
       tag = PolarisTag.new(html)
