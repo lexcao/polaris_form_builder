@@ -103,19 +103,28 @@ module ComponentExampleTest
             rendered: #{rendered}
 
           Re-run with:
-          bundle exec ruby -I test test/test_text_field.rb -n #{method_name} -v
+          bundle exec ruby -I test test/text_field_test.rb -n #{method_name} -v
           DOC
         end
       end
     end
 
     def component_name
-      name.delete_prefix("Test")
+      name.delete_prefix("Test").delete_suffix("Test")
     end
 
     def load_examples(component_name)
       ComponentExampleTest.load_examples(component_name)
     end
+  end
+
+  def normalize_html(html, ignore_attrs: [], only: nil)
+    fragment = Nokogiri::HTML5.fragment(html)
+    selector = only || "*"
+    fragment.css(selector).each do |node|
+      ignore_attrs.each { |attr| node.remove_attribute(attr) }
+    end
+    fragment.to_html
   end
 
   def normalize(html)
@@ -150,6 +159,10 @@ module ComponentExampleTest
 
     # Normalize boolean attributes: `checked="checked"` => `checked`.
     html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
+
+    # Normalize type attribute for consistency. Example: remove "type"="text" from <input>
+    html = normalize_html(html, ignore_attrs: %w[type])
+
     html
   end
 

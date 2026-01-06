@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "action_view"
+require_relative "tag"
 require_relative "polaris_tag"
 
 module PolarisFormBuilder
@@ -8,14 +9,14 @@ module PolarisFormBuilder
     include ActionView::Helpers::FormTagHelper
 
     def text_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
+      attrs = base_attrs(method)
+      options = options.merge(attrs)
 
       html = without_field_error_proc do
-        super(method, options.merge(attrs))
+        super(method, options)
       end
 
-      transform_to_polaris("s-text-field", html, exclude: [ "type", "size" ], &block)
+      @template.raw Tag.new("s-text-field", "input").apply(html, capture_block(&block))
     end
 
     def number_field(method, options = {}, &block)
@@ -185,6 +186,10 @@ module PolarisFormBuilder
       ensure
         ::ActionView::Base.field_error_proc = original
       end
+
+    def base_attrs(method)
+      { error: method_error(method) }.compact
+    end
 
       def method_error(method)
         if object.respond_to?(:errors) && object.errors[method].present?

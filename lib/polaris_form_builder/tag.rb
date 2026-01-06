@@ -11,10 +11,11 @@ module PolarisFormBuilder
       @replace = replace
     end
 
-    def apply(html)
+    def apply(html, content = nil)
       fragment = Nokogiri::HTML5.fragment(html)
       fragment.css(@replace).each do |node|
         node.name = @name
+        node.add_child(content) if content
       end
       fragment.to_html
     end

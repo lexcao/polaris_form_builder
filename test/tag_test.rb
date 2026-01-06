@@ -14,4 +14,15 @@ class TagTest < Minitest::Test
     assert_includes result, "</s-text-field>"
     assert_dom_equal "<s-text-field type='text'></s-text-field>", result
   end
+
+  def test_apply_with_content
+    tag = PolarisFormBuilder::Tag.new("s-text-field", "input")
+    actual = tag.apply("<input type='text'/>", %(<s-icon slot="accessory" interestfor="info-tooltip"></s-icon>))
+
+    assert_includes actual, "</s-text-field>"
+    assert_includes actual, "</s-icon>"
+
+    expect = "<s-text-field type='text'><s-icon slot='accessory' interestfor='info-tooltip'></s-icon></s-text-field>"
+    assert_dom_equal expect, actual
+  end
 end
