@@ -6,9 +6,17 @@ module PolarisFormBuilder
   class Tag
     attr_accessor :name
 
-    def initialize(name, replace)
+    def initialize(name, replace, remove_attributes: [])
       @name = name
       @replace = replace
+      @remove_attributes = remove_attributes
+    end
+
+    def attr_to_child(name)
+      @attribute_to_child ||= ->(node) {
+        node.add_child(node.attr(name))
+      }
+      self
     end
 
     def apply(html, content = nil)
@@ -17,9 +25,11 @@ module PolarisFormBuilder
         node.name = @name
         node.add_child(content) if content
 
-        # the original attributes are not needed from Polaris Web Components
-        node.remove_attribute("type")
-        node.remove_attribute("size")
+        @attribute_to_child&.call(node)
+
+        @remove_attributes.each do |key|
+          node.remove_attribute(key)
+        end
       end
       fragment.to_html
     end

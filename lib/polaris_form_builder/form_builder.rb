@@ -146,23 +146,13 @@ module PolarisFormBuilder
     end
 
     def submit(value = nil, options = {})
-      value, options = nil, value if value.is_a?(Hash)
-      value ||= submit_default_value
+      html = without_field_error_proc do
+        super(value, options)
+      end
 
-      set_default_disable_with value, options
-
-      attrs = {
-        type: "submit",
-        name: "commit",
-        variant: "primary",
-        value: value
-      }
-
-      @template.content_tag(
-        "s-button",
-        value,
-        attrs.merge(options)
-      )
+      @template.raw Tag.new("s-button", "input")
+                       .attr_to_child("value")
+                       .apply(html)
     end
 
     private
@@ -181,7 +171,8 @@ module PolarisFormBuilder
     end
 
     def polaris_input(tag_name, html, &block)
-      @template.raw Tag.new(tag_name, "input").apply(html, capture_block(&block))
+      tag = Tag.new(tag_name, "input", remove_attributes: %w[type size])
+      @template.raw tag.apply(html, capture_block(&block))
     end
 
       def extract_check_box_inputs(html)
