@@ -9,14 +9,14 @@ module PolarisFormBuilder
     include ActionView::Helpers::FormTagHelper
 
     def text_field(method, options = {}, &block)
-      attrs = base_attrs(method)
-      options = options.merge(attrs)
+      error = method_error(method)
+      attrs = { error: error }.compact
 
       html = without_field_error_proc do
-        super(method, options)
+        super(method, options.merge(attrs))
       end
 
-      @template.raw Tag.new("s-text-field", "input").apply(html, capture_block(&block))
+      polaris_input("s-text-field", html, &block)
     end
 
     def number_field(method, options = {}, &block)
@@ -27,7 +27,7 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      transform_to_polaris("s-number-field", html, exclude: [ "type", "size" ], &block)
+      polaris_input("s-number-field", html, &block)
     end
 
     def email_field(method, options = {}, &block)
@@ -38,7 +38,7 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      transform_to_polaris("s-email-field", html, exclude: [ "type", "size" ], &block)
+      polaris_input("s-email-field", html, &block)
     end
 
     def password_field(method, options = {}, &block)
@@ -49,7 +49,7 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      transform_to_polaris("s-password-field", html, exclude: [ "type", "size" ], &block)
+      polaris_input("s-password-field", html, &block)
     end
 
     def url_field(method, options = {}, &block)
@@ -60,7 +60,7 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      transform_to_polaris("s-url-field", html, exclude: [ "type", "size" ], &block)
+      polaris_input("s-url-field", html, &block)
     end
 
     def search_field(method, options = {}, &block)
@@ -71,7 +71,7 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      transform_to_polaris("s-search-field", html, exclude: [ "type", "size" ], &block)
+      polaris_input("s-search-field", html, &block)
     end
 
     def text_area(method, options = {}, &block)
@@ -166,36 +166,23 @@ module PolarisFormBuilder
     end
 
     private
-      # Transform Rails-generated HTML into Polaris web component format
-      def transform_to_polaris(tag_name, html, exclude: [ "type", "size" ], &block)
-        tag = PolarisTag.new(html)
-          .tag_name(tag_name)
-          .exclude_attributes(*exclude)
-          .content(capture_block(&block))
-
-        @template.raw(tag.close.to_html)
-      end
-
-      # Temporarily disable field_error_proc wrapping when calling super.
-      # This ensures Polaris components aren't wrapped with error divs regardless
-      # of whether polaris_form_with or form_with(builder: ...) is used.
-      def without_field_error_proc
-        original = ::ActionView::Base.field_error_proc
-        ::ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag }
-        yield
-      ensure
-        ::ActionView::Base.field_error_proc = original
-      end
-
-    def base_attrs(method)
-      { error: method_error(method) }.compact
-    end
-
       def method_error(method)
         if object.respond_to?(:errors) && object.errors[method].present?
           object.errors[method].to_sentence
         end
       end
+
+    def without_field_error_proc
+      original = ::ActionView::Base.field_error_proc
+      ::ActionView::Base.field_error_proc = ->(html_tag, _instance) { html_tag }
+      yield
+    ensure
+      ::ActionView::Base.field_error_proc = original
+    end
+
+    def polaris_input(tag_name, html, &block)
+      @template.raw Tag.new(tag_name, "input").apply(html, capture_block(&block))
+    end
 
       def extract_check_box_inputs(html)
         inputs = html.to_s.scan(/<input\b[^>]*>/i)

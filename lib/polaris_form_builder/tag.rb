@@ -16,6 +16,10 @@ module PolarisFormBuilder
       fragment.css(@replace).each do |node|
         node.name = @name
         node.add_child(content) if content
+
+        # the original attributes are not needed from Polaris Web Components
+        node.remove_attribute("type")
+        node.remove_attribute("size")
       end
       fragment.to_html
     end

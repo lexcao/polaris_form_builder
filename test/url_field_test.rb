@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TestURLField < TestCase
+class UrlFieldTest < TestCase
   include ComponentExampleTest
 
   def test_simple_url_field

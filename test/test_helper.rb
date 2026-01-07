@@ -118,15 +118,6 @@ module ComponentExampleTest
     end
   end
 
-  def normalize_html(html, ignore_attrs: [], only: nil)
-    fragment = Nokogiri::HTML5.fragment(html)
-    selector = only || "*"
-    fragment.css(selector).each do |node|
-      ignore_attrs.each { |attr| node.remove_attribute(attr) }
-    end
-    fragment.to_html
-  end
-
   def normalize(html)
     # The goal of this helper is "snapshot-style" comparison against the SoT `html_code`,
     # not to validate Rails semantics. Semantic behavior that Rails adds (e.g. the
@@ -159,9 +150,6 @@ module ComponentExampleTest
 
     # Normalize boolean attributes: `checked="checked"` => `checked`.
     html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
-
-    # Normalize type attribute for consistency. Example: remove "type"="text" from <input>
-    html = normalize_html(html, ignore_attrs: %w[type])
 
     html
   end
