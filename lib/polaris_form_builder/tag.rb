@@ -43,7 +43,7 @@ module PolarisFormBuilder
 
     def apply(html, content = nil)
       fragment = Nokogiri::HTML5.fragment(html)
-      fragment.css(@replace).each do |node|
+      fragment.css("#{@replace}:not([type=\"hidden\"])").each do |node|
         node.name = @name
         node.add_child(content) if content
 

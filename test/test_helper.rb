@@ -122,7 +122,7 @@ module ComponentExampleTest
     # The goal of this helper is "snapshot-style" comparison against the SoT `html_code`,
     # not to validate Rails semantics. Semantic behavior that Rails adds (e.g. the
     # unchecked hidden input for `check_box`) should be asserted in dedicated tests
-    # like `test/test_checkbox.rb`.
+    # like `test/checkbox_test.rb`.
     html = html.strip
 
     # Checkbox is a special case:
@@ -136,7 +136,7 @@ module ComponentExampleTest
     # examples are not intended to assert it.
     html = html.gsub(/\sname="[^"]*"/, "")
 
-    # Drop Rails' unchecked hidden input for checkboxes (see `TestCheckbox` for behavior coverage).
+    # Drop Rails' unchecked hidden input for checkboxes (see `CheckboxTest` for behavior coverage).
     html = html.gsub(/<input\b[^>]*type=(?:"hidden"|'hidden'|hidden)[^>]*>/i, "") if is_checkbox
 
     # Ensure custom elements are not self-closed so Nokogiri doesn't change structure.

@@ -120,25 +120,14 @@ module PolarisFormBuilder
     end
 
     def check_box(method, options = {}, checked_value = "1", unchecked_value = "0")
-      options = options.dup
-
-      if (value = options.delete(:value) || options.delete("value"))
-        checked_value = value
-      end
-
       error = method_error(method)
       attrs = { error: error }.compact
 
       html = without_field_error_proc do
         super(method, options.merge(attrs), checked_value, unchecked_value)
       end
-      hidden_html, checkbox_html = extract_check_box_inputs(html)
 
-      tag = PolarisTag.new(checkbox_html)
-        .tag_name("s-checkbox")
-        .exclude_attributes("type")
-
-      @template.raw("#{hidden_html}#{tag.close.to_html}")
+      polaris_input("s-checkbox", html)
     end
 
     def submit(value = nil, options = {})
@@ -152,11 +141,12 @@ module PolarisFormBuilder
     end
 
     private
-      def method_error(method)
-        if object.respond_to?(:errors) && object.errors[method].present?
-          object.errors[method].to_sentence
-        end
+
+    def method_error(method)
+      if object.respond_to?(:errors) && object.errors[method].present?
+        object.errors[method].to_sentence
       end
+    end
 
     def without_field_error_proc
       original = ::ActionView::Base.field_error_proc
@@ -171,37 +161,19 @@ module PolarisFormBuilder
       @template.raw tag.apply(html, capture_block(&block))
     end
 
-      def extract_check_box_inputs(html)
-        inputs = html.to_s.scan(/<input\b[^>]*>/i)
-        checkbox = inputs.find { |tag| input_type(tag) == "checkbox" }
+    def capture_block(&block)
+      if block_given?
+        # Use the buffer from the block's binding to avoid writing to a different
+        # output buffer and duplicating content when the builder is reused.
+        capture_buffer = block.binding.eval("@output_buffer") rescue nil
+        capture_buffer ||= @template.output_buffer
 
-        if checkbox
-          hidden = inputs.select { |tag| input_type(tag) == "hidden" }.join
-          [ hidden, checkbox ]
+        if capture_buffer.respond_to?(:capture)
+          capture_buffer.capture(&block)
         else
-          raise ArgumentError, "Expected check_box to render an input[type=checkbox]"
+          @template.capture(&block)
         end
       end
-
-      def input_type(tag)
-        if (match = tag.match(/\stype\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s>]+))/i))
-          (match[1] || match[2] || match[3]).to_s.downcase
-        end
-      end
-
-      def capture_block(&block)
-        if block_given?
-          # Use the buffer from the block's binding to avoid writing to a different
-          # output buffer and duplicating content when the builder is reused.
-          capture_buffer = block.binding.eval("@output_buffer") rescue nil
-          capture_buffer ||= @template.output_buffer
-
-          if capture_buffer.respond_to?(:capture)
-            capture_buffer.capture(&block)
-          else
-            @template.capture(&block)
-          end
-        end
-      end
+    end
   end
 end
