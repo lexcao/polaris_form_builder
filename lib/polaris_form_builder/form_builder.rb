@@ -82,13 +82,9 @@ module PolarisFormBuilder
         super(method, options.merge(attrs))
       end
 
-      tag = PolarisTag.new(html)
-        .tag_name("s-text-area")
-        .normalize_attribute_names
-        .content_to_value_attribute
-        .content(capture_block(&block))
-
-      @template.raw(tag.close.to_html)
+      @template.raw Tag.new("s-text-area", "textarea", remove_attributes: %w[type size])
+                       .child_to_attr("value")
+                       .apply(html)
     end
 
     def select(method, options = {}, &block)
