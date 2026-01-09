@@ -31,7 +31,8 @@ class ComponentsController < ApplicationController
       password_field: %i[password],
       url_field: %i[your_website],
       search_field: %i[search],
-      text_area: %i[shipping_address]
+      text_area: %i[shipping_address],
+      select: %i[date_range]
     }.fetch(component_key, [])
   end
 

@@ -102,4 +102,16 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_select "h3", "Result"
     assert_includes response.body, "&quot;shipping_address&quot;: &quot;123 Main St&quot;"
   end
+
+  test "preview stores select value and re-renders" do
+    post preview_component_url("select"), params: { preview: { date_range: "5" } }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_select "s-select[value=?]", "5"
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;date_range&quot;: &quot;5&quot;"
+  end
 end

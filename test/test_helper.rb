@@ -38,6 +38,7 @@ class TestCase < ActionView::TestCase
 
   setup do
     self.default_form_builder = PolarisFormBuilder::FormBuilder
+    ActionView::Base.default_form_builder = PolarisFormBuilder::FormBuilder
     self.default_url_options[:host] = "example.com"
   end
 
@@ -91,9 +92,12 @@ module ComponentExampleTest
         method_name = ComponentExampleTest.example_test_name(example, index)
         define_method(method_name) do
           example_name = example.fetch("name", "Example")
-          form_with(model: Post.new) do |form|
-            concat render_erb(example.fetch("erb_code"), locals: { form: form })
-          end
+          template = <<~ERB
+            <%= form_with model: Post.new, url: "/foo" do |form| %>
+            #{example.fetch("erb_code")}
+            <% end %>
+          ERB
+          render_erb(template)
 
           expected = normalize example.fetch("html_code")
           rendered = normalize form_body(@rendered)
@@ -147,6 +151,10 @@ module ComponentExampleTest
 
     # The checkbox default `value="1"` is a Rails detail; SoT examples commonly omit it.
     html = html.gsub(/(<s-checkbox\b[^>]*?)\svalue="1"/i, '\1') if is_checkbox
+
+    # The select required will add an empty option; SoT examples commonly omit it.
+    is_select = html.match?(/<\s*s-select\b/i)
+    html = html.gsub(%(<s-option value="" label=" "></s-option>), "") if is_select
 
     # Normalize boolean attributes: `checked="checked"` => `checked`.
     html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')

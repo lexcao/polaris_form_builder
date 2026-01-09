@@ -57,6 +57,18 @@ module Converter
     kwargs = ruby_attributes(node)
     children = convert_children(node, form_var)
 
+    if helper_name == "select"
+      #   Select 需要把 children options 转为 choices attributes
+      # 两种都存在的情况下，不支持嵌套结构，不处理
+      choices = []
+      child_names = node.element_children.map(&:name)
+      unless child_names.include?("s-option") && child_names.include?("s-option-group")
+        choices = collect_choices node
+        children = nil
+      end
+      kwargs = kwargs.empty? ? "#{choices}" : "#{choices}, {}, { #{kwargs} }"
+    end
+
     args = kwargs.empty? ? ":#{field_name}" : ":#{field_name}, #{kwargs}"
 
     if children.present?
@@ -66,6 +78,23 @@ module Converter
     else
       "<%= #{form_var}.#{helper_name} #{args} %>"
     end
+  end
+
+  def collect_choices(select)
+    choices = []
+    select.element_children.each do |node|
+      case node.name
+      when "s-option"
+        choices << [ node.text.strip, node["value"] ]
+      when "s-option-group"
+        group_label = node["label"].to_s
+        group_options = node.css("s-option").map { |opt|
+          [ opt.text.strip, opt["value"] ] }
+        choices << [ group_label, group_options ]
+      end
+    end
+
+    choices
   end
 
   # -------------------------

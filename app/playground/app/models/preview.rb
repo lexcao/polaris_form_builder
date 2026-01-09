@@ -12,6 +12,7 @@ class Preview
   attribute :your_website, :string
   attribute :search, :string
   attribute :shipping_address, :string
+  attribute :date_range, :string
 
   def as_json(*)
     attributes.compact
