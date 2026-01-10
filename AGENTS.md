@@ -175,6 +175,17 @@ Follow the style guide in `STYLE.md`:
 - **Vanilla Rails**: Thin controllers directly invoking rich domain model, avoid service layer abstraction
 - **Jobs**: Use `_later` suffix for async methods, `_now` for synchronous versions
 
+### Code Placement & Organization
+
+- **Logic placement**: Logic should be placed at the actual execution point (bottom layer), not at the entry point
+  - Example: `field_error_proc` handling belongs in `FormBuilder.text_field/check_box`, not in `polaris_form_with`
+  - This ensures all call patterns work correctly
+- **Avoid redundancy**: If the bottom layer handles something, the entry point should not duplicate it
+- **Temporary tests**: Tests created for verification purposes should be removed after verification is complete
+- **File organization**:
+  - Development tools (rake tasks, scripts) go in `bin/`, not `lib/`
+  - `lib/` is packaged into the gem, should only contain library code
+
 ## Testing Guidelines
 
 - Use Minitest throughout
