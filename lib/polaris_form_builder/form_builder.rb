@@ -7,70 +7,26 @@ module PolarisFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
     include ActionView::Helpers::FormTagHelper
 
-    def text_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
+    # Generate input field methods with identical structure
+    # Maps Rails helper name to Polaris component tag
+    {
+      text_field: "s-text-field",
+      number_field: "s-number-field",
+      email_field: "s-email-field",
+      password_field: "s-password-field",
+      url_field: "s-url-field",
+      search_field: "s-search-field"
+    }.each do |helper_name, polaris_tag|
+      define_method(helper_name) do |method, options = {}, &block|
+        error = method_error(method)
+        attrs = { error: error }.compact
 
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
+        html = without_field_error_proc do
+          super(method, options.merge(attrs))
+        end
+
+        polaris_input(polaris_tag, html, &block)
       end
-
-      polaris_input("s-text-field", html, &block)
-    end
-
-    def number_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
-
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
-      end
-
-      polaris_input("s-number-field", html, &block)
-    end
-
-    def email_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
-
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
-      end
-
-      polaris_input("s-email-field", html, &block)
-    end
-
-    def password_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
-
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
-      end
-
-      polaris_input("s-password-field", html, &block)
-    end
-
-    def url_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
-
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
-      end
-
-      polaris_input("s-url-field", html, &block)
-    end
-
-    def search_field(method, options = {}, &block)
-      error = method_error(method)
-      attrs = { error: error }.compact
-
-      html = without_field_error_proc do
-        super(method, options.merge(attrs))
-      end
-
-      polaris_input("s-search-field", html, &block)
     end
 
     def text_area(method, options = {}, &block)
@@ -149,17 +105,17 @@ module PolarisFormBuilder
     end
 
     def capture_block(&block)
-      if block_given?
-        # Use the buffer from the block's binding to avoid writing to a different
-        # output buffer and duplicating content when the builder is reused.
-        capture_buffer = block.binding.eval("@output_buffer") rescue nil
-        capture_buffer ||= @template.output_buffer
+      return unless block_given?
 
-        if capture_buffer.respond_to?(:capture)
-          capture_buffer.capture(&block)
-        else
-          @template.capture(&block)
-        end
+      # Use the buffer from the block's binding to avoid writing to a different
+      # output buffer and duplicating content when the builder is reused.
+      capture_buffer = block.binding.eval("@output_buffer") rescue nil
+      capture_buffer ||= @template.output_buffer
+
+      if capture_buffer.respond_to?(:capture)
+        capture_buffer.capture(&block)
+      else
+        @template.capture(&block)
       end
     end
   end

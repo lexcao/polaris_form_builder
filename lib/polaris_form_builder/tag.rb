@@ -10,33 +10,34 @@ module PolarisFormBuilder
       @name = name
       @replace = replace
       @remove_attributes = remove_attributes
+      @transformations = []
     end
 
-    def attr_to_child(name)
-      @attr_to_child ||= ->(node) {
-        if (attr = node.attr(name))
+    def attr_to_child(attr_name)
+      @transformations << ->(node) {
+        if (attr = node.attr(attr_name))
           node.add_child(attr)
         end
       }
       self
     end
 
-    def child_to_attr(name)
-      @child_to_attr ||= ->(node) {
+    def child_to_attr(attr_name)
+      @transformations << ->(node) {
         content = node.content
         if content.present?
-          node.set_attribute(name, content)
+          node.set_attribute(attr_name, content)
           node.children.remove
         end
       }
       self
     end
 
-    def attr(name, value)
+    def attr(attr_name, value)
       return self unless value
 
-      @attr ||= ->(node) {
-        node.set_attribute(name, value)
+      @transformations << ->(node) {
+        node.set_attribute(attr_name, value)
       }
       self
     end
@@ -47,9 +48,7 @@ module PolarisFormBuilder
         node.name = @name
         node.inner_html = content if content
 
-        @attr&.call(node)
-        @attr_to_child&.call(node)
-        @child_to_attr&.call(node)
+        @transformations.each { |transform| transform.call(node) }
 
         @remove_attributes.each do |key|
           node.remove_attribute(key)
