@@ -107,7 +107,7 @@ module ComponentExampleTest
             rendered: #{rendered}
 
           Re-run with:
-          bundle exec ruby -I test test/text_field_test.rb -n #{method_name} -v
+          bundle exec ruby -I test test/test_#{component.gsub(/([A-Z])/, '_\1').downcase.delete_prefix("_")}.rb -n #{method_name} -v
           DOC
         end
       end
@@ -122,44 +122,32 @@ module ComponentExampleTest
     end
   end
 
+  # Normalize HTML for snapshot-style comparison against the SoT `html_code`.
+  # Rails-specific semantics (e.g. unchecked hidden input for checkboxes) are tested
+  # in dedicated behavior tests like `test/test_checkbox.rb`.
   def normalize(html)
-    # The goal of this helper is "snapshot-style" comparison against the SoT `html_code`,
-    # not to validate Rails semantics. Semantic behavior that Rails adds (e.g. the
-    # unchecked hidden input for `check_box`) should be asserted in dedicated tests
-    # like `test/checkbox_test.rb`.
     html = html.strip
-
-    # Checkbox is a special case:
-    # - Rails `check_box` renders an extra unchecked hidden input by default.
-    # - Rails also defaults the checked value to "1".
-    # The SoT `html_code` examples typically model only the Polaris component tag, so we
-    # normalize these Rails-specific artifacts away for the example-driven assertions.
     is_checkbox = html.match?(/<\s*s-checkbox\b/i)
+    is_select = html.match?(/<\s*s-select\b/i)
 
-    # The exact `name="..."` is not stable across different form scopes, and most SoT
-    # examples are not intended to assert it.
+    # Remove unstable attributes that vary across form scopes
     html = html.gsub(/\sname="[^"]*"/, "")
 
-    # Drop Rails' unchecked hidden input for checkboxes (see `CheckboxTest` for behavior coverage).
+    # Remove Rails-specific artifacts not present in SoT examples
     html = html.gsub(/<input\b[^>]*type=(?:"hidden"|'hidden'|hidden)[^>]*>/i, "") if is_checkbox
 
-    # Ensure custom elements are not self-closed so Nokogiri doesn't change structure.
+    # Ensure custom elements are not self-closed so Nokogiri doesn't change structure
     html = html.gsub(%r{<(s-[\w:-]+)([^>/]*?)\s*/>}i, '<\1\2></\1>')
 
-    # Canonicalize HTML (attribute order/quoting/whitespace) for stable comparisons.
+    # Canonicalize HTML for stable comparisons
     html = Nokogiri::HTML5::DocumentFragment.parse(html).to_html
 
-    # The checkbox default `value="1"` is a Rails detail; SoT examples commonly omit it.
+    # Remove Rails default values not present in SoT examples
     html = html.gsub(/(<s-checkbox\b[^>]*?)\svalue="1"/i, '\1') if is_checkbox
-
-    # The select required will add an empty option; SoT examples commonly omit it.
-    is_select = html.match?(/<\s*s-select\b/i)
     html = html.gsub(%(<s-option value="" label=" "></s-option>), "") if is_select
 
-    # Normalize boolean attributes: `checked="checked"` => `checked`.
-    html = html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
-
-    html
+    # Normalize boolean attributes: `checked="checked"` => `checked`
+    html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
   end
 
   def self.component_metadata(component_name)
