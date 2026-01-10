@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 module ComponentsHelper
+  SCREENSHOT_BASE_URL = "https://shopify.dev/images/templated-apis-screenshots/admin/components"
+
   def component_screenshot_url(component)
     slug =
       case component.name.to_s
@@ -6,6 +10,6 @@ module ComponentsHelper
       when "ColorPicker" then "color-picker"
       else component.name.to_s.downcase
       end
-    "https://shopify.dev/images/templated-apis-screenshots/admin/components/#{slug}.png"
+    "#{SCREENSHOT_BASE_URL}/#{slug}.png"
   end
 end

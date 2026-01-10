@@ -1,68 +1,56 @@
-class ComponentsController < ApplicationController
-  before_action :set_component, only: %i[ show preview ]
+# frozen_string_literal: true
 
-  # GET /components
+class ComponentsController < ApplicationController
+  COMPONENT_FIELDS = {
+    checkbox: %i[require_a_confirmation_step],
+    text_field: %i[store_name],
+    number_field: %i[quantity],
+    email_field: %i[email],
+    password_field: %i[password],
+    url_field: %i[your_website],
+    search_field: %i[search],
+    text_area: %i[shipping_address],
+    select: %i[date_range]
+  }.freeze
+
+  before_action :set_component, only: %i[show preview]
+
   def index
     @components = Component.all
   end
 
-  # GET /components/{name}
   def show
-    @preview = get_preview
+    @preview = preview_from_params || preview_from_session
   end
 
-  # POST /components/{name}/preview
   def preview
-    set_preview
+    session[:preview] = preview_params
     redirect_to @component
   end
 
   private
-  def component_key
-    @component_key ||= @component.name.to_s.underscore.to_sym
-  end
-
-  def component_fields
-    {
-      checkbox: %i[require_a_confirmation_step],
-      text_field: %i[store_name],
-      number_field: %i[quantity],
-      email_field: %i[email],
-      password_field: %i[password],
-      url_field: %i[your_website],
-      search_field: %i[search],
-      text_area: %i[shipping_address],
-      select: %i[date_range]
-    }.fetch(component_key, [])
-  end
-
-  def set_component
-    @component = Component.find(params.expect(:name))
-  end
-
-  def get_preview
-    get_preview_from_params || get_preview_from_session
-  end
-
-  def get_preview_from_params
-    Preview.new preview_params if params[:preview]
-  end
-
-  def get_preview_from_session
-    params = session[:preview]
-    if params
-      session.delete :preview
-      Preview.new params
+    def set_component
+      @component = Component.find(params.expect(:name))
     end
-  end
 
-  def set_preview
-    session[:preview] = preview_params
-  end
+    def preview_from_params
+      Preview.new(preview_params) if params[:preview]
+    end
 
-  def preview_params
-    return {} unless params.key?(:preview)
+    def preview_from_session
+      return unless session[:preview]
 
-    params.require(:preview).permit(*component_fields)
-  end
+      Preview.new(session.delete(:preview))
+    end
+
+    def preview_params
+      return {} unless params.key?(:preview)
+
+      params.require(:preview).permit(*permitted_fields)
+    end
+
+    def permitted_fields
+      component_key = @component.name.to_s.underscore.to_sym
+      COMPONENT_FIELDS.fetch(component_key, [])
+    end
 end

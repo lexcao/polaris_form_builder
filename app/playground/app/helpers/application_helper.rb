@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def example_renderer(component = @component)
     @example_renderers ||= {}
