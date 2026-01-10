@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-class SubmitTest < TestCase
+class TestSubmit < TestCase
   def test_simple_submit
-    form_with(model: Post.new) do |f|
-      concat f.submit
+    form_with(model: Post.new) do |form|
+      concat form.submit
     end
 
     expected = '<s-button type="submit" name="commit" data-disable-with="Create Post" value="Create Post">Create Post</s-button>'

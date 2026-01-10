@@ -6,8 +6,8 @@ class TestSearchField < TestCase
   include ComponentExampleTest
 
   def test_simple_search_field
-    form_with(model: Post.new) do |f|
-      concat f.search_field(:query)
+    form_with(model: Post.new) do |form|
+      concat form.search_field(:query)
     end
 
     expected = '<s-search-field name="post[query]"></s-search-field>'
@@ -15,8 +15,8 @@ class TestSearchField < TestCase
   end
 
   def test_search_field_with_placeholder
-    form_with(model: Post.new) do |f|
-      concat f.search_field(:query, placeholder: "Search...")
+    form_with(model: Post.new) do |form|
+      concat form.search_field(:query, placeholder: "Search...")
     end
 
     assert_includes form_body(@rendered), 'placeholder="Search..."'

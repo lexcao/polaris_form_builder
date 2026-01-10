@@ -6,8 +6,8 @@ class TestEmailField < TestCase
   include ComponentExampleTest
 
   def test_simple_email_field
-    form_with(model: Post.new) do |f|
-      concat f.email_field(:email)
+    form_with(model: Post.new) do |form|
+      concat form.email_field(:email)
     end
 
     expected = '<s-email-field name="post[email]"></s-email-field>'
@@ -15,8 +15,8 @@ class TestEmailField < TestCase
   end
 
   def test_email_field_with_placeholder
-    form_with(model: Post.new) do |f|
-      concat f.email_field(:email, placeholder: "you@example.com")
+    form_with(model: Post.new) do |form|
+      concat form.email_field(:email, placeholder: "you@example.com")
     end
 
     assert_includes form_body(@rendered), 'placeholder="you@example.com"'

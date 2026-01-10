@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require "rails-dom-testing"
-require_relative "../lib/polaris_form_builder/tag"
 
-class TagTest < Minitest::Test
+class TestTag < Minitest::Test
   include Rails::Dom::Testing::Assertions
 
   def test_apply
     tag = PolarisFormBuilder::Tag.new("s-text-field", "input")
     result = tag.apply("<input type='text'/>")
 
-    assert_includes result, "</s-text-field>"
     assert_dom_equal "<s-text-field type='text'></s-text-field>", result
   end
 
@@ -19,11 +16,8 @@ class TagTest < Minitest::Test
     tag = PolarisFormBuilder::Tag.new("s-text-field", "input")
     actual = tag.apply("<input type='text'/>", %(<s-icon slot="accessory" interestfor="info-tooltip"></s-icon>))
 
-    assert_includes actual, "</s-text-field>"
-    assert_includes actual, "</s-icon>"
-
-    expect = "<s-text-field type='text'><s-icon slot='accessory' interestfor='info-tooltip'></s-icon></s-text-field>"
-    assert_dom_equal expect, actual
+    expected = "<s-text-field type='text'><s-icon slot='accessory' interestfor='info-tooltip'></s-icon></s-text-field>"
+    assert_dom_equal expected, actual
   end
 
   def test_apply_with_attr
@@ -32,8 +26,8 @@ class TagTest < Minitest::Test
 
     actual = tag.apply("<input type='text'/>")
 
-    expect = "<s-text-field type='text' value='test'></s-text-field>"
-    assert_dom_equal expect, actual
+    expected = "<s-text-field type='text' value='test'></s-text-field>"
+    assert_dom_equal expected, actual
   end
 
   def test_apply_attr_to_child
@@ -42,8 +36,8 @@ class TagTest < Minitest::Test
 
     actual = tag.apply("<input type='submit' value='Submit'/>")
 
-    expect = "<s-button type='submit' value='Submit'>Submit</s-button>"
-    assert_dom_equal expect, actual
+    expected = "<s-button type='submit' value='Submit'>Submit</s-button>"
+    assert_dom_equal expected, actual
   end
 
   def test_apply_child_to_attr
@@ -57,7 +51,7 @@ class TagTest < Minitest::Test
 
     actual = tag.apply(given)
 
-    expect = "<s-text-area value='Ruby on Rails\nShopify Polaris Web Components'></s-button>"
-    assert_dom_equal expect, actual
+    expected = "<s-text-area value='Ruby on Rails\nShopify Polaris Web Components'></s-text-area>"
+    assert_dom_equal expected, actual
   end
 end

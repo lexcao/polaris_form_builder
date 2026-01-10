@@ -2,12 +2,12 @@
 
 require "test_helper"
 
-class TextAreaTest < TestCase
+class TestTextArea < TestCase
   include ComponentExampleTest
 
   def test_simple_text_area
-    form_with(model: Post.new(description: "This is the description")) do |f|
-      concat f.text_area(:description)
+    form_with(model: Post.new(description: "This is the description")) do |form|
+      concat form.text_area(:description)
     end
 
     expected = '<s-text-area name="post[description]" value="This is the description"></s-text-area>'
