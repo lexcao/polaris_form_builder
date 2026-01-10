@@ -73,34 +73,17 @@ The gem is implemented as a Rails Engine that:
 #### 2. Custom Form Builder Pattern (lib/polaris_form_builder/form_builder.rb)
 The FormBuilder extends `ActionView::Helpers::FormBuilder` and overrides methods like `text_field` to:
 - Call Rails `super` to generate standard HTML (preserving `name/value/checked/disabled/...` semantics)
-- Use `PolarisTag` to transform tags (e.g., `<input>` → `<s-text-field>`)
+- Use `Tag` to transform tags (e.g., `<input>` → `<s-text-field>`)
 - Extract ActiveModel object attributes and errors
 - Handle validation error display by reading from `object.errors`
 - Support blocks as slot content
 
 **Key implementation pattern:**
 ```ruby
-def text_field(method, options = {}, &block)
-  # 1. Extract errors from ActiveModel
-  error = method_error(method)
-
-  # 2. Call Rails super to get standard HTML with proper semantics
-  html = super(method, options.merge({ error: error }.compact))
-
-  # 3. Unwrap field_error_proc wrapper if present
-  html = unwrap_field_error_proc(html)
-
-  # 4. Transform to Polaris component using PolarisTag
-  tag = PolarisTag.new(html)
-    .tag_name("s-text-field")
-    .exclude_attributes("type")
-    .content(capture_block(&block))
-
-  @template.raw(tag.close.to_html)
-end
+# TODO
 ```
 
-#### 3. PolarisTag Transformer (lib/polaris_form_builder/polaris_tag.rb)
+#### 3. Tag Transformer (lib/polaris_form_builder/polaris_tag.rb)
 A fluent API for HTML tag transformation that:
 - Renames tags (e.g., `input` → `s-text-field`)
 - Removes unwanted attributes (e.g., `type`)
@@ -152,7 +135,7 @@ Follow the component pipeline documented in `NEW_COMPONENT.md`:
 1. **Naming alignment**: Determine component key (from tag), JSON filename (CamelCase), and Ruby helper name (Rails convention)
 
 2. **Implementation** in `lib/polaris_form_builder/form_builder.rb`:
-   - Prefer `super` + `PolarisTag` pattern (don't hand-roll Rails semantics)
+   - Prefer `super` + `Tag` pattern (don't hand-roll Rails semantics)
    - Allow multi-tag output when Rails generates semantic helpers (e.g., hidden input for checkboxes)
    - Don't modify caller's `options` hash — use `.dup` first
    - Follow method signature of Rails FormBuilder for compatibility

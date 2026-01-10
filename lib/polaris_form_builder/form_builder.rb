@@ -2,7 +2,6 @@
 
 require "action_view"
 require_relative "tag"
-require_relative "polaris_tag"
 
 module PolarisFormBuilder
   class FormBuilder < ActionView::Helpers::FormBuilder
