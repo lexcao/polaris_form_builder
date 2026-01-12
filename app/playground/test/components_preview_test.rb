@@ -150,4 +150,28 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_select "h3", "Result"
     assert_includes response.body, "&quot;field&quot;: &quot;#FF0000&quot;"
   end
+
+  test "preview renders date picker" do
+    get component_url("datepicker")
+    assert_response :success
+
+    assert_select "s-date-picker"
+  end
+
+  test "preview stores switch and re-renders" do
+    post preview_component_url("switch"), params: { preview: { enable_feature: "1" } }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_select "s-switch[checked=?]", "checked"
+  end
+
+  test "preview renders drop zone" do
+    get component_url("dropzone")
+    assert_response :success
+
+    assert_select "s-drop-zone"
+  end
 end

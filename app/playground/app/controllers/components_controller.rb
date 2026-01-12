@@ -13,7 +13,10 @@ class ComponentsController < ApplicationController
     select: %i[date_range],
     color_field: %i[field],
     date_field: %i[field],
-    color_picker: %i[field]
+    color_picker: %i[field],
+    date_picker: %i[field],
+    switch: %i[enable_feature],
+    drop_zone: %i[field]
   }.freeze
 
   before_action :set_component, only: %i[show preview]

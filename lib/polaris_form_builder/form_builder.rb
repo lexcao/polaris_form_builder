@@ -92,15 +92,25 @@ module PolarisFormBuilder
     end
 
     def date_picker(method, options = {})
-      raise("Implement me")
+      options = options.dup
+      picker_type = options.delete(:type)
+      html = date_field(method, options)
+
+      tag = Tag.new("s-date-picker", "s-date-field")
+      tag.attr("type", picker_type) if picker_type
+      @template.raw tag.apply(html)
     end
 
     def switch(method, options = {})
-      raise("Implement me")
+      html = check_box(method, options)
+
+      @template.raw Tag.new("s-switch", "s-checkbox").apply(html)
     end
 
     def drop_zone(method, options = {})
-      raise("Implement me")
+      html = file_field(method, options)
+
+      @template.raw Tag.new("s-drop-zone", "input", remove_attributes: %w[type]).apply(html)
     end
 
     private
