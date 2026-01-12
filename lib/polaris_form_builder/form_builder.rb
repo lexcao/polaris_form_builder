@@ -15,7 +15,8 @@ module PolarisFormBuilder
       email_field: "s-email-field",
       password_field: "s-password-field",
       url_field: "s-url-field",
-      search_field: "s-search-field"
+      search_field: "s-search-field",
+      color_field: "s-color-field"
     }.each do |helper_name, polaris_tag|
       define_method(helper_name) do |method, options = {}, &block|
         error = method_error(method)

@@ -28,7 +28,7 @@ end
 class Post
   include ActiveModel::API
 
-  attr_accessor :title, :password, :description, :quantity, :category
+  attr_accessor :title, :password, :description, :quantity, :category, :background_color
 end
 
 class TestCase < ActionView::TestCase
@@ -139,15 +139,21 @@ module ComponentExampleTest
     # Ensure custom elements are not self-closed so Nokogiri doesn't change structure
     html = html.gsub(%r{<(s-[\w:-]+)([^>/]*?)\s*/>}i, '<\1\2></\1>')
 
-    # Canonicalize HTML for stable comparisons
-    html = Nokogiri::HTML5::DocumentFragment.parse(html).to_html
-
     # Remove Rails default values not present in SoT examples
     html = html.gsub(/(<s-checkbox\b[^>]*?)\svalue="1"/i, '\1') if is_checkbox
     html = html.gsub(%(<s-option value="" label=" "></s-option>), "") if is_select
 
-    # Normalize boolean attributes: `checked="checked"` => `checked`
-    html.gsub(/\s([a-z0-9:_-]+)="(?:\1)?"/i, ' \1')
+    # Canonicalize HTML for stable comparisons
+    parsed = Nokogiri::HTML5::DocumentFragment.parse(html)
+
+    # Normalize boolean attributes
+    parsed.css("*").each do |node|
+      node.attribute_nodes.each do |attr|
+        attr.value = attr.name if attr.value.blank? || attr.value == "true"
+        end
+    end
+
+    html = parsed.to_html
   end
 
   def self.component_metadata(component_name)

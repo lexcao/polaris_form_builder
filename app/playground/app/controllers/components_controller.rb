@@ -10,7 +10,8 @@ class ComponentsController < ApplicationController
     url_field: %i[your_website],
     search_field: %i[search],
     text_area: %i[shipping_address],
-    select: %i[date_range]
+    select: %i[date_range],
+    color_field: %i[field]
   }.freeze
 
   before_action :set_component, only: %i[show preview]

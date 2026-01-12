@@ -7,9 +7,7 @@ require_relative "component"
 module Command
   class Step1_FetchComponents
     def run
-      MetaData.fetch_all.select do
-        it.key == "select"
-      end.each do |component|
+      MetaData.fetch_all.each do |component|
         begin
         parser = Parser.new(component.markdown_content)
         definition = parser.parse

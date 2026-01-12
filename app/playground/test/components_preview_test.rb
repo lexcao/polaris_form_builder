@@ -114,4 +114,16 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_select "h3", "Result"
     assert_includes response.body, "&quot;date_range&quot;: &quot;5&quot;"
   end
+
+  test "preview stores color field and re-renders" do
+    post preview_component_url("colorfield"), params: { preview: { field: "#FF0000" } }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_select "s-color-field[value=?]", "#FF0000"
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;field&quot;: &quot;#FF0000&quot;"
+  end
 end
