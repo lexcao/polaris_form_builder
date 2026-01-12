@@ -12,7 +12,8 @@ class ComponentsController < ApplicationController
     text_area: %i[shipping_address],
     select: %i[date_range],
     color_field: %i[field],
-    date_field: %i[field]
+    date_field: %i[field],
+    color_picker: %i[field]
   }.freeze
 
   before_action :set_component, only: %i[show preview]

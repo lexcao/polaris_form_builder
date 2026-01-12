@@ -85,6 +85,24 @@ module PolarisFormBuilder
                        .apply(html)
     end
 
+    def color_picker(method, options = {})
+      html = text_field(method, options)
+
+      @template.raw Tag.new("s-color-picker", "s-text-field").apply(html)
+    end
+
+    def date_picker(method, options = {})
+      raise("Implement me")
+    end
+
+    def switch(method, options = {})
+      raise("Implement me")
+    end
+
+    def drop_zone(method, options = {})
+      raise("Implement me")
+    end
+
     private
 
     def method_error(method)
