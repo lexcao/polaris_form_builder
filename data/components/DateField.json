@@ -177,7 +177,7 @@
       "name": "Date range selection",
       "description": "Example showing two date fields for selecting a date range.",
       "html_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <s-date-field\n      label=\"Start date\"\n      name=\"startDate\"\n      id=\"report-start\"\n    ></s-date-field>\n\n    <s-date-field\n      label=\"End date\"\n      name=\"endDate\"\n      id=\"report-end\"\n    ></s-date-field>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <%= form.date_field :start_date, label: \"Start date\" %>\n\n    <%= form.date_field :end_date, label: \"End date\" %>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>"
+      "erb_code": "<s-stack gap=\"base\">\n  <s-heading>Sales report period</s-heading>\n\n  <s-stack direction=\"inline\" gap=\"base\">\n    <%= form.date_field :start_date, label: \"Start date\", id: \"report-start\" %>\n\n    <%= form.date_field :end_date, label: \"End date\", id: \"report-end\" %>\n  </s-stack>\n\n  <s-button variant=\"primary\">Generate report</s-button>\n</s-stack>"
     },
     {
       "name": "Date fields with validation",

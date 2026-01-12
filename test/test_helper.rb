@@ -28,7 +28,7 @@ end
 class Post
   include ActiveModel::API
 
-  attr_accessor :title, :password, :description, :quantity, :category, :background_color
+  attr_accessor :title, :password, :description, :quantity, :category, :background_color, :published_at
 end
 
 class TestCase < ActionView::TestCase

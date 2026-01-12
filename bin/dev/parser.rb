@@ -132,6 +132,10 @@ class Parser
     return '' unless nodes
 
     code_block = find_code_block(nodes, 'html')
+
+    # FIXME: wait for Shopify to fix attributes
+    code_block.value = code_block.value.gsub("max-length", "maxLength") if code_block
+
     return code_block.value.strip if code_block
 
     ''

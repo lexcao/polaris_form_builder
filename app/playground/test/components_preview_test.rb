@@ -126,4 +126,16 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_select "h3", "Result"
     assert_includes response.body, "&quot;field&quot;: &quot;#FF0000&quot;"
   end
+
+  test "preview stores date field and re-renders" do
+    post preview_component_url("datefield"), params: { preview: { field: "2025-09-01" } }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_select "s-date-field[value=?]", "2025-09-01"
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;field&quot;: &quot;2025-09-01&quot;"
+  end
 end

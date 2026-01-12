@@ -150,7 +150,7 @@ module Converter
   #
   def ruby_attributes(node)
     node.attribute_nodes
-        .reject { |a| %w[name id].include?(a.name) } # name/id 用来推断 field_name，不写入 options
+        .reject { |a| %w[name].include?(a.name) } # name/id 用来推断 field_name，不写入 options
         .map { |a| ruby_kw_pair(a) }
         .compact
         .join(", ")

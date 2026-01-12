@@ -122,7 +122,7 @@
     {
       "name": "Seo meta description with character limit",
       "description": "Showcases a text area for writing SEO meta descriptions with a character limit of 160, providing guidance text and a multi-line input.",
-      "html_code": "<s-text-area\n  label=\"Meta description\"\n  maxlength=\"160\"\n  details=\"Appears in search results. Keep under 160 characters for best visibility.\"\n  placeholder=\"Write a compelling description that will appear in Google search results...\"\n  rows=\"3\"\n  autocomplete=\"off\"\n></s-text-area>",
+      "html_code": "<s-text-area\n  label=\"Meta description\"\n  maxLength=\"160\"\n  details=\"Appears in search results. Keep under 160 characters for best visibility.\"\n  placeholder=\"Write a compelling description that will appear in Google search results...\"\n  rows=\"3\"\n  autocomplete=\"off\"\n></s-text-area>",
       "erb_code": "<%= form.text_area :meta_description, label: \"Meta description\", maxlength: \"160\", details: \"Appears in search results. Keep under 160 characters for best visibility.\", placeholder: \"Write a compelling description that will appear in Google search results...\", rows: \"3\", autocomplete: \"off\" %>"
     },
     {
