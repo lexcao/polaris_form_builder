@@ -163,11 +163,17 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "&quot;regional_price&quot;: &quot;2.8&quot;"
   end
 
-  test "preview renders date picker" do
-    get component_url("datepicker")
+  test "preview stores date picker value and re-renders example attributes" do
+    post preview_component_url("datepicker"), params: { preview: { field: "2025-06-01--2025-06-03" } }
+    assert_response :redirect
+
+    follow_redirect!
     assert_response :success
 
-    assert_select "s-date-picker"
+    # Main example has a fixed value in the ERB options, so it should not be overridden.
+    assert_select "s-date-picker[type=?][view=?][value=?]", "range", "2025-05", "2025-05-28--2025-05-31"
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;field&quot;: &quot;2025-06-01--2025-06-03&quot;"
   end
 
   test "preview stores switch and re-renders" do
@@ -177,10 +183,13 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
 
-    assert_select "s-switch[checked=?]", "checked"
+    assert_select "s-switch[label=?][details=?][checked=?]", "Enable feature", "Ensure all criteria are met before enabling", "checked"
+    assert_select "input[type=?]", "checkbox", count: 0
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;enable_feature&quot;: true"
   end
 
-  test "preview renders drop zone" do
+  test "preview renders drop zone with main example attributes" do
     get component_url("dropzone")
     assert_response :success
 
