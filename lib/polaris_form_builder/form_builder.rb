@@ -111,7 +111,7 @@ module PolarisFormBuilder
     end
 
     def switch(method, options = {})
-      html = check_box(method, options)
+      html = check_box(method, options, options.fetch(:value, "1"))
 
       @template.raw Tag.new("s-switch", "s-checkbox").apply(html)
     end
