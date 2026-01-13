@@ -85,6 +85,12 @@ module PolarisFormBuilder
                        .apply(html)
     end
 
+    def money_field(method, options = {})
+      html = text_field(method, options)
+
+      @template.raw Tag.new("s-money-field", "s-text-field").apply(html)
+    end
+
     def color_picker(method, options = {})
       html = text_field(method, options)
 

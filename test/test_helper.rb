@@ -29,7 +29,7 @@ class Post
   include ActiveModel::API
 
   attr_accessor :title, :password, :description, :quantity, :category, :background_color, :published_at,
-                :enable_feature, :upload
+                :enable_feature, :upload, :price
 end
 
 class TestCase < ActionView::TestCase

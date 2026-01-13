@@ -151,6 +151,18 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "&quot;field&quot;: &quot;#FF0000&quot;"
   end
 
+  test "preview stores money field and re-renders" do
+    post preview_component_url("moneyfield"), params: { preview: { regional_price: "2.8" } }
+    assert_response :redirect
+
+    follow_redirect!
+    assert_response :success
+
+    assert_select "s-money-field[value=?]", "2.8"
+    assert_select "h3", "Result"
+    assert_includes response.body, "&quot;regional_price&quot;: &quot;2.8&quot;"
+  end
+
   test "preview renders date picker" do
     get component_url("datepicker")
     assert_response :success

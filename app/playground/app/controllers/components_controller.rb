@@ -11,6 +11,7 @@ class ComponentsController < ApplicationController
     search_field: %i[search],
     text_area: %i[shipping_address],
     select: %i[date_range],
+    money_field: %i[regional_price],
     color_field: %i[field],
     date_field: %i[field],
     color_picker: %i[field],
