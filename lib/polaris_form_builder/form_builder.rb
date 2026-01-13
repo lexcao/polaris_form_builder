@@ -17,7 +17,8 @@ module PolarisFormBuilder
       url_field: "s-url-field",
       search_field: "s-search-field",
       color_field: "s-color-field",
-      date_field: "s-date-field"
+      date_field: "s-date-field",
+      file_field: "s-drop-zone"
     }.each do |helper_name, polaris_tag|
       define_method(helper_name) do |method, options = {}, &block|
         error = method_error(method)
@@ -30,6 +31,8 @@ module PolarisFormBuilder
         polaris_input(polaris_tag, html, &block)
       end
     end
+
+    alias_method :drop_zone, :file_field
 
     def text_area(method, options = {}, &block)
       error = method_error(method)
@@ -111,12 +114,6 @@ module PolarisFormBuilder
       html = check_box(method, options)
 
       @template.raw Tag.new("s-switch", "s-checkbox").apply(html)
-    end
-
-    def drop_zone(method, options = {})
-      html = file_field(method, options)
-
-      @template.raw Tag.new("s-drop-zone", "input", remove_attributes: %w[type]).apply(html)
     end
 
     private
