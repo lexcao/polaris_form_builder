@@ -6,7 +6,7 @@
   <s-stack gap="base">
     <h3>Preview</h3>
 
-    <%= polaris_form_with(model: @preview || Preview.new, url: preview_component_path(@component)) do |form| %>
+    <%= polaris_form_with(model: @preview || Preview.new, url: preview_component_path(@component), multipart: @component.name == "DropZone") do |form| %>
       <s-stack gap="base">
         <%= render inline: erb, locals: { form: form } %>
         <% if local_assigns[:try] %>

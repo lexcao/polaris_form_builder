@@ -14,6 +14,7 @@ class Preview
   attribute :shipping_address, :string
   attribute :date_range, :string
   attribute :field, :string
+  attribute :upload, :string
   attribute :regional_price, :string
   attribute :enable_feature, :boolean
 

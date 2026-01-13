@@ -189,10 +189,16 @@ class ComponentsPreviewTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "&quot;enable_feature&quot;: true"
   end
 
-  test "preview renders drop zone with main example attributes" do
-    get component_url("dropzone")
+  test "preview stores drop zone files and re-renders result" do
+    file = fixture_file_upload(Rails.root.join("test/fixtures/files/upload.txt"), "text/plain")
+    post preview_component_url("dropzone"), params: { preview: { upload: file } }
+    assert_response :redirect
+
+    follow_redirect!
     assert_response :success
 
     assert_select "s-drop-zone"
+    assert_select "h3", "Result"
+    assert_match(/&quot;upload&quot;: &quot;upload\.txt\|text\/plain\|\d+&quot;/, response.body)
   end
 end

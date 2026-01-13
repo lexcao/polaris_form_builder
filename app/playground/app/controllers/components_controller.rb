@@ -53,11 +53,30 @@ class ComponentsController < ApplicationController
     def preview_params
       return {} unless params.key?(:preview)
 
+      if request.media_type == "multipart/form-data"
+        return Preview.new(upload: upload_info)
+      end
+
       params.require(:preview).permit(*permitted_fields)
     end
 
     def permitted_fields
       component_key = @component.name.to_s.underscore.to_sym
       COMPONENT_FIELDS.fetch(component_key, [])
+    end
+
+    def upload_info
+      files = Array(params.dig(:preview, :upload))
+      uploads = files.filter_map { |file| serialize_upload(file) }
+      return if uploads.empty?
+
+      uploads.first
+    end
+
+    def serialize_upload(upload)
+      return if upload.blank?
+      return unless upload.respond_to?(:original_filename)
+
+      [ upload.original_filename, upload.content_type, upload.size ].join("|")
     end
 end
