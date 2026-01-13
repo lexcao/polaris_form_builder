@@ -104,8 +104,8 @@
     {
       "name": "Form integration",
       "description": "Multiple switches within a form for notification preferences submission. This example illustrates how switches can be used together in a form to allow users to configure multiple related settings simultaneously.",
-      "html_code": "<form>\n  <s-switch\n    id=\"email-notifications\"\n    label=\"Email notifications\"\n    name=\"emailNotifications\"\n  ></s-switch>\n  <s-switch\n    id=\"sms-notifications\"\n    label=\"SMS notifications\"\n    name=\"smsNotifications\"\n  ></s-switch>\n</form>",
-      "erb_code": "<form>\n  <%= form.switch :email_notifications, id: \"email-notifications\", label: \"Email notifications\" %>\n  <%= form.switch :sms_notifications, id: \"sms-notifications\", label: \"SMS notifications\" %>\n</form>"
+      "html_code": "<form>\n  <s-switch\n    id=\"email-notifications\"\n    label=\"Email notifications\"\n    name=\"emailNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n  <s-switch\n    id=\"sms-notifications\"\n    label=\"SMS notifications\"\n    name=\"smsNotifications\"\n    value=\"enabled\"\n  ></s-switch>\n</form>",
+      "erb_code": "<form>\n  <%= form.switch :email_notifications, id: \"email-notifications\", label: \"Email notifications\", value: \"enabled\" %>\n  <%= form.switch :sms_notifications, id: \"sms-notifications\", label: \"SMS notifications\", value: \"enabled\" %>\n</form>"
     },
     {
       "name": "Hidden label for accessibility",
@@ -116,8 +116,8 @@
     {
       "name": "With details and error",
       "description": "Required switch with validation error and contextual details for user guidance. This example shows a switch that requires user interaction, provides additional context through details, and displays an error message when validation fails.",
-      "html_code": "<s-switch\n  id=\"terms-switch\"\n  label=\"Agree to terms and conditions\"\n  details=\"You must agree to continue with the purchase\"\n  error=\"Agreement is required\"\n  name=\"termsAgreement\"\n  required=\"true\"\n></s-switch>",
-      "erb_code": "<%= form.switch :terms_agreement, id: \"terms-switch\", label: \"Agree to terms and conditions\", details: \"You must agree to continue with the purchase\", error: \"Agreement is required\", required: true %>"
+      "html_code": "<s-switch\n  id=\"terms-switch\"\n  label=\"Agree to terms and conditions\"\n  details=\"You must agree to continue with the purchase\"\n  error=\"Agreement is required\"\n  name=\"termsAgreement\"\n  required=\"true\"\n  value=\"agreed\"\n></s-switch>",
+      "erb_code": "<%= form.switch :terms_agreement, id: \"terms-switch\", label: \"Agree to terms and conditions\", details: \"You must agree to continue with the purchase\", error: \"Agreement is required\", required: true, value: \"agreed\" %>"
     },
     {
       "name": "Switch with accessibility label",

@@ -63,7 +63,7 @@
       "name": "Main example",
       "description": "",
       "html_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<s-choice-list\n  label=\"Company name\"\n  name=\"Company name\"\n  details=\"The company name will be displayed on the checkout page.\"\n  onChange=\"handleChange(event)\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n</s-choice-list>",
-      "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
+      "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company_name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
     },
     {
       "name": "Basic usage",

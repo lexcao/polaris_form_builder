@@ -116,6 +116,10 @@ module PolarisFormBuilder
       @template.raw Tag.new("s-switch", "s-checkbox").apply(html)
     end
 
+    def choice_list(method, options = {}, &block)
+      select(method, options.delete(:choices), options, &block)
+    end
+
     private
 
     def method_error(method)

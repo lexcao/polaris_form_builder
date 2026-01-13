@@ -122,7 +122,7 @@ module Converter
   def infer_field_name(node)
     if (name = node["name"]).present?
       # order-quantity / orderQuantity / order[quantity] → order_quantity
-      base = name.tr("[]", "").tr("-", "_").underscore
+      base = name.tr("[]", "").tr("-", "_").tr(" ", "_").underscore
     elsif (label = node["label"]).present?
       base = label.parameterize.underscore
     else
