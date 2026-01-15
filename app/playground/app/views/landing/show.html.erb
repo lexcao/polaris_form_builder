@@ -1,0 +1,129 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "landing" %>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<% end %>
+
+<div class="landing">
+  <!-- Navigation -->
+  <nav class="landing-navbar">
+    <div class="landing-nav-container">
+      <a href="<%= root_path %>" class="landing-logo">
+        <i class="ri-code-box-line"></i>
+        Rails Polaris Form Builder
+      </a>
+      <div class="landing-nav-links">
+        <a href="#" class="landing-nav-link">Documentation</a>
+        <a href="https://github.com/nicholasdower/polaris_form_builder" class="landing-nav-link">GitHub</a>
+        <a href="<%= components_path %>" class="landing-nav-link landing-nav-link-primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="landing-hero">
+      <h1>Build Shopify Polaris Forms<br>with Rails</h1>
+      <p>Seamlessly integrate Shopify's Polaris design system into your Ruby on Rails applications with our powerful and intuitive form builder.</p>
+      <div class="landing-hero-actions">
+        <a href="https://github.com/nicholasdower/polaris_form_builder" class="landing-btn landing-btn-primary">
+          <i class="ri-github-fill"></i>
+          GitHub
+        </a>
+        <a href="<%= components_path %>" class="landing-btn landing-btn-outline">
+          Components
+          <i class="ri-arrow-right-line"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="landing-showcase">
+      <div class="landing-showcase-container">
+        <!-- Left: Code -->
+        <div class="landing-code-col">
+          <div class="landing-code-window">
+            <div class="landing-code-header">
+              <div class="landing-dot landing-dot-red"></div>
+              <div class="landing-dot landing-dot-yellow"></div>
+              <div class="landing-dot landing-dot-green"></div>
+            </div>
+            <div class="landing-code-content">
+<div class="line"><span class="line-num">1</span><span class="kwd">&lt;%=</span> <span class="func">polaris_form_with</span>(<span class="attr">model:</span> <span class="tag">@post</span>) <span class="kwd">do</span> |<span class="attr">form</span>|<span class="kwd"> %&gt;</span></div>
+<div class="line"><span class="line-num">2</span>  <span class="kwd">&lt;%=</span> <span class="attr">form</span>.<span class="func">text_field</span> <span class="attr">:title</span>, <span class="attr">label:</span> <span class="str">"Title"</span> <span class="kwd">%&gt;</span></div>
+<div class="line"><span class="line-num">3</span>  <span class="kwd">&lt;%=</span> <span class="attr">form</span>.<span class="func">text_area</span> <span class="attr">:description</span>, <span class="attr">label:</span> <span class="str">"Description"</span>, <span class="attr">rows:</span> <span class="cls">4</span> <span class="kwd">%&gt;</span></div>
+<div class="line"><span class="line-num">4</span>  <span class="kwd">&lt;%=</span> <span class="attr">form</span>.<span class="func">select</span> <span class="attr">:status</span>, <span class="cls">Post</span>.status_options, {}, { <span class="attr">label:</span> <span class="str">"Status"</span> } <span class="kwd">%&gt;</span></div>
+<div class="line"><span class="line-num">5</span>  <span class="kwd">&lt;%=</span> <span class="attr">form</span>.<span class="func">check_box</span> <span class="attr">:featured</span>, <span class="attr">label:</span> <span class="str">"Featured"</span> <span class="kwd">%&gt;</span></div>
+<div class="line"><span class="line-num">6</span>  <span class="kwd">&lt;%=</span> <span class="attr">form</span>.<span class="func">submit</span> <span class="str">"Submit"</span> <span class="kwd">%&gt;</span></div>
+<div class="line"><span class="line-num">7</span><span class="kwd">&lt;%</span> <span class="kwd">end</span> <span class="kwd">%&gt;</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="landing-preview-col">
+          <div class="landing-preview-wrapper">
+            <div class="landing-preview-form">
+              <%= polaris_form_with(model: @preview || LandingPreview.new, url: landing_preview_path, scope: :landing_preview) do |form| %>
+                <s-stack gap="base">
+                  <%= form.text_field :title, label: "Title" %>
+                  <%= form.text_area :description, label: "Description", rows: 4 %>
+                  <%= form.select :status, [["Draft", "draft"], ["Published", "published"]], {}, { label: "Status" } %>
+                  <%= form.check_box :featured, label: "Featured" %>
+                  <%= form.submit "Submit" %>
+                </s-stack>
+              <% end %>
+            </div>
+
+            <% if @preview %>
+              <div class="landing-json-result">
+                <h4 style="color: white; margin-bottom: 12px;">Result</h4>
+                <pre><code><%= @preview.to_pretty_json %></code></pre>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="landing-features">
+      <div class="landing-features-container">
+        <div class="landing-feature-card">
+          <div class="landing-feature-icon">
+            <i class="ri-layout-masonry-line"></i>
+          </div>
+          <h3 class="landing-feature-title">Native Polaris Look</h3>
+          <p class="landing-feature-desc">Components are designed to match Shopify's Polaris design system pixel-perfectly, ensuring a seamless user experience for your merchants.</p>
+        </div>
+        <div class="landing-feature-card">
+          <div class="landing-feature-icon">
+            <i class="ri-code-s-slash-line"></i>
+          </div>
+          <h3 class="landing-feature-title">Rails Integration</h3>
+          <p class="landing-feature-desc">Built directly on top of Rails FormBuilder. Use familiar syntax like <code>text_field</code> and <code>select</code> with automatic Polaris styling.</p>
+        </div>
+        <div class="landing-feature-card">
+          <div class="landing-feature-icon">
+            <i class="ri-tools-line"></i>
+          </div>
+          <h3 class="landing-feature-title">Easy Customization</h3>
+          <p class="landing-feature-desc">Extensible and configurable. Override defaults, add custom classes, and integrate with Stimulus controllers effortlessly.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="landing-footer-content">
+      <div class="landing-copyright">
+        &copy; 2025 Rails Polaris Form Builder. Open Source.
+      </div>
+      <div class="landing-footer-links">
+        <a href="#" class="landing-footer-link">License</a>
+        <a href="#" class="landing-footer-link">Contribute</a>
+        <a href="#" class="landing-footer-link">Issues</a>
+      </div>
+    </div>
+  </footer>
+</div>
