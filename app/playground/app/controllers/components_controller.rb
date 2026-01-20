@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ComponentsController < ApplicationController
+  layout "components"
+
   COMPONENT_FIELDS = {
     checkbox: %i[require_a_confirmation_step],
     text_field: %i[store_name],

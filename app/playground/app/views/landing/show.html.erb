@@ -1,26 +1,8 @@
 <% content_for :head do %>
-  <%= stylesheet_link_tag "landing" %>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <% end %>
 
 <div class="landing">
-  <!-- Navigation -->
-  <nav class="landing-navbar">
-    <div class="landing-nav-container">
-      <a href="<%= root_path %>" class="landing-logo">
-        <span>Polaris Form Builder</span>
-      </a>
-      <div class="landing-nav-links">
-        <a href="https://github.com/lexcao/polaris_form_builder" class="landing-nav-link">GitHub</a>
-        <a href="<%= components_path %>" class="landing-nav-link landing-nav-link-primary">Components</a>
-      </div>
-    </div>
-  </nav>
-
-  <main>
     <!-- Hero Section -->
     <section class="landing-hero">
       <div class="landing-hero-tag">
@@ -199,17 +181,4 @@
         </div>
       </div>
     </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="landing-footer">
-    <div class="landing-footer-content">
-      <div class="landing-copyright">
-        &copy; 2025 Polaris Form Builder. Made by <a href="https://github.com/lexcao" class="landing-footer-author">Lex Cao</a>
-      </div>
-      <div class="landing-footer-links">
-        <a href="https://github.com/lexcao/polaris_form_builder" class="landing-nav-link">GitHub</a>
-      </div>
-    </div>
-  </footer>
 </div>

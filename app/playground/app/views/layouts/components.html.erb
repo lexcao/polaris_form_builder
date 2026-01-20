@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <meta name="turbo-cache-control" content="no-preview">
+<% end %>
+
+<% content_for :content do %>
+  <s-box padding="base">
+    <s-grid gridTemplateColumns="repeat(12, 1fr)" gap="base">
+      <s-grid-item gridColumn="span 2" gridRow="span 1">
+        <%= render "components/sidebar" %>
+      </s-grid-item>
+      <s-grid-item gridColumn="span 10" gridRow="span 1">
+        <%= yield %>
+      </s-grid-item>
+    </s-grid>
+  </s-box>
+<% end %>
+
+<%= render template: "layouts/application" %>

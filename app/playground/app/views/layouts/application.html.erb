@@ -8,9 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="turbo-refresh-method" content="morph">
     <meta name="turbo-refresh-scroll" content="preserve">
-    <% if controller_name == "components" %>
-      <meta name="turbo-cache-control" content="no-preview">
-    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -24,12 +22,13 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <link rel="stylesheet" href="https://unpkg.com/prismjs@1.30.0/themes/prism.min.css">
     <%= stylesheet_link_tag :app %>
 
     <script src="https://cdn.shopify.com/shopifycloud/polaris.js" data-turbo-track="reload"></script>
+
     <%= javascript_importmap_tags %>
 
+    <link rel="stylesheet" href="https://unpkg.com/prismjs@1.30.0/themes/prism.min.css">
     <script src="https://unpkg.com/prismjs@1.30.0/components/prism-core.min.js"
             data-turbo-track="reload"></script>
     <script src="https://unpkg.com/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"
@@ -37,19 +36,14 @@
   </head>
 
   <body>
-    <% if controller_name == "components" %>
-      <s-box padding="base">
-        <s-grid gridTemplateColumns="repeat(12, 1fr)" gap="base">
-          <s-grid-item gridColumn="span 2" gridRow="span 1">
-            <%= render "components/sidebar" %>
-          </s-grid-item>
-          <s-grid-item gridColumn="span 10" gridRow="span 1">
-            <%= yield %>
-          </s-grid-item>
-        </s-grid>
-      </s-box>
-    <% else %>
-      <%= yield %>
-    <% end %>
+  <header class="landing">
+    <%= render "layouts/header" %>
+  </header>
+  <main>
+      <%= content_for?(:content) ? yield(:content) : yield %>
+  </main>
+  <footer class="landing">
+    <%= render "layouts/footer" %>
+  </footer>
   </body>
 </html>
