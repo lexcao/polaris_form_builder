@@ -6,8 +6,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Playground">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="turbo-refresh-method" content="morph">
-    <meta name="turbo-refresh-scroll" content="preserve">
+
+    <% turbo_refreshes_with method: :morph, scroll: :preserve %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -17,22 +17,21 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app %>
 
-    <script src="https://cdn.shopify.com/shopifycloud/polaris.js" data-turbo-track="reload"></script>
-
     <%= javascript_importmap_tags %>
 
+    <script src="https://cdn.shopify.com/shopifycloud/polaris.js" data-turbo-track="reload"></script>
     <link rel="stylesheet" href="https://unpkg.com/prismjs@1.30.0/themes/prism.min.css">
     <script src="https://unpkg.com/prismjs@1.30.0/components/prism-core.min.js"
             data-turbo-track="reload"></script>
     <script src="https://unpkg.com/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"
             data-turbo-track="reload"></script>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
   </head>
 
   <body>
