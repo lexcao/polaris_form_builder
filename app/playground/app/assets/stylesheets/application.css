@@ -23,3 +23,12 @@ code[class*="language-"] {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
+.navbar {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 1000;
+}

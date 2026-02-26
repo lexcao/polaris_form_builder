@@ -1,11 +1,20 @@
-<nav class="landing-navbar">
-  <div class="landing-nav-container">
-    <%= link_to root_path, class: "landing-logo" do %>
-      <span>Polaris Form Builder</span>
-    <% end %>
-    <div class="landing-nav-links">
-      <%= link_to "GitHub", "https://github.com/lexcao/polaris_form_builder", class: "landing-nav-link" %>
-      <%= link_to "Components", components_path, class: "landing-nav-link landing-nav-link-primary" %>
-    </div>
-  </div>
+<nav class="navbar">
+  <s-box paddingBlock="large">
+    <s-stack direction="inline" alignItems="center" justifyContent="center">
+      <s-stack direction="inline"
+               maxInlineSize="80%"
+               inlineSize="100%"
+               justifyContent="space-between"
+               alignItems="center">
+        <%= link_to root_path, class: "landing-logo" do %>
+          <span>Polaris Form Builder</span>
+        <% end %>
+
+        <s-stack direction="inline" gap="base" alignItems="center">
+          <%= link_to "GitHub", "https://github.com/lexcao/polaris_form_builder", class: "landing-nav-link" %>
+          <%= link_to "Components", components_path, class: "landing-nav-link landing-nav-link-primary" %>
+        </s-stack>
+      </s-stack>
+    </s-stack>
+  </s-box>
 </nav>
