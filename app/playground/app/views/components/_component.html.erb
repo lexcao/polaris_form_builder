@@ -4,14 +4,18 @@
   <s-grid gridTemplateColumns="repeat(12, 1fr)" gap="base">
     <s-grid-item gridColumn="span 6" gridRow="span 1">
       <s-box paddingBlock="large">
-        <h1><%= component.name %></h1>
-        <s-paragraph>
-          <%= component.description %>
-        </s-paragraph>
+        <s-stack gap="base">
+          <h1><%= component.name %></h1>
+          <s-paragraph>
+            <%= component.description %>
+          </s-paragraph>
+        </s-stack>
       </s-box>
 
-      <h2>Properties <%= component.properties.size %></h2>
-      <s-divider></s-divider>
+      <s-stack gap="base">
+        <h2>Properties <%= component.properties.size %></h2>
+        <s-divider></s-divider>
+      </s-stack>
       <%= render partial: @component.properties, spacer_template: "divider" %>
     </s-grid-item>
 
@@ -29,10 +33,12 @@
   </s-grid>
 
   <s-box paddingBlock="large">
-    <s-divider></s-divider>
+    <s-stack gap="base">
+      <s-divider></s-divider>
+      <h2>Examples</h2>
+    </s-stack>
   </s-box>
 
-  <h2>Examples</h2>
   <s-stack gap="base">
     <%= render partial: @component.examples, spacer_template: "divider" %>
   </s-stack>
