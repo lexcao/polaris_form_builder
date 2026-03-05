@@ -131,12 +131,6 @@
       "description": "Displays multiple money fields in a vertical stack, showing how to integrate multiple currency inputs in a form with varied details and constraints.",
       "html_code": "<s-stack direction=\"block\" gap=\"base\">\n  <s-money-field\n    label=\"Price\"\n    value=\"0.00\"\n    min=\"0.01\"\n    max=\"99999.99\"\n    details=\"Customers will see this price\"\n  ></s-money-field>\n\n  <s-money-field\n    label=\"Compare at price\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Show customers the original price when on sale\"\n  ></s-money-field>\n\n  <s-money-field\n    label=\"Cost per item\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Customers won't see this\"\n  ></s-money-field>\n</s-stack>",
       "erb_code": "<s-stack direction=\"block\" gap=\"base\">\n  <%= form.money_field :price, label: \"Price\", value: \"0.00\", min: \"0.01\", max: \"99999.99\", details: \"Customers will see this price\" %>\n\n  <%= form.money_field :compare_at_price, label: \"Compare at price\", value: true, min: \"0\", max: \"99999.99\", details: \"Show customers the original price when on sale\" %>\n\n  <%= form.money_field :cost_per_item, label: \"Cost per item\", value: true, min: \"0\", max: \"99999.99\", details: \"Customers won't see this\" %>\n</s-stack>"
-    },
-    {
-      "name": "Money field validation",
-      "description": "Interactive example showing real-time validation with min/max limits and dynamic error messages.",
-      "html_code": "",
-      "erb_code": ""
     }
   ]
 }

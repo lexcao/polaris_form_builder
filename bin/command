@@ -5,18 +5,16 @@ require_relative "./dev/command"
 
 if __FILE__ == $PROGRAM_NAME
   if ARGV.empty?
-    puts "Usage: #{$PROGRAM_NAME} <1|2|3>"
+    puts "Usage: #{$PROGRAM_NAME} <sync>"
     exit 1
   end
 
-  step = ARGV[0]
+  command = ARGV[0]
 
-  case step.to_i
-  when 1
-    Command::Step1_FetchComponents.new.run
+  case command
+  when "sync", "1"
+    Command::Sync.new.run
   else
-    puts "Unknown step: #{step}"
+    puts "Unknown command: #{command}"
   end
 end
-
-

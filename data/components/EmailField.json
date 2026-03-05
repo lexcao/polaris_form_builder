@@ -137,12 +137,6 @@
       "description": "Demonstrates setting minimum and maximum length constraints for the email input, providing additional validation beyond the standard email format check.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Business email\"\n    minLength=\"5\"\n    maxLength=\"100\"\n    required\n  ></s-email-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :business_email, label: \"Business email\", minlength: \"5\", maxlength: \"100\", required: true %>\n</s-stack>"
-    },
-    {
-      "name": "Email validation",
-      "description": "Interactive example showing real-time email validation with error messages that update as the user types.",
-      "html_code": "",
-      "erb_code": ""
     }
   ]
 }

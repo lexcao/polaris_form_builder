@@ -6,7 +6,7 @@ require_relative "component"
 require_relative "screenshot_extractor"
 
 module Command
-  class Step1_FetchComponents
+  class Sync
     def run
       MetaData.fetch_all.each do |component|
         begin
@@ -29,4 +29,6 @@ module Command
         definition.with(metadata: metadata)
       end
   end
+
+  Step1_FetchComponents = Sync
 end

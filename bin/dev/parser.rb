@@ -19,10 +19,14 @@ class Parser
   end
 
   def parse
+    main_example_items = extract_example_items(primary_level: 3)
+    main_example = build_main_example(main_example_items)
+    example_items = extract_example_items(primary_level: 2)
+
     Component::Definition.new(
       metadata: @metadata,
       properties: extract_properties_for(@metadata.title),
-      examples: extract_examples.prepend(extract_main_example)
+      examples: [ main_example, *build_examples(example_items, main_example) ]
     )
   end
 
@@ -54,7 +58,7 @@ class Parser
     return nil if blocks.empty?
 
     key = block_text(blocks.shift)
-    type = block_text(blocks.shift)
+    type = normalize_property_type(block_text(blocks.shift))
     default = nil
     description_parts = []
 
@@ -86,12 +90,12 @@ class Parser
     %i[p header ul ol codeblock blockquote table].include?(node.type)
   end
 
-  def extract_main_example
-    section_children = collect_section_children(level: 3, title: 'Examples')
-    list_items = section_children.flat_map { |node| collect_list_items(node) }
-    grouped = group_children_by_heading(list_items.first)
+  def build_main_example(list_items)
+    main_item = find_main_example_item(list_items)
+    return empty_main_example if main_item.nil?
 
-    html_code = extract_html(grouped['html'])
+    grouped = group_children_by_heading(main_item)
+    html_code = extract_html(grouped["html"] || grouped["code"])
 
     Component::Example.new(
       name: "Main example",
@@ -101,20 +105,20 @@ class Parser
     )
   end
 
-  def extract_examples
-    section_children = collect_section_children(level: 2, title: 'Examples')
-    list_items = section_children.flat_map { |node| collect_list_items(node) }
-
-    list_items.map { |item| build_example(item) }.compact
+  def build_examples(list_items, main_example)
+    list_items
+      .map { |item| build_example(item) }
+      .compact
+      .reject { |example| skip_example?(example, main_example) }
   end
 
   def build_example(list_item)
-    name = first_heading_in(list_item)&.then { |heading| heading_text(heading) }
+    name = example_name_for(list_item)
     return nil unless name
 
     grouped = group_children_by_heading(list_item)
-    description = flatten_text(grouped['Description'])
-    html_code = extract_html(grouped['html'])
+    description = flatten_text(grouped["description"])
+    html_code = extract_html(grouped["html"])
 
     Component::Example.new(
       name: name,
@@ -134,13 +138,10 @@ class Parser
     return '' unless nodes
 
     code_block = find_code_block(nodes, 'html')
+    return '' if code_block.nil?
 
     # FIXME: wait for Shopify to fix attributes
-    code_block.value = code_block.value.gsub("max-length", "maxLength") if code_block
-
-    return code_block.value.strip if code_block
-
-    ''
+    code_block.value.gsub("max-length", "maxLength").strip
   end
 
   def find_code_block(nodes, language)
@@ -152,13 +153,62 @@ class Parser
     end
   end
 
+  def extract_example_items(primary_level:)
+    levels = [ primary_level, fallback_examples_level(primary_level) ]
+
+    levels.each do |level|
+      section_children = collect_section_children(level: level, title: "Examples")
+      return section_children.flat_map { |node| collect_list_items(node) } unless section_children.empty?
+    end
+
+    []
+  end
+
+  def fallback_examples_level(primary_level)
+    primary_level == 2 ? 3 : 2
+  end
+
+  def find_main_example_item(list_items)
+    return nil if list_items.empty?
+
+    list_items.find { |item| normalize_heading(example_name_for(item)) == "code" } || list_items.first
+  end
+
+  def empty_main_example
+    Component::Example.new(
+      name: "Main example",
+      description: "",
+      html_code: "",
+      erb_code: ""
+    )
+  end
+
+  def skip_example?(example, main_example)
+    return true if normalize_heading(example.name) == "code"
+    return true if example.html_code.empty?
+
+    main_html = main_example.html_code
+    return false if main_html.empty?
+
+    example.html_code == main_html
+  end
+
+  def example_name_for(list_item)
+    heading = first_heading_in(list_item)
+    return nil if heading.nil?
+
+    heading_text(heading)
+  end
+
   def group_children_by_heading(list_item)
     groups = Hash.new { |hash, key| hash[key] = [] }
     current_heading = nil
 
+    return groups if list_item.nil?
+
     list_item.children.each do |child|
       if child.type == :header
-        current_heading = heading_text(child)
+        current_heading = normalize_heading(heading_text(child))
         next
       end
 
@@ -257,6 +307,17 @@ class Parser
 
   def heading_text(node)
     block_text(node)
+  end
+
+  def normalize_heading(value)
+    value.to_s.strip.downcase
+  end
+
+  def normalize_property_type(value)
+    normalized = value.to_s.strip
+    return normalized unless normalized.start_with?("**") && normalized.end_with?("**")
+
+    normalized[2...-2].strip
   end
 
   def ensure_utf8(str)

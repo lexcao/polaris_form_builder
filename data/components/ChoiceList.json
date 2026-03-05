@@ -89,12 +89,6 @@
       "description": "Showcases a multiple-selection ChoiceList with each option including detailed information.",
       "html_code": "<s-choice-list\n  label=\"Available shipping methods\"\n  name=\"shipping-methods\"\n  multiple\n>\n  <s-choice value=\"standard\" selected>\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected>\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n</s-choice-list>",
       "erb_code": "<%= form.choice_list :shipping_methods, label: \"Available shipping methods\", multiple: true do %>\n  <s-choice value=\"standard\" selected=\"selected\">\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected=\"selected\">\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n<% end %>"
-    },
-    {
-      "name": "Choice list validation",
-      "description": "Interactive example showing required choice validation with dynamic error messages.",
-      "html_code": "",
-      "erb_code": ""
     }
   ]
 }
