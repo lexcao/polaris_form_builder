@@ -11,7 +11,9 @@ require_relative "converter"
 class Parser
   def initialize(markdown_content)
     markdown_content = ensure_utf8(markdown_content)
-    @metadata = Component::MetaData.new(**extract_metadata(markdown_content))
+    metadata = extract_metadata(markdown_content)
+    metadata[:screenshot_url] = nil unless metadata.key?(:screenshot_url)
+    @metadata = Component::MetaData.new(**metadata)
     @document = Kramdown::Document.new(markdown_content, input: 'GFM')
     @root = @document.root
   end

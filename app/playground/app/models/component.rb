@@ -11,6 +11,7 @@ class MetaData
 
   attribute :title, :string
   attribute :description, :string
+  attribute :screenshot_url, :string
   attribute :source_url, SourceUrl.to_type
 end
 

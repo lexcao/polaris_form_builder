@@ -6,7 +6,8 @@
     "source_url": {
       "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/choicelist",
       "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/choicelist.md"
-    }
+    },
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/choicelist-B2TfAN9x.png"
   },
   "properties": [
     {

@@ -9,7 +9,7 @@ module Component
     end
   end
 
-  MetaData = Data.define(:title, :description, :api_name, :source_url)
+  MetaData = Data.define(:title, :description, :api_name, :source_url, :screenshot_url)
   Property = Data.define(:key, :type, :default, :description)
   Example = Data.define(:name, :description, :html_code, :erb_code)
   Definition = Data.define(:metadata, :properties, :examples)
