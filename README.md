@@ -1,39 +1,51 @@
 # PolarisFormBuilder
 
-**Use Shopify Polaris Web Components as the default Rails FormBuilder.**
-Seamlessly replace Rails form inputs with modern, accessible Polaris Web Components — without changing your Rails code style.
-- https://shopify.dev/docs/api/app-home/polaris-web-components
+Use Shopify Polaris Web Components as a Rails form builder, while keeping Rails form semantics.
 
-This gem provides:
+- Polaris Web Components docs: https://shopify.dev/docs/api/app-home/polaris-web-components
 
-* A drop-in `PolarisFormBuilder`
-* A `polaris_form_with` helper
-* Automatic ActionView helper injection via Rails Engine
-* Rails validations + Polaris error UI integration
+## What This Gem Does
 
----
+- Provides `PolarisFormBuilder::FormBuilder` as a drop-in Rails form builder.
+- Provides `polaris_form_with` for explicit per-form opt-in.
+- Integrates via Rails Engine so helpers are available in ActionView.
+- Maps model validation errors to Polaris component `error` attributes.
+- Preserves Rails helper behavior (`name`, `value`, `checked`, etc.) by building on top of `super`.
 
-## 🚀 Installation
+## Requirements
 
-Add the gem to your Rails project:
+- Ruby `>= 3.1.0`
+- Rails app using `form_with` / `ActionView::Helpers::FormBuilder`
+
+## Installation
 
 ```bash
 bundle add polaris_form_builder
 bundle install
 ```
 
----
+## Usage
 
-## 🧩 Usage
+### Recommended: Opt in per form
 
-### Option A — Use globally (replace all Rails form builders)
+```erb
+<%= polaris_form_with model: @user do |f| %>
+  <%= f.text_field :email, placeholder: "Enter email" %>
+  <%= f.password_field :password %>
+  <%= f.text_area :bio %>
+  <%= f.check_box :agree_terms %>
+  <%= f.submit "Create Account" %>
+<% end %>
+```
+
+### Global default builder
 
 ```ruby
-# config/application.rb or any environment file
+# config/application.rb (or environment files)
 config.action_view.default_form_builder = PolarisFormBuilder::FormBuilder
 ```
 
-Then any Rails form automatically uses Polaris:
+Then regular `form_with` will use Polaris components automatically.
 
 ```erb
 <%= form_with model: @user do |f| %>
@@ -43,71 +55,86 @@ Then any Rails form automatically uses Polaris:
 <% end %>
 ```
 
----
+## Supported Helpers
 
-### Option B — Use only where needed (recommended)
+### Core Rails-style fields
+
+- `text_field`
+- `number_field`
+- `email_field`
+- `password_field`
+- `url_field`
+- `search_field`
+- `color_field`
+- `date_field`
+- `file_field` (`drop_zone` alias)
+- `text_area`
+- `check_box`
+- `select`
+- `submit`
+
+### Polaris-oriented helpers
+
+- `drop_zone`
+- `money_field`
+- `color_picker`
+- `date_picker`
+- `switch`
+- `choice_list`
+
+## Validation Error Mapping
+
+When your model has errors, corresponding Polaris components receive `error` automatically.
+
+```ruby
+class User < ApplicationRecord
+  validates :email, presence: true
+end
+```
 
 ```erb
 <%= polaris_form_with model: @user do |f| %>
-  <%= f.text_field :email, placeholder: "Enter email" %>
-  <%= f.text_area :bio %>
-  <%= f.check_box :agree_terms %>
-  <%= f.submit "Create Account" %>
+  <%= f.text_field :email %>
 <% end %>
 ```
 
----
+If `@user.errors[:email]` is present, the rendered Polaris field gets an `error` attribute.
 
-## 🧪 Development
-
-Clone the repo:
+## Development
 
 ```bash
 bin/setup
-```
-
-Run tests:
-
-```bash
+bin/rubocop
 rake test
+bin/ci
 ```
 
-Interactive console:
+Useful commands:
 
 ```bash
+rake test_unit
+rake test_integration
+rake test_playground
 bin/console
 ```
 
-Install locally:
+## Release
 
-```bash
-bundle exec rake install
-```
-
-Release:
-
-1. Update version in `lib/polaris_form_builder/version.rb`
-2. Run:
+1. Update `lib/polaris_form_builder/version.rb`.
+2. Update `CHANGELOG.md`.
+3. Run `bin/ci`.
+4. Publish:
 
 ```bash
 bundle exec rake release
 ```
 
----
+## Contributing
 
-## 🤝 Contributing
-
-Bug reports and pull requests are welcome at:
-
-```
-https://github.com/lexcao/polaris_form_builder
-```
+Issues and pull requests are welcome:
 
 This project follows the Contributor Covenant Code of Conduct.
 
----
+## License
 
-## 📄 License
-
-Released under the MIT License.
-See [LICENSE](https://opensource.org/licenses/MIT) for details.
+Released under MIT. See `LICENSE.txt`.
