@@ -1,0 +1,20 @@
+service: polaris_form_builder-playground
+image: lexcao/polaris_form_builder-playground
+
+servers:
+  web:
+    - <%= ENV.fetch("SERVER_IP") %>
+
+proxy:
+  ssl: true
+  host: polaris-form-builder.lexcao.io
+
+registry:
+  server: localhost:5555
+
+builder:
+  arch: amd64
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
