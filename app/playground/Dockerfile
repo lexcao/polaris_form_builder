@@ -31,6 +31,7 @@ RUN apt-get update -qq && \
 # Install application gems.
 COPY .git .git
 COPY lib lib
+COPY data data
 COPY LICENSE.txt README.md polaris_form_builder.gemspec ./
 
 WORKDIR /rails/app/playground
