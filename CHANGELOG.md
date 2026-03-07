@@ -8,6 +8,12 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 
 - No changes yet.
 
+## [0.1.1] - 2026-03-07
+
+### Changed
+
+- Bump gem version to `0.1.1` for the next release.
+
 ## [0.1.0] - 2026-03-06
 
 ### Added
