@@ -19,6 +19,9 @@ builder:
   context: <%= repo_root %>
   dockerfile: <%= File.join(repo_root, "app/playground/Dockerfile") %>
 
+volumes:
+  - "playground_storage:/rails/app/playground/storage"
+
 env:
   secret:
     - RAILS_MASTER_KEY
