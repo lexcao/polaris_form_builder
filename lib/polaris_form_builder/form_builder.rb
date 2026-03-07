@@ -117,7 +117,14 @@ module PolarisFormBuilder
     end
 
     def choice_list(method, options = {}, &block)
-      select(method, options.delete(:choices), options, &block)
+      options = options.dup
+      choices = options.delete(:choices)
+      error = method_error(method)
+      attrs = options.merge(name: @template.field_name(object_name, method))
+      attrs[:error] = error if error
+      content = choice_list_content(choices, &block)
+
+      @template.content_tag("s-choice-list", content, attrs)
     end
 
     private
@@ -140,6 +147,24 @@ module PolarisFormBuilder
       tag = Tag.new(tag_name, "input", remove_attributes: %w[type size])
       content = @template.capture(&block) if block_given?
       @template.raw tag.apply(html, content)
+    end
+
+    def choice_list_content(choices, &block)
+      if block_given?
+        @template.capture(&block)
+      elsif choices.present?
+        @template.safe_join(choices.map { |choice| choice_list_item(choice) })
+      end
+    end
+
+    def choice_list_item(choice)
+      label, value = if choice.is_a?(Array)
+        [ choice[0], choice[1] ]
+      else
+        [ choice, choice ]
+      end
+
+      @template.content_tag("s-choice", label, value: value)
     end
   end
 end

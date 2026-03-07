@@ -3,6 +3,14 @@
 require "test_helper"
 
 class ComponentsPreviewTest < ActionDispatch::IntegrationTest
+  test "renders choice list example using polaris form builder" do
+    get component_url("choicelist")
+    assert_response :success
+
+    assert_select "s-choice-list[label=?]", "Company name"
+    assert_select "s-select", count: 0
+  end
+
   test "renders checkbox example using polaris form builder" do
     get component_url("checkbox")
     assert_response :success
