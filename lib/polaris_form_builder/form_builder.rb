@@ -66,7 +66,7 @@ module PolarisFormBuilder
         super(method, choices, options.merge(attrs), html_options)
       end
 
-      content = capture_block(&block)
+      content = @template.capture(&block) if block_given?
 
       select_tag = Tag.new("s-select", "select")
       select_tag.attr("value", object.send(method)) if object.respond_to?(method)
@@ -138,22 +138,8 @@ module PolarisFormBuilder
 
     def polaris_input(tag_name, html, &block)
       tag = Tag.new(tag_name, "input", remove_attributes: %w[type size])
-      @template.raw tag.apply(html, capture_block(&block))
-    end
-
-    def capture_block(&block)
-      return unless block_given?
-
-      # Use the buffer from the block's binding to avoid writing to a different
-      # output buffer and duplicating content when the builder is reused.
-      capture_buffer = block.binding.eval("@output_buffer") rescue nil
-      capture_buffer ||= @template.output_buffer
-
-      if capture_buffer.respond_to?(:capture)
-        capture_buffer.capture(&block)
-      else
-        @template.capture(&block)
-      end
+      content = @template.capture(&block) if block_given?
+      @template.raw tag.apply(html, content)
     end
   end
 end
