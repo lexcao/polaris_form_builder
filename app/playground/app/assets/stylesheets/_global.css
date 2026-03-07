@@ -365,8 +365,8 @@ html[data-theme="dark"] {
     0 1.2em 1.6em -2em oklch(var(--lch-black) / 1);
 }
 
-/* Fallback to **Light** theme when no explicit theme is set */
-@media (prefers-color-scheme: light) {
+/* Fallback to **Dark** theme when no explicit theme is set */
+@media (prefers-color-scheme: dark) {
   html:not([data-theme]) {
     --lch-canvas: 20% 0.0195 232.58;
     --lch-ink-inverted: var(--lch-black);
