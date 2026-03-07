@@ -10,9 +10,10 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 
 ## [0.1.1] - 2026-03-07
 
-### Changed
+### Fixed
 
-- Bump gem version to `0.1.1` for the next release.
+- Render `choice_list` as Polaris `s-choice-list` with nested `s-choice` items instead of falling back to `select`.
+- Preserve block content for form builder helpers rendered through nested inline templates.
 
 ## [0.1.0] - 2026-03-06
 
