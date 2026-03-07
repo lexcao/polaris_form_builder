@@ -1,3 +1,5 @@
+<% repo_root = File.expand_path("../..", __dir__) %>
+
 service: polaris_form_builder-playground
 image: lexcao/polaris_form_builder-playground
 
@@ -14,6 +16,8 @@ registry:
 
 builder:
   arch: amd64
+  context: <%= repo_root %>
+  dockerfile: <%= File.join(repo_root, "app/playground/Dockerfile") %>
 
 env:
   secret:
