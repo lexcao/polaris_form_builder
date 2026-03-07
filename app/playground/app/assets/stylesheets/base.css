@@ -1,5 +1,6 @@
 @layer base {
   html {
+    color-scheme: light;
     font-size: 100%;
 
     @media (min-width: 100ch) {
@@ -54,16 +55,6 @@
 
   ::selection {
     background: var(--color-selected);
-
-    html[data-theme="dark"] & {
-      background-color: var(--color-selected-dark);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      html:not([data-theme]) & {
-        background-color: var(--color-selected-dark);
-      }
-    }
   }
 
   :where(ul, ol):where([role="list"]) {
