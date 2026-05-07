@@ -1,154 +1,160 @@
 {
   "metadata": {
-    "title": "ColorField",
-    "description": "Allow users to select a color with a color picker or as a text input.",
+    "title": "Color field",
+    "description": "The color field component allows users to select colors through an integrated color picker or direct text input. Use color field for theme colors, brand colors, or any color selection to provide both visual and text-based color input methods.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/colorfield",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/colorfield.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/color-field-7dgfIQZ-.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-field-7dgfIQZ-.png"
   },
   "properties": [
     {
       "key": "alpha",
       "type": "boolean",
       "default": "false",
-      "description": "Allow user to select an alpha value."
-    },
-    {
-      "key": "autocomplete",
-      "type": "\"on\" | \"off\"",
-      "default": "'on' for everything else",
-      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "",
-      "description": "The default value for the field."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
-    {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Disables the field, disallowing any interaction."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "Content to use as the field label."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
-    },
-    {
-      "key": "placeholder",
-      "type": "string",
-      "default": "",
-      "description": "A short hint that describes the expected value of the field."
-    },
-    {
-      "key": "readOnly",
-      "type": "boolean",
-      "default": "false",
-      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
-    },
-    {
-      "key": "required",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "Whether to enable alpha (transparency) channel selection in the color picker, allowing users to choose semi-transparent colors."
     },
     {
       "key": "value",
       "type": "string",
       "default": "",
-      "description": "The current value for the field. If omitted, the field will be empty. The current value for the field. If omitted, the field will be empty."
+      "description": "The currently selected color value. Accepts multiple input formats: Hex: #RGB, #RRGGBB, #RRGGBBAA (3, 6, or 8 digits)RGB/RGBA: rgb(255, 0, 0) or rgb(255 0 0) (comma or space-separated)HSL/HSLA: hsl(0, 100%, 50%) or hsl(0 100% 50%) Returns an empty string if the value is invalid. The change event always emits values in hex format."
+    },
+    {
+      "key": "autocomplete",
+      "type": "\"on\" | \"off\"",
+      "default": "'on' for everything else",
+      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "The placeholder text displayed in the field when it's empty, providing a hint about the expected input format or value."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is read-only and can't be edited. Read-only fields remain focusable and their content is announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     }
   ],
   "examples": [
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-color-field placeholder=\"Select a color\" value=\"#FF0000\"></s-color-field>",
-      "erb_code": "<%= form.color_field :field, placeholder: \"Select a color\", value: \"#FF0000\" %>"
+      "html_code": "<s-color-field\n  label=\"Brand color\"\n  value=\"#FF0000\"\n></s-color-field>",
+      "erb_code": "<%= form.color_field :brand_color, label: \"Brand color\", value: \"#FF0000\" %>"
     },
     {
-      "name": "Basic Usage",
-      "description": "Standard color input field with hex value.",
+      "name": "Pick a color",
+      "description": "Display a labeled color field with a pre-selected hex value.",
+      "html_code": "<s-color-field\n  label=\"Brand color\"\n  value=\"#FF0000\"\n></s-color-field>",
+      "erb_code": "<%= form.color_field :brand_color, label: \"Brand color\", value: \"#FF0000\" %>"
+    },
+    {
+      "name": "Add a label",
+      "description": "Identify the color field's purpose clearly. This example displays a labeled color field with a name attribute for form submission.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"Brand color\" name=\"color\" value=\"#FF0000\"></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :color, label: \"Brand color\", value: \"#FF0000\" %>\n</s-stack>"
     },
     {
-      "name": "Required",
-      "description": "Required color field ensuring essential color values are provided.",
+      "name": "Mark as required",
+      "description": "Ensure users provide a color value before submitting. This example presents a required color field that must have a value.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"Brand color\" value=\"#FF0000\" required></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :brand_color, label: \"Brand color\", value: \"#FF0000\", required: true %>\n</s-stack>"
     },
     {
-      "name": "With Alpha Transparency",
-      "description": "Color field supporting alpha channel for transparency control.",
+      "name": "Enable alpha transparency",
+      "description": "Allow selection of semi-transparent colors. This example displays a color field with alpha enabled, presenting an RGBA value with 50% opacity.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Background color\"\n    value=\"rgba(255, 0, 0, 0.5)\"\n    alpha\n  ></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :background_color, label: \"Background color\", value: \"rgba(255, 0, 0, 0.5)\", alpha: true %>\n</s-stack>"
     },
     {
-      "name": "With Error State",
-      "description": "Color field with validation error for invalid color format inputs.",
+      "name": "Show a validation error",
+      "description": "Communicate color format problems clearly. This example demonstrates an error message when an invalid hex code is entered.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Brand color\"\n    name=\"brandColor\"\n    value=\"#invalid\"\n    error=\"Please enter a valid color format (hex, rgb, or rgba)\"\n    required\n  ></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :brand_color, label: \"Brand color\", value: \"#invalid\", error: \"Please enter a valid color format (hex, rgb, or rgba)\", required: true %>\n</s-stack>"
     },
     {
-      "name": "With Help Text",
-      "description": "Color field with contextual details providing additional guidance.",
+      "name": "Add helper text",
+      "description": "Guide users on how the color will be used. This example adds helper text beneath the field explaining the color's purpose.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Primary color\"\n    value=\"#1a73e8\"\n    details=\"Main brand color used for buttons and links\"\n  ></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :primary_color, label: \"Primary color\", value: \"#1a73e8\", details: \"Main brand color used for buttons and links\" %>\n</s-stack>"
     },
     {
-      "name": "With Placeholder",
-      "description": "Color field demonstrating how to use a placeholder to guide user input for color selection.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-color-field\n    label=\"Theme color\"\n    placeholder=\"Enter a hex color (e.g., #FF0000)\"\n    value=\"#000000\"\n  ></s-color-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :theme_color, label: \"Theme color\", placeholder: \"Enter a hex color (e.g., #FF0000)\", value: \"#000000\" %>\n</s-stack>"
-    },
-    {
-      "name": "Read Only State",
-      "description": "Color field in a read-only mode, preventing user modifications to the color value.",
+      "name": "Show a read-only field",
+      "description": "Show a color value without allowing changes. This example presents a read-only color field displaying a locked value.",
       "html_code": "<s-stack gap=\"base\">\n  <s-color-field label=\"System color\" name=\"color\" value=\"#1a73e8\" readOnly></s-color-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.color_field :color, label: \"System color\", value: \"#1a73e8\", readonly: true %>\n</s-stack>"
     },
     {
-      "name": "Form Integration",
-      "description": "A multi-color field form section demonstrating how ColorField can be used to capture different color settings in a single form.",
+      "name": "Combine multiple fields in a form",
+      "description": "Build a complete theme customization interface. This example combines multiple color fields for primary, secondary, and overlay colors with helper text.",
       "html_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <s-color-field\n        label=\"Primary brand color\"\n        name=\"primaryColor\"\n        value=\"#1a73e8\"\n        defaultValue=\"#1a73e8\"\n        details=\"This color will be used for buttons, links, and brand elements\"\n        required\n      ></s-color-field>\n      <s-color-field\n        label=\"Secondary color\"\n        name=\"secondaryColor\"\n        value=\"#34a853\"\n        details=\"Used for secondary actions and accents\"\n      ></s-color-field>\n      <s-color-field\n        label=\"Background overlay\"\n        name=\"overlayColor\"\n        value=\"rgba(0, 0, 0, 0.5)\"\n        alpha\n        details=\"Background color for modal overlays and dropdowns\"\n      ></s-color-field>\n    </s-stack>\n  </s-section>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <s-section>\n    <s-heading>Theme settings</s-heading>\n    <s-stack gap=\"base\">\n      <%= form.color_field :primary_color, label: \"Primary brand color\", value: \"#1a73e8\", defaultvalue: \"#1a73e8\", details: \"This color will be used for buttons, links, and brand elements\", required: true %>\n      <%= form.color_field :secondary_color, label: \"Secondary color\", value: \"#34a853\", details: \"Used for secondary actions and accents\" %>\n      <%= form.color_field :overlay_color, label: \"Background overlay\", value: \"rgba(0, 0, 0, 0.5)\", alpha: true, details: \"Background color for modal overlays and dropdowns\" %>\n    </s-stack>\n  </s-section>\n</s-stack>"
+    },
+    {
+      "name": "Validate in real time",
+      "description": "Provide immediate feedback on color format validity. This example demonstrates real-time validation that checks hex format as the user types.",
+      "html_code": "<s-section>\n  <s-stack gap=\"base\" justifyContent=\"start\">\n    <s-text-field label=\"Theme name\"></s-text-field>\n    <s-color-field\n      label=\"Brand color\"\n      name=\"Color\"\n      value=\"#invalid\"\n      error=\"Please enter a valid color format\"\n      required\n    ></s-color-field>\n  </s-stack>\n</s-section>",
+      "erb_code": "<s-section>\n  <s-stack gap=\"base\" justifycontent=\"start\">\n    <%= form.text_field :theme_name, label: \"Theme name\" %>\n    <%= form.color_field :color, label: \"Brand color\", value: \"#invalid\", error: \"Please enter a valid color format\", required: true %>\n  </s-stack>\n</s-section>"
     }
   ]
 }

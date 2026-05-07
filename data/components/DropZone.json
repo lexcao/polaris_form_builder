@@ -1,13 +1,13 @@
 {
   "metadata": {
-    "title": "DropZone",
-    "description": "Lets users upload files through drag-and-drop functionality into a designated area on a page, or by activating a button.",
+    "title": "Drop zone",
+    "description": "The drop zone component lets users upload files through drag-and-drop or by clicking to browse. Use for file uploads such as images, documents, or CSV imports.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/dropzone",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/dropzone.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/drop-zone",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/drop-zone.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/dropzone-AQpi4uGt.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/dropzone-AQpi4uGt.png"
   },
   "properties": [
     {
@@ -26,31 +26,25 @@
       "key": "disabled",
       "type": "boolean",
       "default": "false",
-      "description": "Disables the field, disallowing any interaction."
+      "description": "Whether the field is disabled, preventing any user interaction."
     },
     {
       "key": "error",
       "type": "string",
       "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "files",
-      "type": "File[]",
-      "default": "[]",
-      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
     },
     {
       "key": "label",
       "type": "string",
       "default": "",
-      "description": "Content to use as the field label."
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
     {
       "key": "labelAccessibilityVisibility",
       "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
     },
     {
       "key": "multiple",
@@ -62,19 +56,25 @@
       "key": "name",
       "type": "string",
       "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
       "key": "required",
       "type": "boolean",
       "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
     },
     {
       "key": "value",
       "type": "string",
       "default": "''",
       "description": "This sets the input value for a file type, which cannot be set programatically, so it can only be reset."
+    },
+    {
+      "key": "files",
+      "type": "File[]",
+      "default": "[]",
+      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
     }
   ],
   "examples": [
@@ -85,46 +85,58 @@
       "erb_code": "<%= form.drop_zone :upload, label: \"Upload\", accessibilitylabel: \"Upload image of type jpg, png, or gif\", accept: \".jpg,.png,.gif\", multiple: true, oninput: \"console.log('onInput', event.currentTarget?.value)\", onchange: \"console.log('onChange', event.currentTarget?.value)\", ondroprejected: \"console.log('onDropRejected', event.currentTarget?.value)\" %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a basic drop zone that allows multiple file uploads with a simple label.",
+      "name": "Accept file uploads",
+      "description": "Let users upload files by dragging or clicking to browse. This example creates a basic upload area with default prompts.",
+      "html_code": "<s-drop-zone\n  label=\"Upload\"\n  accessibilityLabel=\"Upload image of type jpg, png, or gif\"\n  accept=\".jpg,.png,.gif\"\n  multiple\n  onInput=\"console.log('onInput', event.currentTarget?.value)\"\n  onChange=\"console.log('onChange', event.currentTarget?.value)\"\n  onDropRejected=\"console.log('onDropRejected', event.currentTarget?.value)\"\n></s-drop-zone>",
+      "erb_code": "<%= form.drop_zone :upload, label: \"Upload\", accessibilitylabel: \"Upload image of type jpg, png, or gif\", accept: \".jpg,.png,.gif\", multiple: true, oninput: \"console.log('onInput', event.currentTarget?.value)\", onchange: \"console.log('onChange', event.currentTarget?.value)\", ondroprejected: \"console.log('onDropRejected', event.currentTarget?.value)\" %>"
+    },
+    {
+      "name": "Allow multiple file uploads",
+      "description": "Accept multiple files in a single interaction. This example uses the multiple attribute with a custom label.",
       "html_code": "<s-drop-zone label=\"Drop files to upload\" multiple></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :drop_files_to_upload, label: \"Drop files to upload\", multiple: true %>"
     },
     {
-      "name": "Image upload",
-      "description": "Shows a drop zone configured specifically for uploading multiple image files.",
+      "name": "Upload images",
+      "description": "Preview uploaded images before submission. This example generates thumbnails after file selection.",
       "html_code": "<s-drop-zone accept=\"image/*\" label=\"Upload images\" multiple></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :upload_images, accept: \"image/*\", label: \"Upload images\", multiple: true %>"
     },
     {
-      "name": "With required field",
-      "description": "Illustrates a drop zone when the file upload is required.",
+      "name": "Require file upload",
+      "description": "Ensure files are provided before form submission. This example enforces validation using the required attribute.",
       "html_code": "<s-drop-zone name=\"file\" required label=\"Upload file\"></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :file, required: true, label: \"Upload file\" %>"
     },
     {
-      "name": "Disabled state",
-      "description": "Displays a drop zone in a disabled state, preventing file uploads.",
+      "name": "Disable uploads during processing",
+      "description": "Block uploads while files are being processed. This example demonstrates the disabled state during an active upload.",
       "html_code": "<s-drop-zone label=\"Upload not available\" disabled></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :upload_not_available, label: \"Upload not available\", disabled: true %>"
     },
     {
-      "name": "File type restrictions",
-      "description": "Demonstrates restricting file uploads to specific document types like PDF and DOC.",
+      "name": "Restrict file types",
+      "description": "Accept only specific file formats. This example restricts uploads to PDF and DOC files using the accept property.",
       "html_code": "<s-drop-zone\n  accept=\".pdf,.doc,.docx\"\n  label=\"Upload documents\"\n  multiple\n></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :upload_documents, accept: \".pdf,.doc,.docx\", label: \"Upload documents\", multiple: true %>"
     },
     {
-      "name": "With error state",
-      "description": "Shows a drop zone with an error message, useful for indicating file upload validation issues.",
+      "name": "Show upload errors",
+      "description": "Communicate why an upload failed. This example displays error messaging when files are rejected.",
       "html_code": "<s-drop-zone\n  label=\"Upload file\"\n  error=\"File size must be less than 5mb\"\n></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :upload_file, label: \"Upload file\", error: \"File size must be less than 5mb\" %>"
     },
     {
-      "name": "With accessibility options",
-      "description": "Illustrates advanced accessibility configuration for the drop zone, including custom accessibility labels.",
+      "name": "Configure accessibility labels",
+      "description": "Support screen reader users with clear labels. This example configures custom accessibility announcements.",
       "html_code": "<s-drop-zone\n  label=\"Upload files\"\n  accessibilityLabel=\"Upload files using drag and drop or file selector\"\n  labelAccessibilityVisibility=\"exclusive\"\n  multiple\n></s-drop-zone>",
       "erb_code": "<%= form.drop_zone :upload_files, label: \"Upload files\", accessibilitylabel: \"Upload files using drag and drop or file selector\", labelaccessibilityvisibility: \"exclusive\", multiple: true %>"
+    },
+    {
+      "name": "Upload with validation",
+      "description": "Handle the complete upload lifecycle with validation and feedback. This example combines type and size validation, error states, and disabled state during processing.",
+      "html_code": "<s-drop-zone \n  id=\"upload\" \n  label=\"Product images\" \n  accept=\"image/*\" \n  multiple\n></s-drop-zone>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Disable during upload\n    dropzone.disabled = true;\n\n\n    const formData = new FormData();\n    files.forEach(f => formData.append('images[]', f));\n\n\n    try {\n      await fetch('/api/upload', { method: 'POST', body: formData });\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>",
+      "erb_code": "<%= form.drop_zone :product_images, id: \"upload\", label: \"Product images\", accept: \"image/*\", multiple: true %>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Disable during upload\n    dropzone.disabled = true;\n\n\n    const formData = new FormData();\n    files.forEach(f => formData.append('images[]', f));\n\n\n    try {\n      await fetch('/api/upload', { method: 'POST', body: formData });\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>"
     }
   ]
 }

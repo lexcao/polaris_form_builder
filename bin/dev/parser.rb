@@ -9,6 +9,8 @@ require_relative "component"
 require_relative "converter"
 
 class Parser
+  ExampleItem = Data.define(:type, :children)
+
   def initialize(markdown_content)
     markdown_content = ensure_utf8(markdown_content)
     metadata = extract_metadata(markdown_content)
@@ -71,6 +73,8 @@ class Parser
         next
       end
 
+      next if normalize_heading(text) == "required"
+
       description_parts << text
     end
 
@@ -118,6 +122,7 @@ class Parser
 
     grouped = group_children_by_heading(list_item)
     description = flatten_text(grouped["description"])
+    description = leading_description_for(list_item) if description.empty?
     html_code = extract_html(grouped["html"])
 
     Component::Example.new(
@@ -158,10 +163,34 @@ class Parser
 
     levels.each do |level|
       section_children = collect_section_children(level: level, title: "Examples")
-      return section_children.flat_map { |node| collect_list_items(node) } unless section_children.empty?
+      next if section_children.empty?
+
+      list_items = section_children.flat_map { |node| collect_list_items(node) }
+      return list_items unless list_items.empty?
+
+      heading_items = collect_heading_example_items(section_children, level + 1)
+      return heading_items unless heading_items.empty?
     end
 
     []
+  end
+
+  def collect_heading_example_items(nodes, heading_level)
+    items = []
+    current_children = nil
+
+    nodes.each do |node|
+      if heading?(node, heading_level)
+        items << ExampleItem.new(:li, current_children) if current_children
+        current_children = [ node ]
+        next
+      end
+
+      current_children << node if current_children
+    end
+
+    items << ExampleItem.new(:li, current_children) if current_children
+    items
   end
 
   def fallback_examples_level(primary_level)
@@ -169,8 +198,6 @@ class Parser
   end
 
   def find_main_example_item(list_items)
-    return nil if list_items.empty?
-
     list_items.find { |item| normalize_heading(example_name_for(item)) == "code" } || list_items.first
   end
 
@@ -183,14 +210,11 @@ class Parser
     )
   end
 
-  def skip_example?(example, main_example)
+  def skip_example?(example, _main_example)
     return true if normalize_heading(example.name) == "code"
     return true if example.html_code.empty?
 
-    main_html = main_example.html_code
-    return false if main_html.empty?
-
-    example.html_code == main_html
+    false
   end
 
   def example_name_for(list_item)
@@ -242,10 +266,10 @@ class Parser
     @root.children.each do |child|
       if heading?(child)
         if collecting && child.options[:level] <= level
-          break
+          break unless normalize_heading(heading_text(child)) == "html"
         end
 
-        if heading?(child, level) && heading_text(child) == title
+        if heading?(child, level) && normalize_heading(heading_text(child)) == normalize_heading(title)
           collecting = true
           next
         end
@@ -255,6 +279,24 @@ class Parser
     end
 
     children
+  end
+
+  def leading_description_for(list_item)
+    description_nodes = []
+    collecting = false
+
+    list_item.children.each do |child|
+      if child.type == :header
+        break if collecting && %w[html code].include?(normalize_heading(heading_text(child)))
+
+        collecting = true
+        next
+      end
+
+      description_nodes << child if collecting
+    end
+
+    flatten_text(description_nodes)
   end
 
   def find_first_list(nodes)
@@ -310,7 +352,7 @@ class Parser
   end
 
   def normalize_heading(value)
-    value.to_s.strip.downcase
+    value.to_s.gsub(/\p{Cf}/, "").strip.downcase.gsub(/[^a-z0-9]+/, "")
   end
 
   def normalize_property_type(value)

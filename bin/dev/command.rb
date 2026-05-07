@@ -8,16 +8,23 @@ require_relative "screenshot_extractor"
 module Command
   class Sync
     def run
+      parsed_count = 0
+      skipped_count = 0
+
       MetaData.fetch_all.each do |component|
         begin
           parser = Parser.new(component.markdown_content)
           definition = parser.parse
           definition = with_screenshot_url(definition)
           Component.persist(definition)
+          parsed_count += 1
         rescue => e
-          puts "skip parse #{component.name} for error #{e}"
+          skipped_count += 1
+          warn "skip parse #{component.name} for error #{e}"
         end
       end
+
+      raise "sync parsed 0 components; skipped #{skipped_count}" if parsed_count.zero?
     end
 
     private

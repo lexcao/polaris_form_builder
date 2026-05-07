@@ -1,74 +1,74 @@
 {
   "metadata": {
-    "title": "DatePicker",
-    "description": "Allow users to select a specific date or date range.",
+    "title": "Date picker",
+    "description": "The date picker component allows merchants to select dates using a calendar interface. Use it when merchants benefit from seeing dates in context of the full month, such as selecting dates relative to today or needing weekday context.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/datepicker",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/datepicker.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/datepicker-DUgxVSZB.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/datepicker-DUgxVSZB.png"
   },
   "properties": [
-    {
-      "key": "allow",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Dates that can be selected. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' allows all dates. Dates in YYYY-MM-DD format allow a single date.Dates in YYYY-MM format allow a whole month.Dates in YYYY format allow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
-    },
-    {
-      "key": "allowDays",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Days of the week that can be selected. These intersect with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on the result of allow and disallow. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Default selected value. The default means no date is selected. If the provided value is invalid, no date is selected. If type=\"single\", this is a date in YYYY-MM-DD format.If type=\"multiple\", this is a comma-separated list of dates in YYYY-MM-DD format.If type=\"range\", this is a range in YYYY-MM-DD--YYYY-MM-DD format. The range is inclusive."
-    },
     {
       "key": "defaultView",
       "type": "string",
       "default": "",
-      "description": "Default month to display in YYYY-MM format. This value is used until view is set, either directly or as a result of user interaction. Defaults to the current month in the user's locale."
-    },
-    {
-      "key": "disallow",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Dates that cannot be selected. These subtract from allow. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' has no effect on allow. Dates in YYYY-MM-DD format disallow a single date.Dates in YYYY-MM format disallow a whole month.Dates in YYYY format disallow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
-    },
-    {
-      "key": "disallowDays",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Days of the week that cannot be selected. This subtracts from allowDays, and intersects with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on allowDays. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
-    },
-    {
-      "key": "type",
-      "type": "\"single\" | \"range\"",
-      "default": "\"single\"",
-      "description": ""
-    },
-    {
-      "key": "value",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Current selected value. The default means no date is selected. If the provided value is invalid, no date is selected. Otherwise: If type=\"single\", this is a date in YYYY-MM-DD format.If type=\"multiple\", this is a comma-separated list of dates in YYYY-MM-DD format.If type=\"range\", this is a range in YYYY-MM-DD--YYYY-MM-DD format. The range is inclusive."
+      "description": "The default month to display in YYYY-MM format. Used until the view callback is set by user interaction or programmatically. Defaults to the current month in the user's locale."
     },
     {
       "key": "view",
       "type": "string",
       "default": "",
-      "description": "Displayed month in YYYY-MM format. onViewChange is called when this value changes. Defaults to defaultView."
+      "description": "The currently displayed month in YYYY-MM format. When changed, the viewchange callback is triggered. Defaults to defaultView."
+    },
+    {
+      "key": "allow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which dates can be selected as a comma-separated list. An empty string (default) allows all dates. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: 2024-02--2025: February 2024 through end of 20252024-05-09, 2024-05-11: Only May 9th and 11th, 2024"
+    },
+    {
+      "key": "disallow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which dates can't be selected as a comma-separated list. These dates are excluded from those specified in allow. An empty string (default) has no effect. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: --2024-02: All dates before February 20242024-05-09, 2024-05-11: May 9th and 11th, 2024"
+    },
+    {
+      "key": "allowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which days of the week can be selected as a comma-separated list. Further restricts dates from allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (only weekends)"
+    },
+    {
+      "key": "disallowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which days of the week can't be selected as a comma-separated list. Excludes days from allowDays and intersects with allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (no weekends)"
+    },
+    {
+      "key": "type",
+      "type": "\"single\" | \"range\"",
+      "default": "\"single\"",
+      "description": "The type of date selection allowed. single: Select a single daterange: Select a date range"
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "\"\"",
+      "description": "The initially selected date(s) when the component first renders. An empty string means no date is initially selected. Single date in YYYY-MM-DD format when type is set to \"single\"Date range in YYYY-MM-DD--YYYY-MM-DD format (inclusive) when type is set to \"range\""
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "\"\"",
+      "description": "The currently selected date(s). An empty string means no date is selected. Single date in YYYY-MM-DD format when type is set to \"single\"Date range in YYYY-MM-DD--YYYY-MM-DD format (inclusive) when type is set to \"range\""
     }
   ],
   "examples": [
@@ -79,28 +79,34 @@
       "erb_code": "<%= form.date_picker :field, view: \"2025-05\", type: \"range\", value: \"2025-05-28--2025-05-31\" %>"
     },
     {
-      "name": "Single date selection",
-      "description": "Demonstrates a date picker configured for selecting a single date with a default value and specific month view.",
+      "name": "Add a date range picker",
+      "description": "Add a calendar picker for selecting a date or date range. This example shows a range-type date picker with a pre-selected date range and a specific month view.",
+      "html_code": "<s-date-picker\n  view=\"2025-05\"\n  type=\"range\"\n  value=\"2025-05-28--2025-05-31\"\n></s-date-picker>",
+      "erb_code": "<%= form.date_picker :field, view: \"2025-05\", type: \"range\", value: \"2025-05-28--2025-05-31\" %>"
+    },
+    {
+      "name": "Select a single date",
+      "description": "Configure the picker for single date selection when merchants need to choose one specific date. This example shows a single-type date picker with a pre-selected date and month view.",
       "html_code": "<s-date-picker\n  type=\"single\"\n  name=\"delivery-date\"\n  value=\"2024-01-15\"\n  view=\"2024-01\"\n></s-date-picker>",
       "erb_code": "<%= form.date_picker :delivery_date, type: \"single\", value: \"2024-01-15\", view: \"2024-01\" %>"
     },
     {
-      "name": "With date restrictions",
-      "description": "Illustrates how to restrict date selection to a specific date range, preventing selection of past or future dates outside the allowed period.",
+      "name": "Restrict selectable dates to a range",
+      "description": "Restrict which dates merchants can select by defining an allowed range. This example shows a date picker that blocks past dates and limits selection to a specific month.",
       "html_code": "<!-- Disable past dates and far future dates -->\n<s-date-picker\n  type=\"single\"\n  name=\"appointment-date\"\n  disallow=\"past\"\n  allow=\"2024-06-01--2024-06-31\"\n  view=\"2024-06\"\n></s-date-picker>",
       "erb_code": "<!-- Disable past dates and far future dates -->\n<%= form.date_picker :appointment_date, type: \"single\", disallow: \"past\", allow: \"2024-06-01--2024-06-31\", view: \"2024-06\" %>"
     },
     {
-      "name": "Handling onChange callbacks",
-      "description": "Demonstrates how to handle onChange callbacks for both single and range date pickers, showing how to extract and process the selected values.",
+      "name": "Capture date selections with on​Change",
+      "description": "Capture the selected date when the merchant makes a change so you can update your app state. This example shows a range picker inside a form with an onChange handler that stores the selected value.",
       "html_code": "<form>\n  <s-text-field\n    label=\"Order number\"\n    placeholder=\"Search orders...\"\n  ></s-text-field>\n  <s-date-picker\n    type=\"range\"\n    name=\"order-date-range\"\n    value=\"2024-01-01--2024-01-31\"\n    view=\"2024-01\"\n  ></s-date-picker>\n  <s-button type=\"submit\">Apply filters</s-button>\n</form>",
       "erb_code": "<form>\n  <%= form.text_field :order_number, label: \"Order number\", placeholder: \"Search orders...\" %>\n  <%= form.date_picker :order_date_range, type: \"range\", value: \"2024-01-01--2024-01-31\", view: \"2024-01\" %>\n  <s-button type=\"submit\">Apply filters</s-button>\n</form>"
     },
     {
-      "name": "With quick date selection",
-      "description": "Illustrates a date picker with quick preset buttons and onChange callback to capture user selections and update the displayed value.",
-      "html_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <s-date-picker\n    type=\"range\"\n    name=\"analytics-period\"\n    id=\"analytics-picker\"\n    value=\"2025-01-01--2025-01-31\"\n    view=\"2025-01\"\n    onchange=\"console.log('Date range changed:', event.currentTarget.value)\"\n  ></s-date-picker>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>",
-      "erb_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <%= form.date_picker :analytics_period, type: \"range\", id: \"analytics-picker\", value: \"2025-01-01--2025-01-31\", view: \"2025-01\", onchange: \"console.log('Date range changed:', event.currentTarget.value)\" %>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>"
+      "name": "Add quick preset date range buttons",
+      "description": "Add preset buttons so merchants can quickly select common date ranges like \"Last 7 days\" or \"This month.\" This example shows a range picker with quick-selection buttons that programmatically update the selected value.",
+      "html_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <s-date-picker\n    type=\"range\"\n    name=\"analytics-period\"\n    id=\"analytics-picker\"\n    value=\"2025-01-01--2025-01-31\"\n    view=\"2025-01\"\n    onChange=\"console.log('Date range changed:', event.currentTarget.value)\"\n  ></s-date-picker>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>",
+      "erb_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <%= form.date_picker :analytics_period, type: \"range\", id: \"analytics-picker\", value: \"2025-01-01--2025-01-31\", view: \"2025-01\", onchange: \"console.log('Date range changed:', event.currentTarget.value)\" %>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>"
     }
   ]
 }

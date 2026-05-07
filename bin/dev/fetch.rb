@@ -28,9 +28,25 @@ module Fetch
     CACHE_PREFIX + Digest::SHA256.hexdigest(url)
   end
 
-  def fetch_remote(url)
+  def fetch_remote(url, redirect_limit: 5)
+    raise "too many redirects for #{url}" if redirect_limit.zero?
+
     uri = URI(url)
-    Net::HTTP.get(uri)
+    response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
+      http.get(uri.request_uri)
+    end
+
+    case response
+    when Net::HTTPSuccess
+      response.body
+    when Net::HTTPRedirection
+      location = response["location"]
+      raise "redirect missing location for #{url}" if location.nil?
+
+      fetch_remote(URI.join(uri, location).to_s, redirect_limit: redirect_limit - 1)
+    else
+      raise "GET #{url} failed with #{response.code}"
+    end
   end
 
   def ensure_cache_dir!

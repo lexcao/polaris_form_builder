@@ -1,44 +1,38 @@
 {
   "metadata": {
-    "title": "ChoiceList",
-    "description": "Present multiple options to users, allowing either single selections with radio buttons or multiple selections with checkboxes.",
+    "title": "Choice list",
+    "description": "The choice list component presents multiple options for single or multiple selections. Use it when merchants need to choose from a defined set of options, such as filtering results or collecting preferences.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/choicelist",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/choicelist.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/choice-list",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/choice-list.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/choicelist-B2TfAN9x.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/choicelist-B2TfAN9x.png"
   },
   "properties": [
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
     {
       "key": "disabled",
       "type": "boolean",
       "default": "false",
-      "description": "Disables the field, disallowing any interaction. disabled on any child choices is ignored when this is true."
+      "description": "Whether the field is disabled, preventing any user interaction. When true, the disabled property on any child choices is ignored."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
       "key": "error",
       "type": "string",
       "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
     },
     {
-      "key": "label",
+      "key": "details",
       "type": "string",
       "default": "",
-      "description": "Content to use as the field label."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
     },
     {
       "key": "multiple",
@@ -47,16 +41,22 @@
       "description": "Whether multiple choices can be selected."
     },
     {
-      "key": "name",
+      "key": "label",
       "type": "string",
       "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
     },
     {
       "key": "values",
       "type": "string[]",
       "default": "",
-      "description": "An array of the values of the selected options. This is a convenience prop for setting the selected prop on child options."
+      "description": "An array of value attributes for the currently selected options. When provided, this property automatically sets the selected state on child option components that have matching value attributes. Options with values included in this array will be marked as selected, while others will be unselected."
     }
   ],
   "examples": [
@@ -67,28 +67,34 @@
       "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company_name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a basic ChoiceList with single selection, showing how to create a group of radio button choices.",
+      "name": "Add a single-select choice list",
+      "description": "Present a group of options for merchants to choose from using radio buttons. This example shows a single-select choice list component with a label, help text, and an onChange handler.",
+      "html_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<s-choice-list\n  label=\"Company name\"\n  name=\"Company name\"\n  details=\"The company name will be displayed on the checkout page.\"\n  onChange=\"handleChange(event)\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n</s-choice-list>",
+      "erb_code": "<script>\n  const handleChange = (event) =>\n    console.log('Values: ', event.currentTarget.values);\n</script>\n<%= form.choice_list :company_name, label: \"Company name\", details: \"The company name will be displayed on the checkout page.\", onchange: \"handleChange(event)\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
+    },
+    {
+      "name": "Pre-select a default option",
+      "description": "Set a default selection so merchants see a pre-selected option when the form loads. This example shows a single-select choice list with one option already selected.",
       "html_code": "<s-choice-list label=\"Product visibility\" name=\"visibility\">\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected>Required</s-choice>\n</s-choice-list>",
       "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected=\"selected\">Required</s-choice>\n<% end %>"
     },
     {
-      "name": "Multiple selections",
-      "description": "Illustrates a ChoiceList with multiple selection enabled, allowing users to choose multiple options with additional descriptive details for each choice.",
+      "name": "Enable multiple selections with details",
+      "description": "Allow merchants to select more than one option using checkboxes instead of radio buttons. This example shows a multi-select choice list with descriptive details on each option.",
       "html_code": "<s-choice-list label=\"Checkout options\" name=\"checkout\" multiple>\n  <s-choice value=\"shipping\" selected>\n    Use the shipping address as the billing address by default\n    <s-text slot=\"details\">\n      Reduces the number of fields required to check out. The billing address\n      can still be edited.\n    </s-text>\n  </s-choice>\n  <s-choice value=\"confirmation\">\n    Require a confirmation step\n    <s-text slot=\"details\">\n      Customers must review their order details before purchasing.\n    </s-text>\n  </s-choice>\n</s-choice-list>",
       "erb_code": "<%= form.choice_list :checkout, label: \"Checkout options\", multiple: true do %>\n  <s-choice value=\"shipping\" selected=\"selected\">\n    Use the shipping address as the billing address by default\n    <s-text slot=\"details\">\n      Reduces the number of fields required to check out. The billing address\n      can still be edited.\n    </s-text>\n  </s-choice>\n  <s-choice value=\"confirmation\">\n    Require a confirmation step\n    <s-text slot=\"details\">\n      Customers must review their order details before purchasing.\n    </s-text>\n  </s-choice>\n<% end %>"
     },
     {
-      "name": "With error state",
-      "description": "Shows how to display an error message in a ChoiceList when an invalid selection is made or a validation constraint is not met.",
-      "html_code": "<s-choice-list\n  label=\"Product visibility\"\n  name=\"visibility\"\n  error=\"Product visibility cannot be hidden at this time\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected>Required</s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :visibility, label: \"Product visibility\", error: \"Product visibility cannot be hidden at this time\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\" selected=\"selected\">Required</s-choice>\n<% end %>"
+      "name": "Show a validation error",
+      "description": "Display an error message when a selection is invalid or a required choice has not been made. This example shows a choice list with a static error message.",
+      "html_code": "<s-choice-list\n  label=\"Product visibility\"\n  error=\"Please select an option\"\n>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n</s-choice-list>",
+      "erb_code": "<%= form.choice_list :product_visibility, label: \"Product visibility\", error: \"Please select an option\" do %>\n  <s-choice value=\"hidden\">Hidden</s-choice>\n  <s-choice value=\"optional\">Optional</s-choice>\n  <s-choice value=\"required\">Required</s-choice>\n<% end %>"
     },
     {
-      "name": "Multiple choices with details",
-      "description": "Showcases a multiple-selection ChoiceList with each option including detailed information.",
-      "html_code": "<s-choice-list\n  label=\"Available shipping methods\"\n  name=\"shipping-methods\"\n  multiple\n>\n  <s-choice value=\"standard\" selected>\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected>\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n</s-choice-list>",
-      "erb_code": "<%= form.choice_list :shipping_methods, label: \"Available shipping methods\", multiple: true do %>\n  <s-choice value=\"standard\" selected=\"selected\">\n    Standard shipping\n    <s-text slot=\"details\">5-7 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"express\" selected=\"selected\">\n    Express shipping\n    <s-text slot=\"details\">2-3 business days delivery</s-text>\n  </s-choice>\n  <s-choice value=\"overnight\">\n    Overnight shipping\n    <s-text slot=\"details\">Next business day delivery</s-text>\n  </s-choice>\n<% end %>"
+      "name": "Disable a choice list",
+      "description": "Disable a choice list to prevent interaction while keeping the current selection visible. This example shows a disabled choice list with a pre-selected option.",
+      "html_code": "<s-choice-list label=\"Account type\" name=\"account-type\" disabled>\n  <s-choice value=\"basic\" selected>Basic</s-choice>\n  <s-choice value=\"advanced\">Advanced</s-choice>\n  <s-choice value=\"enterprise\">Enterprise</s-choice>\n</s-choice-list>",
+      "erb_code": "<%= form.choice_list :account_type, label: \"Account type\", disabled: true do %>\n  <s-choice value=\"basic\" selected=\"selected\">Basic</s-choice>\n  <s-choice value=\"advanced\">Advanced</s-choice>\n  <s-choice value=\"enterprise\">Enterprise</s-choice>\n<% end %>"
     }
   ]
 }
