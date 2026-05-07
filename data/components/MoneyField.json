@@ -1,104 +1,104 @@
 {
   "metadata": {
-    "title": "MoneyField",
-    "description": "Collect monetary values from users with built-in currency formatting and validation.",
+    "title": "Money field",
+    "description": "The money field component collects monetary values from users with built-in currency formatting and validation. Use money field for prices, costs, or financial amounts to provide proper currency symbols, decimal handling, and numeric validation.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/moneyfield",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/moneyfield.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/money-field",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/money-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/moneyfield-DbKmvaH-.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/moneyfield-DbKmvaH-.png"
   },
   "properties": [
-    {
-      "key": "autocomplete",
-      "type": "string",
-      "default": "'on' for everything else",
-      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "",
-      "description": "The default value for the field."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
-    {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Disables the field, disallowing any interaction."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "Content to use as the field label."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
-    },
     {
       "key": "max",
       "type": "number",
       "default": "Infinity",
-      "description": "The highest decimal or integer to be accepted for the field. When used with step the value will round down to the max number. Note: a user will still be able to use the keyboard to input a number higher than the max. It is up to the developer to add appropriate validation."
+      "description": "The highest decimal or integer value accepted for the field. When used with step, the value rounds down to the maximum number. Users can still type values higher than the maximum using the keyboard. Implement validation to enforce this constraint."
     },
     {
       "key": "min",
       "type": "number",
       "default": "-Infinity",
-      "description": "The lowest decimal or integer to be accepted for the field. When used with step the value will round up to the min number. Note: a user will still be able to use the keyboard to input a number lower than the min. It is up to the developer to add appropriate validation."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
-    },
-    {
-      "key": "placeholder",
-      "type": "string",
-      "default": "",
-      "description": "A short hint that describes the expected value of the field."
-    },
-    {
-      "key": "readOnly",
-      "type": "boolean",
-      "default": "false",
-      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
-    },
-    {
-      "key": "required",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "The lowest decimal or integer value accepted for the field. When used with step, the value rounds up to the minimum number. Users can still type values lower than the minimum using the keyboard. Implement validation to enforce this constraint."
     },
     {
       "key": "value",
       "type": "string",
       "default": "",
-      "description": "The current value for the field. If omitted, the field will be empty."
+      "description": "The current monetary value in the field as a string. When setting this property programmatically, it updates the field's display value. When reading it, you get the user's current input. The value should be a numeric string representing the amount in the store's currency."
+    },
+    {
+      "key": "autocomplete",
+      "type": "string",
+      "default": "'on' for everything else",
+      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "The placeholder text displayed in the field when it's empty, providing a hint about the expected input format or value."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is read-only and can't be edited. Read-only fields remain focusable and their content is announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     }
   ],
   "examples": [
@@ -109,28 +109,28 @@
       "erb_code": "<%= form.money_field :regional_price, label: \"Regional Price\", placeholder: \"99.99\", details: \"Recommended price for the European market\" %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a simple money field with a label, initial value, and numeric constraints.",
+      "name": "Collect a currency value",
+      "description": "Capture monetary values with automatic currency formatting. This example pairs a label with placeholder text and helper details.",
+      "html_code": "<s-money-field\n  label=\"Regional Price\"\n  placeholder=\"99.99\"\n  details=\"Recommended price for the European market\"\n></s-money-field>",
+      "erb_code": "<%= form.money_field :regional_price, label: \"Regional Price\", placeholder: \"99.99\", details: \"Recommended price for the European market\" %>"
+    },
+    {
+      "name": "Add a label and constraints",
+      "description": "Set input boundaries for valid amounts. This example configures min/max limits to constrain the accepted value range.",
       "html_code": "<s-money-field\n  label=\"Price\"\n  value=\"19.99\"\n  min=\"0\"\n  max=\"1000\"\n></s-money-field>",
       "erb_code": "<%= form.money_field :price, label: \"Price\", value: \"19.99\", min: \"0\", max: \"1000\" %>"
     },
     {
-      "name": "With validation limits",
-      "description": "Showcases a money field with explicit minimum and maximum value limits, and a detailed description for user guidance.",
-      "html_code": "<s-money-field\n  label=\"Discount amount\"\n  value=\"5.00\"\n  min=\"0\"\n  max=\"100\"\n  details=\"Enter discount amount between $0 and $100\"\n></s-money-field>",
-      "erb_code": "<%= form.money_field :discount_amount, label: \"Discount amount\", value: \"5.00\", min: \"0\", max: \"100\", details: \"Enter discount amount between $0 and $100\" %>"
+      "name": "Handle validation errors",
+      "description": "Communicate input problems clearly to users. This example displays an error message when the entered value is invalid.",
+      "html_code": "<s-money-field\n  label=\"Product cost\"\n  min=\"0.01\"\n  error=\"Product cost is required\"\n></s-money-field>",
+      "erb_code": "<%= form.money_field :product_cost, label: \"Product cost\", min: \"0.01\", error: \"Product cost is required\" %>"
     },
     {
-      "name": "Basic field",
-      "description": "Illustrates a money field demonstrating basic error handling and validation.",
-      "html_code": "<s-money-field\n  label=\"Product cost\"\n  value=\"29.99\"\n  min=\"0.01\"\n  error=\"Product cost is required\"\n></s-money-field>",
-      "erb_code": "<%= form.money_field :product_cost, label: \"Product cost\", value: \"29.99\", min: \"0.01\", error: \"Product cost is required\" %>"
-    },
-    {
-      "name": "Currency formatting with form integration",
-      "description": "Displays multiple money fields in a vertical stack, showing how to integrate multiple currency inputs in a form with varied details and constraints.",
-      "html_code": "<s-stack direction=\"block\" gap=\"base\">\n  <s-money-field\n    label=\"Price\"\n    value=\"0.00\"\n    min=\"0.01\"\n    max=\"99999.99\"\n    details=\"Customers will see this price\"\n  ></s-money-field>\n\n  <s-money-field\n    label=\"Compare at price\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Show customers the original price when on sale\"\n  ></s-money-field>\n\n  <s-money-field\n    label=\"Cost per item\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Customers won't see this\"\n  ></s-money-field>\n</s-stack>",
-      "erb_code": "<s-stack direction=\"block\" gap=\"base\">\n  <%= form.money_field :price, label: \"Price\", value: \"0.00\", min: \"0.01\", max: \"99999.99\", details: \"Customers will see this price\" %>\n\n  <%= form.money_field :compare_at_price, label: \"Compare at price\", value: true, min: \"0\", max: \"99999.99\", details: \"Show customers the original price when on sale\" %>\n\n  <%= form.money_field :cost_per_item, label: \"Cost per item\", value: true, min: \"0\", max: \"99999.99\", details: \"Customers won't see this\" %>\n</s-stack>"
+      "name": "Combine multiple fields in a form",
+      "description": "Collect multiple monetary values in a single form. This example groups money fields for price, compare-at price, and cost with individual constraints.",
+      "html_code": "<s-stack direction=\"block\" gap=\"base\">\n  <s-money-field\n    label=\"Price\"\n    value=\"0.00\"\n    min=\"0.01\"\n    max=\"99999.99\"\n    details=\"Customers will see this price\"\n  ></s-money-field>\n\n\n  <s-money-field\n    label=\"Compare at price\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Show customers the original price when on sale\"\n  ></s-money-field>\n\n\n  <s-money-field\n    label=\"Cost per item\"\n    value=\"\"\n    min=\"0\"\n    max=\"99999.99\"\n    details=\"Customers won't see this\"\n  ></s-money-field>\n</s-stack>",
+      "erb_code": "<s-stack direction=\"block\" gap=\"base\">\n  <%= form.money_field :price, label: \"Price\", value: \"0.00\", min: \"0.01\", max: \"99999.99\", details: \"Customers will see this price\" %>\n\n\n  <%= form.money_field :compare_at_price, label: \"Compare at price\", value: true, min: \"0\", max: \"99999.99\", details: \"Show customers the original price when on sale\" %>\n\n\n  <%= form.money_field :cost_per_item, label: \"Cost per item\", value: true, min: \"0\", max: \"99999.99\", details: \"Customers won't see this\" %>\n</s-stack>"
     }
   ]
 }

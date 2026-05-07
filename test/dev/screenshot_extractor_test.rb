@@ -35,4 +35,18 @@ class ScreenshotExtractorTest < Minitest::Test
       ScreenshotExtractor.extract(html)
     )
   end
+
+  def test_extract_prefers_current_component_screenshot
+    html = <<~HTML
+      <script>
+      window.__reactRouterContext.streamController.enqueue("[\\"thumbnail\\",\\"https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/tooltip-BXzVy986.png\\"]");
+      window.__reactRouterContext.streamController.enqueue("[\\"thumbnail\\",\\"https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/textfield-D5zp62-y.png\\"]");
+      </script>
+    HTML
+
+    assert_equal(
+      "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/textfield-D5zp62-y.png",
+      ScreenshotExtractor.extract(html, slug: "text-field")
+    )
+  end
 end

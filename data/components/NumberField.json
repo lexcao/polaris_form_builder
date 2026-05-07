@@ -1,110 +1,26 @@
 {
   "metadata": {
-    "title": "NumberField",
-    "description": "Collect numerical values from users with optimized keyboard settings and built-in validation.",
+    "title": "Number field",
+    "description": "The number field component captures numeric input with built-in number validation. Use it to collect quantities, prices, or other numeric information.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/numberfield",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/numberfield.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/number-field",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/number-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/numberfield-DD00ugG1.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/numberfield-DD00ugG1.png"
   },
   "properties": [
     {
-      "key": "autocomplete",
-      "type": "\"on\" | \"off\" | NumberAutocompleteField | `section-${string} one-time-code` | `section-${string} cc-number` | `section-${string} cc-csc` | \"shipping one-time-code\" | \"shipping cc-number\" | \"shipping cc-csc\" | \"billing one-time-code\" | \"billing cc-number\" | \"billing cc-csc\" | `section-${string} shipping one-time-code` | `section-${string} shipping cc-number` | `section-${string} shipping cc-csc` | `section-${string} billing one-time-code` | `section-${string} billing cc-number` | `section-${string} billing cc-csc`",
-      "default": "'on' for everything else",
-      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
-    },
-    {
-      "key": "defaultValue",
+      "key": "value",
       "type": "string",
       "default": "",
-      "description": "The default value for the field."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
-    {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Disables the field, disallowing any interaction."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element."
+      "description": "The current numeric value in the field as a string. When setting this property programmatically, it updates the field's display value. When reading it, you get the user's current input. The value should be a numeric string (decimal or integer)."
     },
     {
       "key": "inputMode",
       "type": "\"decimal\" | \"numeric\"",
       "default": "'decimal'",
-      "description": "Sets the virtual keyboard."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "Content to use as the field label."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
-    },
-    {
-      "key": "max",
-      "type": "number",
-      "default": "Infinity",
-      "description": "The highest decimal or integer to be accepted for the field. When used with step the value will round down to the max number. Note: a user will still be able to use the keyboard to input a number higher than the max. It is up to the developer to add appropriate validation."
-    },
-    {
-      "key": "min",
-      "type": "number",
-      "default": "-Infinity",
-      "description": "The lowest decimal or integer to be accepted for the field. When used with step the value will round up to the min number. Note: a user will still be able to use the keyboard to input a number lower than the min. It is up to the developer to add appropriate validation."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
-    },
-    {
-      "key": "placeholder",
-      "type": "string",
-      "default": "",
-      "description": "A short hint that describes the expected value of the field."
-    },
-    {
-      "key": "prefix",
-      "type": "string",
-      "default": "''",
-      "description": "A value to be displayed immediately before the editable portion of the field. This is useful for displaying an implied part of the value, such as \"https://\" or \"+353\". This cannot be edited by the user, and it isn't included in the value of the field. It may not be displayed until the user has interacted with the input. For example, an inline label may take the place of the prefix until the user focuses the input."
-    },
-    {
-      "key": "readOnly",
-      "type": "boolean",
-      "default": "false",
-      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
-    },
-    {
-      "key": "required",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "The type of virtual keyboard to display on mobile devices. decimal: Shows a numeric keyboard with a decimal point, suitable for prices or measurements.numeric: Shows a numeric keyboard without a decimal point, suitable for whole numbers like quantities. Learn more about the inputmode attribute."
     },
     {
       "key": "step",
@@ -113,16 +29,100 @@
       "description": "The amount the value can increase or decrease by. This can be an integer or decimal. If a max or min is specified with step when increasing/decreasing the value via the buttons, the final value will always round to the max or min rather than the closest valid amount."
     },
     {
+      "key": "max",
+      "type": "number",
+      "default": "Infinity",
+      "description": "The highest decimal or integer value accepted for the field. When used with step, the value rounds down to the maximum number. Users can still type values higher than the maximum using the keyboard. Implement validation to enforce this constraint."
+    },
+    {
+      "key": "min",
+      "type": "number",
+      "default": "-Infinity",
+      "description": "The lowest decimal or integer value accepted for the field. When used with step, the value rounds up to the minimum number. Users can still type values lower than the minimum using the keyboard. Implement validation to enforce this constraint."
+    },
+    {
+      "key": "prefix",
+      "type": "string",
+      "default": "''",
+      "description": "A non-editable text value displayed immediately before the editable portion of the field. This is useful for displaying an implied part of the value, such as https:// or +353. This text can't be edited by the user and is not included in the field's value. The prefix might not appear until the user interacts with the field. For example, an inline label might occupy the prefix position until the user focuses the field."
+    },
+    {
       "key": "suffix",
       "type": "string",
       "default": "''",
-      "description": "A value to be displayed immediately after the editable portion of the field. This is useful for displaying an implied part of the value, such as \"@shopify.com\", or \"%\". This cannot be edited by the user, and it isn't included in the value of the field. It may not be displayed until the user has interacted with the input. For example, an inline label may take the place of the suffix until the user focuses the input."
+      "description": "A non-editable text value displayed immediately after the editable portion of the field. This is useful for displaying an implied part of the value, such as @shopify.com or %. This text can't be edited by the user and is not included in the field's value. The suffix might not appear until the user interacts with the field. For example, an inline label might occupy the suffix position until the user focuses the field."
     },
     {
-      "key": "value",
+      "key": "autocomplete",
+      "type": "\"on\" | \"off\" | NumberAutocompleteField | `section-${string} one-time-code` | `section-${string} cc-number` | `section-${string} cc-csc` | \"shipping one-time-code\" | \"shipping cc-number\" | \"shipping cc-csc\" | \"billing one-time-code\" | \"billing cc-number\" | \"billing cc-csc\" | `section-${string} shipping one-time-code` | `section-${string} shipping cc-number` | `section-${string} shipping cc-csc` | `section-${string} billing one-time-code` | `section-${string} billing cc-number` | `section-${string} billing cc-csc`",
+      "default": "'on' for everything else",
+      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
+    },
+    {
+      "key": "defaultValue",
       "type": "string",
       "default": "",
-      "description": "The current value for the field. If omitted, the field will be empty."
+      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "The placeholder text displayed in the field when it's empty, providing a hint about the expected input format or value."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is read-only and can't be edited. Read-only fields remain focusable and their content is announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     }
   ],
   "examples": [
@@ -133,22 +133,28 @@
       "erb_code": "<%= form.number_field :quantity, label: \"Quantity\", details: \"Number of items in stock\", placeholder: \"0\", step: \"5\", min: \"0\", max: \"100\" %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a simple number field for entering order quantity with a predefined range and step value.",
-      "html_code": "<s-number-field\n  label=\"Order quantity\"\n  value=\"5\"\n  min=\"1\"\n  max=\"999\"\n  step=\"1\"\n></s-number-field>",
-      "erb_code": "<%= form.number_field :order_quantity, label: \"Order quantity\", value: \"5\", min: \"1\", max: \"999\", step: \"1\" %>"
+      "name": "Add a basic number field",
+      "description": "Collect a numeric value from merchants with step controls and a defined range. This example shows a number field with a label, placeholder, step increment, and min/max bounds.",
+      "html_code": "<s-number-field\n  label=\"Quantity\"\n  details=\"Number of items in stock\"\n  placeholder=\"0\"\n  step=\"5\"\n  min=\"0\"\n  max=\"100\"\n></s-number-field>",
+      "erb_code": "<%= form.number_field :quantity, label: \"Quantity\", details: \"Number of items in stock\", placeholder: \"0\", step: \"5\", min: \"0\", max: \"100\" %>"
     },
     {
-      "name": "With prefix and suffix",
-      "description": "Illustrates a number field for entering product prices with currency prefix and suffix, using decimal input mode.",
+      "name": "Add a prefix and suffix for currency input",
+      "description": "Add a prefix and suffix to provide context for the expected value, such as a currency symbol or unit. This example shows a price field with a dollar sign prefix, currency suffix, and decimal input mode.",
       "html_code": "<s-number-field\n  label=\"Product price\"\n  value=\"29.99\"\n  prefix=\"$\"\n  suffix=\"CAD\"\n  inputMode=\"decimal\"\n  step=\"0.01\"\n  min=\"0\"\n></s-number-field>",
       "erb_code": "<%= form.number_field :product_price, label: \"Product price\", value: \"29.99\", prefix: \"$\", suffix: \"CAD\", inputmode: \"decimal\", step: \"0.01\", min: \"0\" %>"
     },
     {
-      "name": "Multiple examples",
-      "description": "Showcases multiple number fields for different use cases: inventory tracking, percentage discount, and shipping weight, demonstrating various input modes and configurations.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-number-field\n    label=\"Inventory count\"\n    value=\"150\"\n    min=\"0\"\n    step=\"1\"\n    inputMode=\"numeric\"\n    details=\"Current stock available for sale\"\n  ></s-number-field>\n\n  <s-number-field\n    label=\"Discount percentage\"\n    value=\"15\"\n    suffix=\"%\"\n    min=\"0\"\n    max=\"100\"\n    step=\"0.1\"\n    inputMode=\"decimal\"\n  ></s-number-field>\n\n  <s-number-field\n    label=\"Shipping weight\"\n    value=\"2.5\"\n    suffix=\"kg\"\n    min=\"0.1\"\n    step=\"0.1\"\n    inputMode=\"decimal\"\n  ></s-number-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.number_field :inventory_count, label: \"Inventory count\", value: \"150\", min: \"0\", step: \"1\", inputmode: \"numeric\", details: \"Current stock available for sale\" %>\n\n  <%= form.number_field :discount_percentage, label: \"Discount percentage\", value: \"15\", suffix: \"%\", min: \"0\", max: \"100\", step: \"0.1\", inputmode: \"decimal\" %>\n\n  <%= form.number_field :shipping_weight, label: \"Shipping weight\", value: \"2.5\", suffix: \"kg\", min: \"0.1\", step: \"0.1\", inputmode: \"decimal\" %>\n</s-stack>"
+      "name": "Show a validation error",
+      "description": "Display an error message when a value is outside the accepted range or a required field is empty. This example shows a required number field with an error indicating the minimum allowed value.",
+      "html_code": "<s-number-field\n  label=\"Order quantity\"\n  value=\"0\"\n  min=\"1\"\n  max=\"999\"\n  step=\"1\"\n  required\n  error=\"Quantity must be at least 1\"\n></s-number-field>",
+      "erb_code": "<%= form.number_field :order_quantity, label: \"Order quantity\", value: \"0\", min: \"1\", max: \"999\", step: \"1\", required: true, error: \"Quantity must be at least 1\" %>"
+    },
+    {
+      "name": "Disable or make a number field read-only",
+      "description": "Prevent editing by making a number field read-only or fully disabled. This example shows a read-only price field and a disabled tax rate field, both with pre-filled values.",
+      "html_code": "<s-stack gap=\"base\">\n  <s-number-field\n    label=\"Base price\"\n    value=\"49.99\"\n    prefix=\"$\"\n    readOnly\n  ></s-number-field>\n\n\n  <s-number-field\n    label=\"Tax rate\"\n    value=\"13\"\n    suffix=\"%\"\n    disabled\n  ></s-number-field>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"base\">\n  <%= form.number_field :base_price, label: \"Base price\", value: \"49.99\", prefix: \"$\", readonly: true %>\n\n\n  <%= form.number_field :tax_rate, label: \"Tax rate\", value: \"13\", suffix: \"%\", disabled: true %>\n</s-stack>"
     }
   ]
 }

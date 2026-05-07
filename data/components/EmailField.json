@@ -1,104 +1,104 @@
 {
   "metadata": {
-    "title": "EmailField",
-    "description": "Let users enter email addresses with optimized keyboard settings.",
+    "title": "Email field",
+    "description": "The email field component captures email address input. Use it to collect email information in forms, customer profiles, or contact workflows.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/emailfield",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/emailfield.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/email-field",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/email-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/emailfield-vytm1uVt.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/emailfield-vytm1uVt.png"
   },
   "properties": [
     {
       "key": "autocomplete",
       "type": "\"on\" | \"off\" | EmailAutocompleteField | `section-${string} email` | `section-${string} home email` | `section-${string} mobile email` | `section-${string} fax email` | `section-${string} pager email` | \"shipping email\" | \"shipping home email\" | \"shipping mobile email\" | \"shipping fax email\" | \"shipping pager email\" | \"billing email\" | \"billing home email\" | \"billing mobile email\" | \"billing fax email\" | \"billing pager email\" | `section-${string} shipping email` | `section-${string} shipping home email` | `section-${string} shipping mobile email` | `section-${string} shipping fax email` | `section-${string} shipping pager email` | `section-${string} billing email` | `section-${string} billing home email` | `section-${string} billing mobile email` | `section-${string} billing fax email` | `section-${string} billing pager email`",
       "default": "'on' for everything else",
-      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "",
-      "description": "The default value for the field."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
-    {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Disables the field, disallowing any interaction."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "Content to use as the field label."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Changes the visibility of the component's label. visible: the label is visible to all users.exclusive: the label is visually hidden but remains in the accessibility tree."
+      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },
     {
       "key": "maxLength",
       "type": "number",
       "default": "Infinity",
-      "description": "Specifies the maximum number of characters allowed."
+      "description": "The maximum number of characters allowed in the field."
     },
     {
       "key": "minLength",
       "type": "number",
       "default": "0",
-      "description": "Specifies the min number of characters allowed."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
-    },
-    {
-      "key": "placeholder",
-      "type": "string",
-      "default": "",
-      "description": "A short hint that describes the expected value of the field."
-    },
-    {
-      "key": "readOnly",
-      "type": "boolean",
-      "default": "false",
-      "description": "The field cannot be edited by the user. It is focusable will be announced by screen readers."
-    },
-    {
-      "key": "required",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "The minimum number of characters required in the field."
     },
     {
       "key": "value",
       "type": "string",
       "default": "",
-      "description": "The current value for the field. If omitted, the field will be empty."
+      "description": "The current email address value in the field. When setting this property programmatically, it updates the field's display value. When reading it, you get the user's current input. The field validates this value as an email address format when the user finishes editing."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
+    },
+    {
+      "key": "details",
+      "type": "string",
+      "default": "",
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "error",
+      "type": "string",
+      "default": "",
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "label",
+      "type": "string",
+      "default": "",
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "placeholder",
+      "type": "string",
+      "default": "",
+      "description": "The placeholder text displayed in the field when it's empty, providing a hint about the expected input format or value."
+    },
+    {
+      "key": "readOnly",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is read-only and can't be edited. Read-only fields remain focusable and their content is announced by screen readers."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     }
   ],
   "examples": [
@@ -109,32 +109,32 @@
       "erb_code": "<%= form.email_field :email, label: \"Email\", placeholder: \"bernadette.lapresse@jadedpixel.com\", details: \"Used for sending notifications\" %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a simple email field with a label and required attribute, showing the most fundamental way to use the EmailField component.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-email-field label=\"Email address\" required></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :email_address, label: \"Email address\", required: true %>\n</s-stack>"
+      "name": "Add a basic email field",
+      "description": "Collect an email address from merchants with a labeled input and helper text. This example shows a basic email field with a placeholder and details text.",
+      "html_code": "<s-email-field\n  label=\"Email\"\n  placeholder=\"bernadette.lapresse@jadedpixel.com\"\n  details=\"Used for sending notifications\"\n></s-email-field>",
+      "erb_code": "<%= form.email_field :email, label: \"Email\", placeholder: \"bernadette.lapresse@jadedpixel.com\", details: \"Used for sending notifications\" %>"
     },
     {
-      "name": "With error and help text",
-      "description": "Showcases an email field with additional details and an error message, illustrating how to provide contextual information and validation feedback.",
+      "name": "Show an error with help text",
+      "description": "Display an error message and help text to guide merchants toward entering a valid email. This example shows a required email field with both a details hint and an error message.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Contact email\"\n    details=\"We'll send your order confirmation here\"\n    error=\"Please enter a valid email address\"\n    required\n  ></s-email-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :contact_email, label: \"Contact email\", details: \"We'll send your order confirmation here\", error: \"Please enter a valid email address\", required: true %>\n</s-stack>"
     },
     {
-      "name": "Optional field with placeholder",
-      "description": "Illustrates an optional email field with a placeholder text and help text, demonstrating a common pattern for collecting alternative contact information.",
-      "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Alternate email\"\n    placeholder=\"secondary@example.com\"\n    details=\"Additional email for notifications\"\n  ></s-email-field>\n</s-stack>",
-      "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :alternate_email, label: \"Alternate email\", placeholder: \"secondary@example.com\", details: \"Additional email for notifications\" %>\n</s-stack>"
-    },
-    {
-      "name": "Read-only display",
-      "description": "Shows how to render an email field in a read-only state, useful for displaying existing email addresses that cannot be modified.",
+      "name": "Make an email field read-only",
+      "description": "Display an existing email address that merchants can see but not edit. This example shows a read-only email field with a pre-filled value.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Account email\"\n    value=\"user@example.com\"\n    readOnly\n  ></s-email-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :account_email, label: \"Account email\", value: \"user@example.com\", readonly: true %>\n</s-stack>"
     },
     {
-      "name": "With length constraints",
-      "description": "Demonstrates setting minimum and maximum length constraints for the email input, providing additional validation beyond the standard email format check.",
+      "name": "Disable an email field",
+      "description": "Disable an email field to prevent all interaction while keeping the value visible. This example shows a disabled field with a pre-filled email address.",
+      "html_code": "<s-email-field\n  label=\"Account email\"\n  value=\"admin@example.com\"\n  disabled\n></s-email-field>",
+      "erb_code": "<%= form.email_field :account_email, label: \"Account email\", value: \"admin@example.com\", disabled: true %>"
+    },
+    {
+      "name": "Set character length constraints",
+      "description": "Set minimum and maximum character lengths to add validation beyond the standard email format check. This example shows a required email field with minLength and maxLength constraints.",
       "html_code": "<s-stack gap=\"base\">\n  <s-email-field\n    label=\"Business email\"\n    minLength=\"5\"\n    maxLength=\"100\"\n    required\n  ></s-email-field>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.email_field :business_email, label: \"Business email\", minlength: \"5\", maxlength: \"100\", required: true %>\n</s-stack>"
     }

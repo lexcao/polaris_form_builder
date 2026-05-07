@@ -1,80 +1,68 @@
 {
   "metadata": {
     "title": "Checkbox",
-    "description": "Give users a clear way to make selections, such as agreeing to terms or choosing multiple items from a list.",
+    "description": "The checkbox component provides a clear way for users to make selections, such as agreeing to terms, enabling settings, or choosing multiple items from a list. Use checkbox to create binary on/off controls or multi-select interfaces where users can select any combination of options.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/checkbox.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/checkbox",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/checkbox.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/checkbox-DFmfCiT4.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/checkbox-DFmfCiT4.png"
   },
   "properties": [
     {
-      "key": "accessibilityLabel",
-      "type": "string",
+      "key": "indeterminate",
+      "type": "boolean",
       "default": "",
-      "description": "A label used for users using assistive technologies like screen readers. When set, any children or label supplied will not be announced. This can also be used to display a control without a visual label, while still providing context to users using screen readers."
-    },
-    {
-      "key": "checked",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the control is active."
-    },
-    {
-      "key": "defaultChecked",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the control is active by default."
+      "description": "Whether the checkbox displays in an indeterminate state (neither checked nor unchecked), typically used to indicate partial selection in hierarchical lists. This visual state takes priority over the checked prop in appearance only. The form submission value is still determined by the checked prop. If indeterminate has not been explicitly set and hasn't been modified by user interaction, it returns the value of defaultIndeterminate."
     },
     {
       "key": "defaultIndeterminate",
       "type": "boolean",
       "default": "false",
-      "description": ""
+      "description": "The initial indeterminate state for uncontrolled components. Use this when you want the checkbox to start in an indeterminate state but don't need to control it afterward. This value applies until indeterminate is explicitly set or the user changes the checkbox state by clicking."
+    },
+    {
+      "key": "checked",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the control is currently checked. Use this for controlled components where you manage the checked state."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "",
+      "description": "The value used in form data when the checkbox is checked."
+    },
+    {
+      "key": "defaultChecked",
+      "type": "boolean",
+      "default": "false",
+      "description": "The initial checked state for uncontrolled components. Use this when you want the control to start checked but don't need to control its state afterward."
+    },
+    {
+      "key": "accessibilityLabel",
+      "type": "string",
+      "default": "",
+      "description": "A label that describes the purpose or content of the component for assistive technologies like screen readers. Use this to provide additional context when the visible content alone doesn't clearly convey the component's purpose."
     },
     {
       "key": "details",
       "type": "string",
       "default": "",
-      "description": "Additional text to provide context or guidance for the field. This text is displayed along with the field and its label to offer more information or instructions to the user. This will also be exposed to screen reader users."
-    },
-    {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Disables the field, disallowing any interaction."
+      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
     },
     {
       "key": "error",
       "type": "string",
       "default": "",
-      "description": "Indicate an error to the user. The field will be given a specific stylistic treatment to communicate problems that have to be resolved immediately."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element."
-    },
-    {
-      "key": "indeterminate",
-      "type": "boolean",
-      "default": "",
-      "description": ""
+      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
     },
     {
       "key": "label",
       "type": "string",
       "default": "",
-      "description": "Visual content to use as the control label."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
+      "description": "The text label displayed next to the checkbox that describes what the checkbox controls. Clicking the label will also toggle the checkbox state."
     },
     {
       "key": "required",
@@ -83,10 +71,22 @@
       "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
     },
     {
-      "key": "value",
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "id",
       "type": "string",
       "default": "",
-      "description": "The value used in form data when the checkbox is checked."
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     }
   ],
   "examples": [
@@ -97,28 +97,40 @@
       "erb_code": "<%= form.check_box :require_a_confirmation_step, label: \"Require a confirmation step\", details: \"Ensure all criteria are met before proceeding\" %>"
     },
     {
-      "name": "Error state",
-      "description": "Checkbox with validation error message for required form fields.",
+      "name": "Select an option",
+      "description": "Let users toggle a single option on or off. This example displays a checkbox with a label and helper text providing additional context.",
+      "html_code": "<s-checkbox\n  label=\"Require a confirmation step\"\n  details=\"Ensure all criteria are met before proceeding\"\n></s-checkbox>",
+      "erb_code": "<%= form.check_box :require_a_confirmation_step, label: \"Require a confirmation step\", details: \"Ensure all criteria are met before proceeding\" %>"
+    },
+    {
+      "name": "Show an indeterminate state",
+      "description": "Indicate partial selection in bulk actions. This example displays a \"select all\" checkbox in an indeterminate state when some items are checked.",
+      "html_code": "<s-stack gap=\"small\">\n  <s-checkbox\n    label=\"Select all items\"\n    indeterminate\n  ></s-checkbox>\n  <s-divider></s-divider>\n  <s-checkbox label=\"Item 1\" checked></s-checkbox>\n  <s-checkbox label=\"Item 2\"></s-checkbox>\n  <s-checkbox label=\"Item 3\"></s-checkbox>\n</s-stack>",
+      "erb_code": "<s-stack gap=\"small\">\n  <%= form.check_box :select_all_items, label: \"Select all items\", indeterminate: true %>\n  <s-divider></s-divider>\n  <%= form.check_box :item_1, label: \"Item 1\", checked: true %>\n  <%= form.check_box :item_2, label: \"Item 2\" %>\n  <%= form.check_box :item_3, label: \"Item 3\" %>\n</s-stack>"
+    },
+    {
+      "name": "Show a validation error",
+      "description": "Communicate when a required selection is missing. This example displays an error message when the terms checkbox isn't checked.",
       "html_code": "<s-checkbox\n  label=\"I agree to the terms\"\n  error=\"You must accept the terms to continue\"\n></s-checkbox>",
       "erb_code": "<%= form.check_box :i_agree_to_the_terms, label: \"I agree to the terms\", error: \"You must accept the terms to continue\" %>"
     },
     {
-      "name": "Help text",
-      "description": "Checkbox with descriptive details text to provide additional context about the option.",
-      "html_code": "<s-checkbox\n  label=\"Send order notifications\"\n  details=\"You'll receive emails when orders are placed, fulfilled, or cancelled\"\n></s-checkbox>",
-      "erb_code": "<%= form.check_box :send_order_notifications, label: \"Send order notifications\", details: \"You'll receive emails when orders are placed, fulfilled, or cancelled\" %>"
-    },
-    {
-      "name": "Disabled state",
-      "description": "Checkbox in disabled state with explanatory details about why it's unavailable.",
+      "name": "Show a disabled checkbox",
+      "description": "Indicate when an option isn't available. This example presents a disabled checkbox with helper text explaining how to enable it.",
       "html_code": "<s-checkbox\n  label=\"Advanced settings\"\n  disabled\n  details=\"Contact your administrator to enable advanced settings\"\n></s-checkbox>",
       "erb_code": "<%= form.check_box :advanced_settings, label: \"Advanced settings\", disabled: true, details: \"Contact your administrator to enable advanced settings\" %>"
     },
     {
-      "name": "Settings group",
-      "description": "Multiple checkboxes for different configuration options with helpful details.",
+      "name": "Group multiple checkboxes",
+      "description": "Organize related options together. This example groups multiple checkboxes in a settings panel with individual helper text.",
       "html_code": "<s-stack gap=\"base\">\n  <s-checkbox label=\"Show only published products\" checked></s-checkbox>\n  <s-checkbox\n    label=\"Enable inventory tracking\"\n    details=\"Track inventory levels and receive low stock alerts\"\n    checked\n  ></s-checkbox>\n  <s-checkbox\n    label=\"View customer data\"\n    details=\"Allow staff to access customer contact information and order history\"\n  ></s-checkbox>\n</s-stack>",
       "erb_code": "<s-stack gap=\"base\">\n  <%= form.check_box :show_only_published_products, label: \"Show only published products\", checked: true %>\n  <%= form.check_box :enable_inventory_tracking, label: \"Enable inventory tracking\", details: \"Track inventory levels and receive low stock alerts\", checked: true %>\n  <%= form.check_box :view_customer_data, label: \"View customer data\", details: \"Allow staff to access customer contact information and order history\" %>\n</s-stack>"
+    },
+    {
+      "name": "Validate in real time",
+      "description": "Provide immediate feedback on required selections. This example demonstrates validation with an error message when the checkbox is unchecked.",
+      "html_code": "<s-section>\n  <s-stack gap=\"base\" justifyContent=\"start\">\n    <s-text-field label=\"Name\"></s-text-field>\n    <s-checkbox\n      label=\"I agree to the terms\"\n      error=\"You must accept the terms to continue\"\n    ></s-checkbox>\n  </s-stack>\n</s-section>",
+      "erb_code": "<s-section>\n  <s-stack gap=\"base\" justifycontent=\"start\">\n    <%= form.text_field :name, label: \"Name\" %>\n    <%= form.check_box :i_agree_to_the_terms, label: \"I agree to the terms\", error: \"You must accept the terms to continue\" %>\n  </s-stack>\n</s-section>"
     }
   ]
 }

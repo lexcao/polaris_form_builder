@@ -1,62 +1,62 @@
 {
   "metadata": {
-    "title": "ColorPicker",
-    "description": "Allow users to select a color from a color palette.",
+    "title": "Color picker",
+    "description": "The color picker component allows users to select colors from a visual color palette interface. Use color picker to provide an intuitive, visual way for users to choose colors for themes, branding, or design customization.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/colorpicker",
-      "md": "https://shopify.dev/docs/api/app-home/polaris-web-components/forms/colorpicker.md"
+      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker",
+      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/staging/assets/assets/images/templated-apis-screenshots/admin/components/color-picker-Bqlxgb4e.png"
+    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-picker-Bqlxgb4e.png"
   },
   "properties": [
     {
       "key": "alpha",
       "type": "boolean",
       "default": "false",
-      "description": "Allow user to select an alpha value."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "",
-      "description": "The default value for the field."
-    },
-    {
-      "key": "formResetCallback",
-      "type": "() => void",
-      "default": "",
-      "description": ""
+      "description": "Whether to enable alpha (transparency) channel selection in the color picker, allowing users to choose semi-transparent colors."
     },
     {
       "key": "name",
       "type": "string",
       "default": "",
-      "description": "An identifier for the field that is unique within the nearest containing form."
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The initial color value when the field first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts interacting, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
     },
     {
       "key": "value",
       "type": "string",
       "default": "",
-      "description": "The currently selected color. Supported formats include: HSL"
+      "description": "The currently selected color value. Accepts multiple input formats: Hex: #RGB, #RRGGBB, #RRGGBBAA (3, 6, or 8 digits)RGB/RGBA: rgb(255, 0, 0) or rgb(255 0 0) (comma or space-separated)HSL/HSLA: hsl(0, 100%, 50%) or hsl(0 100% 50%) Returns an empty string if the value is invalid. The change event always emits values in hex format."
+    },
+    {
+      "key": "formResetCallback",
+      "type": "() => void",
+      "default": "",
+      "description": "A callback that fires when the containing form is reset (using the form's reset() method or a reset button). When triggered, the component's value reverts to its defaultValue."
     }
   ],
   "examples": [
     {
       "name": "Main example",
       "description": "",
-      "html_code": "<s-color-picker value=\"#FF0000\" alpha></s-color-picker>",
-      "erb_code": "<%= form.color_picker :field, value: \"#FF0000\", alpha: true %>"
+      "html_code": "<s-color-picker value=\"#FF0000\"></s-color-picker>",
+      "erb_code": "<%= form.color_picker :field, value: \"#FF0000\" %>"
     },
     {
-      "name": "Basic usage",
-      "description": "Demonstrates a simple color picker with a pre-selected red color, showing the basic implementation without alpha transparency.",
-      "html_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <s-color-picker value=\"#FF0000\" name=\"primary-color\"></s-color-picker>\n</s-box>",
-      "erb_code": "<s-box padding=\"large\" border=\"base\" borderradius=\"base\">\n  <%= form.color_picker :primary_color, value: \"#FF0000\" %>\n</s-box>"
+      "name": "Pick a color",
+      "description": "Display the default color picker with hue and saturation controls.",
+      "html_code": "<s-color-picker value=\"#FF0000\"></s-color-picker>",
+      "erb_code": "<%= form.color_picker :field, value: \"#FF0000\" %>"
     },
     {
-      "name": "With alpha transparency",
-      "description": "Illustrates a color picker with alpha transparency enabled, allowing selection of colors with varying opacity levels.",
+      "name": "Enable alpha transparency",
+      "description": "Allow users to select semi-transparent colors. This example displays a color picker with an alpha slider for adjusting opacity levels.",
       "html_code": "<s-box padding=\"large\" border=\"base\" borderRadius=\"base\">\n  <s-color-picker\n    value=\"#FF0000FF\"\n    alpha\n    name=\"color-with-alpha\"\n  ></s-color-picker>\n</s-box>",
       "erb_code": "<s-box padding=\"large\" border=\"base\" borderradius=\"base\">\n  <%= form.color_picker :color_with_alpha, value: \"#FF0000FF\", alpha: true %>\n</s-box>"
     }

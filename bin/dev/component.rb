@@ -19,8 +19,22 @@ module Component
   module_function
 
   def persist(component)
-    file = File.join(OUTPUT_DIR, "#{component.metadata.title}.json")
+    file = File.join(OUTPUT_DIR, file_name_for(component.metadata.title))
 
     File.write(file, JSON.pretty_generate(component))
+  end
+
+  def file_name_for(title)
+    return "#{title}.json" unless title.match?(/\s/)
+
+    words = title.split.map do |word|
+      if word == word.upcase
+        word
+      else
+        word.capitalize
+      end
+    end
+
+    "#{words.join}.json"
   end
 end

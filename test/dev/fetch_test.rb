@@ -2,6 +2,7 @@
 
 require "minitest/autorun"
 require "fileutils"
+require "socket"
 require_relative "../../bin/dev/fetch"
 
 class FetchTest < Minitest::Test
@@ -55,4 +56,36 @@ class FetchTest < Minitest::Test
     assert_equal "new content", body
     assert_equal "new content", File.read(@path)
   end
+
+  def test_fetch_remote_follows_redirects
+    with_test_server do |base_url|
+      body = Fetch.fetch_remote("#{base_url}/old")
+
+      assert_equal "redirected content", body
+    end
+  end
+
+  private
+    def with_test_server
+      server = TCPServer.new("127.0.0.1", 0)
+      thread = Thread.new do
+        loop do
+          client = server.accept
+          request_line = client.gets
+          client.gets until client.gets == "\r\n"
+
+          if request_line.start_with?("GET /old ")
+            client.write "HTTP/1.1 301 Moved Permanently\r\nLocation: /new\r\nContent-Length: 0\r\n\r\n"
+          else
+            client.write "HTTP/1.1 200 OK\r\nContent-Length: 18\r\n\r\nredirected content"
+          end
+          client.close
+        end
+      rescue IOError
+      end
+      yield "http://127.0.0.1:#{server.addr[1]}"
+    ensure
+      server&.close
+      thread&.join
+    end
 end

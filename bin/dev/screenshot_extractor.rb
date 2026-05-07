@@ -13,33 +13,40 @@ class ScreenshotExtractor
   class << self
     def fetch(page_url)
       html_content = Fetch.with_cache(page_url)
-      extract(html_content)
+      extract(html_content, slug: slug_from(page_url))
     end
 
-    def extract(html_content)
+    def extract(html_content, slug: nil)
       content = html_content.to_s
-
-      matched = content.match(THUMBNAIL_PATTERN)
-      if matched
-        return matched[1]
+      urls = screenshot_urls(content)
+      if slug
+        matched_url = urls.find { |url| screenshot_matches_slug?(url, slug) }
+        return matched_url if matched_url
       end
 
-      matched = content.match(FALLBACK_PATTERN)
-      if matched
-        return matched[1]
-      end
+      urls.first
+    end
 
-      matched = content.match(RELATIVE_THUMBNAIL_PATTERN)
-      if matched
-        return SHOPIFY_DOCS_HOST + matched[1]
-      end
+    def screenshot_urls(content)
+      [
+        content.scan(THUMBNAIL_PATTERN).flatten,
+        content.scan(FALLBACK_PATTERN).flatten,
+        content.scan(RELATIVE_THUMBNAIL_PATTERN).flatten.map { |path| SHOPIFY_DOCS_HOST + path },
+        content.scan(RELATIVE_FALLBACK_PATTERN).flatten.map { |path| SHOPIFY_DOCS_HOST + path }
+      ].flatten.uniq
+    end
 
-      matched = content.match(RELATIVE_FALLBACK_PATTERN)
-      if matched
-        return SHOPIFY_DOCS_HOST + matched[1]
-      end
+    def screenshot_matches_slug?(url, slug)
+      candidates = [ slug, slug.delete("-") ].uniq
+      basename = File.basename(url, ".png")
 
-      nil
+      candidates.any? do |candidate|
+        basename == candidate || basename.start_with?("#{candidate}-")
+      end
+    end
+
+    def slug_from(page_url)
+      File.basename(URI(page_url).path)
     end
   end
 end

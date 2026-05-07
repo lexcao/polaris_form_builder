@@ -63,8 +63,7 @@ class ComponentsController < ApplicationController
     end
 
     def permitted_fields
-      component_key = @component.name.to_s.underscore.to_sym
-      COMPONENT_FIELDS.fetch(component_key, [])
+      COMPONENT_FIELDS.fetch(@component.key.to_sym, [])
     end
 
     def upload_info

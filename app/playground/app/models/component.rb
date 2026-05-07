@@ -38,6 +38,7 @@ class Component
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  attribute :key, :string
   attribute :metadata, MetaData.to_type
   attribute :properties, Property.to_array_type, default: []
   attribute :examples, Example.to_array_type, default: []
@@ -59,7 +60,7 @@ class Component
   end
 
   def to_param
-    name.parameterize
+    key.delete("_")
   end
 
   def persisted?
@@ -72,7 +73,13 @@ class Component
     end
 
     def find(name)
-      all.find { it.name.downcase == name.downcase }
+      normalized = name.to_s.downcase
+      all.find do |component|
+        component.name.downcase == normalized ||
+          component.key == normalized ||
+          component.key.tr("_", "-") == normalized ||
+          component.to_param == normalized
+      end
     end
   end
 end
