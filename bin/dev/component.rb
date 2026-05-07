@@ -27,13 +27,7 @@ module Component
   def file_name_for(title)
     return "#{title}.json" unless title.match?(/\s/)
 
-    words = title.split.map do |word|
-      if word == word.upcase
-        word
-      else
-        word.capitalize
-      end
-    end
+    words = title.split.map { |word| word.capitalize }
 
     "#{words.join}.json"
   end
