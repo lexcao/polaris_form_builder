@@ -74,12 +74,8 @@ class Component
 
     def find(name)
       normalized = name.to_s.downcase
-      all.find do |component|
-        component.name.downcase == normalized ||
-          component.key == normalized ||
-          component.key.tr("_", "-") == normalized ||
-          component.to_param == normalized
-      end
+      compact = normalized.tr("-_", "")
+      all.find { |component| component.name.downcase == normalized || component.to_param == compact }
     end
   end
 end

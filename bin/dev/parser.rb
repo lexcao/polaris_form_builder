@@ -28,7 +28,7 @@ class Parser
     Component::Definition.new(
       metadata: @metadata,
       properties: extract_properties_for(@metadata.title),
-      examples: [ main_example, *build_examples(example_items, main_example) ]
+      examples: [ main_example, *build_examples(example_items) ]
     )
   end
 
@@ -109,11 +109,11 @@ class Parser
     )
   end
 
-  def build_examples(list_items, main_example)
+  def build_examples(list_items)
     list_items
       .map { |item| build_example(item) }
       .compact
-      .reject { |example| skip_example?(example, main_example) }
+      .reject { |example| skip_example?(example) }
   end
 
   def build_example(list_item)
@@ -210,7 +210,7 @@ class Parser
     )
   end
 
-  def skip_example?(example, _main_example)
+  def skip_example?(example)
     return true if normalize_heading(example.name) == "code"
     return true if example.html_code.empty?
 

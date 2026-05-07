@@ -8,25 +8,13 @@ module MetaData
   Result = Data.define(:key, :name, :markdown_content, :markdown_url)
 
   COMPONENTS = %w[checkbox choicelist colorfield colorpicker datefield datepicker dropzone emailfield moneyfield numberfield passwordfield searchfield select switch textarea textfield urlfield]
-  SLUGS = {
-    "choicelist" => "choice-list",
-    "colorfield" => "color-field",
-    "colorpicker" => "color-picker",
-    "datefield" => "date-field",
-    "datepicker" => "date-picker",
-    "dropzone" => "drop-zone",
-    "emailfield" => "email-field",
-    "moneyfield" => "money-field",
-    "numberfield" => "number-field",
-    "passwordfield" => "password-field",
-    "searchfield" => "search-field",
-    "textarea" => "text-area",
-    "textfield" => "text-field",
-    "urlfield" => "url-field"
-  }
-  DATA = COMPONENTS.map { |component| Result.new(key: component, name: component.camelcase, markdown_url: "#{BASE_URL}#{SLUGS.fetch(component, component)}.md", markdown_content: "") }
+  SLUG_SUFFIX = /(field|list|picker|zone|area)\z/
+  DATA = COMPONENTS.map do |component|
+    slug = component.sub(SLUG_SUFFIX, '-\1')
+    Result.new(key: component, name: component.camelcase, markdown_url: "#{BASE_URL}#{slug}.md", markdown_content: "")
+  end
   private_constant :DATA
-  private_constant :SLUGS
+  private_constant :SLUG_SUFFIX
 
   module_function
 

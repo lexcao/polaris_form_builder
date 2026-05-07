@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "active_support/core_ext/string"
 
 module Component
   class Data < Data
@@ -25,10 +26,6 @@ module Component
   end
 
   def file_name_for(title)
-    return "#{title}.json" unless title.match?(/\s/)
-
-    words = title.split.map { |word| word.capitalize }
-
-    "#{words.join}.json"
+    "#{title.titleize.delete(" ")}.json"
   end
 end
