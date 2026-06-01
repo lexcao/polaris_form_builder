@@ -75,7 +75,6 @@ class ParserExamplesSectionTest < Minitest::Test
     ---
     title: Text field
     description: Sample
-    api_name: app-home
     source_url:
       html: "https://shopify.dev/docs/api/app-home/web-components/forms/text-field"
       md: "https://shopify.dev/docs/api/app-home/web-components/forms/text-field.md"
@@ -157,6 +156,13 @@ class ParserExamplesSectionTest < Minitest::Test
     assert_equal "string", property.type
     assert_equal "''", property.default
     assert_match(/Icon displayed/, property.description)
+  end
+
+  def test_derives_missing_api_name_from_current_source_url
+    parser = Parser.new(CURRENT_DOC_MARKDOWN)
+    result = parser.parse
+
+    assert_equal "app-home", result.metadata.api_name
   end
 
   def test_extracts_examples_from_current_heading_format
