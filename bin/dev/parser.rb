@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml'
+require 'uri'
 require 'kramdown'
 require 'kramdown-parser-gfm'
 require 'kramdown/utils/entities'
@@ -14,6 +15,7 @@ class Parser
   def initialize(markdown_content)
     markdown_content = ensure_utf8(markdown_content)
     metadata = extract_metadata(markdown_content)
+    metadata[:api_name] = api_name_from(metadata[:source_url]) unless metadata.key?(:api_name)
     metadata[:screenshot_url] = nil unless metadata.key?(:screenshot_url)
     @metadata = Component::MetaData.new(**metadata)
     @document = Kramdown::Document.new(markdown_content, input: 'GFM')
@@ -43,6 +45,13 @@ class Parser
     YAML.safe_load(header[1], aliases: true, symbolize_names: true) || {}
   rescue Psych::SyntaxError
     {}
+  end
+
+  def api_name_from(source_url)
+    url = source_url.to_h.values.find { |value| value.to_s.include?("/docs/api/") } if source_url.respond_to?(:to_h)
+    return nil unless url
+
+    URI(url).path.split("/")[3]
   end
 
   def extract_properties_for(name)
