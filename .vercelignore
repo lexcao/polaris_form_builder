@@ -1,0 +1,10 @@
+.git
+.bundle
+.vercel
+coverage
+pkg
+**/config/*.key
+**/log/*
+**/tmp/*
+**/storage/*
+app/playground/public/assets

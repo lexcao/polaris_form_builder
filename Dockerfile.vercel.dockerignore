@@ -1,0 +1,9 @@
+.git
+.bundle
+coverage
+pkg
+**/config/*.key
+**/log/*
+**/tmp/*
+**/storage/*
+app/playground/public/assets

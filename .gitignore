@@ -11,3 +11,4 @@
 **/config/*.key
 **/app/assets/builds/*
 **/log/
+.vercel
