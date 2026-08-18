@@ -7,11 +7,11 @@
       "html": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker",
       "md": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/datepicker-DUgxVSZB.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/datepicker.png"
   },
   "properties": [
     {
-      "key": "defaultView",
+      "key": "default​View",
       "type": "string",
       "default": "",
       "description": "The default month to display in YYYY-MM format. Used until the view callback is set by user interaction or programmatically. Defaults to the current month in the user's locale."
@@ -35,13 +35,13 @@
       "description": "Specifies which dates can't be selected as a comma-separated list. These dates are excluded from those specified in allow. An empty string (default) has no effect. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: --2024-02: All dates before February 20242024-05-09, 2024-05-11: May 9th and 11th, 2024"
     },
     {
-      "key": "allowDays",
+      "key": "allow​Days",
       "type": "string",
       "default": "\"\"",
       "description": "Specifies which days of the week can be selected as a comma-separated list. Further restricts dates from allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (only weekends)"
     },
     {
-      "key": "disallowDays",
+      "key": "disallow​Days",
       "type": "string",
       "default": "\"\"",
       "description": "Specifies which days of the week can't be selected as a comma-separated list. Excludes days from allowDays and intersects with allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (no weekends)"
@@ -53,7 +53,7 @@
       "description": "The type of date selection allowed. single: Select a single daterange: Select a date range"
     },
     {
-      "key": "defaultValue",
+      "key": "default​Value",
       "type": "string",
       "default": "\"\"",
       "description": "The initially selected date(s) when the component first renders. An empty string means no date is initially selected. Single date in YYYY-MM-DD format when type is set to \"single\"Date range in YYYY-MM-DD--YYYY-MM-DD format (inclusive) when type is set to \"range\""

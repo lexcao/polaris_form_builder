@@ -7,7 +7,7 @@
       "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field",
       "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-field-7dgfIQZ-.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/color-field.png"
   },
   "properties": [
     {
@@ -29,7 +29,7 @@
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },
     {
-      "key": "defaultValue",
+      "key": "default​Value",
       "type": "string",
       "default": "",
       "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
@@ -53,7 +53,7 @@
       "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
     {
-      "key": "labelAccessibilityVisibility",
+      "key": "label​Accessibility​Visibility",
       "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
       "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
@@ -65,7 +65,7 @@
       "description": "The placeholder text displayed in the field when it's empty, providing a hint about the expected input format or value."
     },
     {
-      "key": "readOnly",
+      "key": "read​Only",
       "type": "boolean",
       "default": "false",
       "description": "Whether the field is read-only and can't be edited. Read-only fields remain focusable and their content is announced by screen readers."

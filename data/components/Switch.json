@@ -7,11 +7,11 @@
       "html": "https://shopify.dev/docs/api/app-home/web-components/forms/switch",
       "md": "https://shopify.dev/docs/api/app-home/web-components/forms/switch.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/switch-DE4Jf452.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/switch.png"
   },
   "properties": [
     {
-      "key": "labelAccessibilityVisibility",
+      "key": "label​Accessibility​Visibility",
       "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
       "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
@@ -29,13 +29,13 @@
       "description": "The value used in form data when the checkbox is checked."
     },
     {
-      "key": "defaultChecked",
+      "key": "default​Checked",
       "type": "boolean",
       "default": "false",
       "description": "The initial checked state for uncontrolled components. Use this when you want the control to start checked but don't need to control its state afterward."
     },
     {
-      "key": "accessibilityLabel",
+      "key": "accessibility​Label",
       "type": "string",
       "default": "",
       "description": "A label that describes the purpose or content of the component for assistive technologies like screen readers. Use this to provide additional context when the visible content alone doesn't clearly convey the component's purpose."

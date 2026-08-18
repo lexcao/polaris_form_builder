@@ -7,7 +7,7 @@
       "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker",
       "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-picker-Bqlxgb4e.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/color-picker.png"
   },
   "properties": [
     {
@@ -23,7 +23,7 @@
       "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
-      "key": "defaultValue",
+      "key": "default​Value",
       "type": "string",
       "default": "",
       "description": "The initial color value when the field first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts interacting, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
@@ -35,7 +35,7 @@
       "description": "The currently selected color value. Accepts multiple input formats: Hex: #RGB, #RRGGBB, #RRGGBBAA (3, 6, or 8 digits)RGB/RGBA: rgb(255, 0, 0) or rgb(255 0 0) (comma or space-separated)HSL/HSLA: hsl(0, 100%, 50%) or hsl(0 100% 50%) Returns an empty string if the value is invalid. The change event always emits values in hex format."
     },
     {
-      "key": "formResetCallback",
+      "key": "form​Reset​Callback",
       "type": "() => void",
       "default": "",
       "description": "A callback that fires when the containing form is reset (using the form's reset() method or a reset button). When triggered, the component's value reverts to its defaultValue."
