@@ -12,7 +12,7 @@
   "properties": [
     {
       "key": "icon",
-      "type": "\"replace\" | \"search\" | \"split\" | \"link\" | \"edit\" | \"info\" | \"incomplete\" | \"complete\" | \"product\" | \"variant\" | \"collection\" | \"select\" | \"color\" | \"money\" | \"order\" | \"code\" | 542 more | AnyString",
+      "type": "\"replace\" | \"search\" | \"split\" | \"link\" | \"edit\" | \"info\" | \"incomplete\" | \"complete\" | \"product\" | \"variant\" | \"collection\" | \"select\" | \"color\" | \"money\" | \"order\" | \"code\" | … 542 more … | AnyString",
       "default": "''",
       "description": "An icon displayed inside the field to provide visual context about the expected input or field purpose. Commonly used for search fields, currency inputs, or to indicate field type. Accepts any icon name from the icon library or a custom string identifier."
     },
@@ -48,7 +48,7 @@
     },
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | TextAutocompleteField | `section-${string} one-time-code` | \"shipping one-time-code\" | \"billing one-time-code\" | `section-${string} shipping one-time-code` | `section-${string} billing one-time-code` | `section-${string} language` | `section-${string} organization` | `section-${string} name` | 141",
+      "type": "\"on\" | \"off\" | TextAutocompleteField | `section-${string} one-time-code` | \"shipping one-time-code\" | \"billing one-time-code\" | `section-${string} shipping one-time-code` | `section-${string} billing one-time-code` | `section-${string} language` | `section-${string} organization` | `section-${string} name` | … 141…",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },

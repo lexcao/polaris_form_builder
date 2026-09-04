@@ -12,7 +12,7 @@
   "properties": [
     {
       "key": "icon",
-      "type": "\"\" | \"replace\" | \"search\" | \"split\" | \"link\" | \"edit\" | \"info\" | \"incomplete\" | \"complete\" | \"product\" | \"variant\" | \"collection\" | \"select\" | \"color\" | \"money\" | \"order\" | \"code\" | 541 more | \"x-circle-filled\"",
+      "type": "\"\" | \"replace\" | \"search\" | \"split\" | \"link\" | \"edit\" | \"info\" | \"incomplete\" | \"complete\" | \"product\" | \"variant\" | \"collection\" | \"select\" | \"color\" | \"money\" | \"order\" | \"code\" | … 541 more … | \"x-circle-filled\"",
       "default": "",
       "description": "An icon displayed inside the field to provide visual context about the expected input or field purpose. Commonly used for search fields, currency inputs, or to indicate field type. Accepts any icon name from the icon library or a custom string identifier."
     },

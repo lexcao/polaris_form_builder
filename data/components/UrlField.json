@@ -12,7 +12,7 @@
   "properties": [
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | `section-${string} url` | `section-${string} photo` | `section-${string} impp` | `section-${string} home impp` | `section-${string} mobile impp` | `section-${string} fax impp` | `section-${string} pager impp` | \"shipping url\" | \"shipping photo\" | \"shipping impp\" | \"shipping home impp\" | \"shipping mobi",
+      "type": "\"on\" | \"off\" | `section-${string} url` | `section-${string} photo` | `section-${string} impp` | `section-${string} home impp` | `section-${string} mobile impp` | `section-${string} fax impp` | `section-${string} pager impp` | \"shipping url\" | \"shipping photo\" | \"shipping impp\" | \"shipping home impp\" | \"shipping mobi…",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },

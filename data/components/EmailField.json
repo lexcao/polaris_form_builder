@@ -12,7 +12,7 @@
   "properties": [
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | EmailAutocompleteField | `section-${string} email` | `section-${string} home email` | `section-${string} mobile email` | `section-${string} fax email` | `section-${string} pager email` | \"shipping email\" | \"shipping home email\" | \"shipping mobile email\" | 16 more | `section-${string} billing p",
+      "type": "\"on\" | \"off\" | EmailAutocompleteField | `section-${string} email` | `section-${string} home email` | `section-${string} mobile email` | `section-${string} fax email` | `section-${string} pager email` | \"shipping email\" | \"shipping home email\" | \"shipping mobile email\" | … 16 more … | `section-${string} billing p…",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },
