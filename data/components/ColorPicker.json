@@ -4,10 +4,10 @@
     "description": "The color picker component allows users to select colors from a visual color palette interface. Use color picker to provide an intuitive, visual way for users to choose colors for themes, branding, or design customization.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-picker.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/color-picker",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/color-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-picker-Bqlxgb4e.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/color-picker.png"
   },
   "properties": [
     {

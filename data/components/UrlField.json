@@ -4,15 +4,15 @@
     "description": "The URL field component collects URLs from users with built-in formatting and validation. Use URL field for website addresses, link destinations, or any URL input to provide URL-specific keyboard layouts and automatic validation.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/url-field",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/url-field.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/url-field",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/url-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/urlfield-RWo1-vx2.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/urlfield.png"
   },
   "properties": [
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | `section-${string} url` | `section-${string} photo` | `section-${string} impp` | `section-${string} home impp` | `section-${string} mobile impp` | `section-${string} fax impp` | `section-${string} pager impp` | \"shipping url\" | \"shipping photo\" | \"shipping impp\" | \"shipping home impp\" | \"shipping mobile impp\" | \"shipping fax impp\" | \"shipping pager impp\" | \"billing url\" | \"billing photo\" | \"billing impp\" | \"billing home impp\" | \"billing mobile impp\" | \"billing fax impp\" | \"billing pager impp\" | `section-${string} shipping url` | `section-${string} shipping photo` | `section-${string} shipping impp` | `section-${string} shipping home impp` | `section-${string} shipping mobile impp` | `section-${string} shipping fax impp` | `section-${string} shipping pager impp` | `section-${string} billing url` | `section-${string} billing photo` | `section-${string} billing impp` | `section-${string} billing home impp` | `section-${string} billing mobile impp` | `section-${string} billing fax impp` | `section-${string} billing pager impp` | URLAutocompleteField",
+      "type": "\"on\" | \"off\" | `section-${string} url` | `section-${string} photo` | `section-${string} impp` | `section-${string} home impp` | `section-${string} mobile impp` | `section-${string} fax impp` | `section-${string} pager impp` | \"shipping url\" | \"shipping photo\" | \"shipping impp\" | \"shipping home impp\" | \"shipping mobi…",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },

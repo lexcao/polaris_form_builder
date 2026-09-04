@@ -4,10 +4,10 @@
     "description": "The color field component allows users to select colors through an integrated color picker or direct text input. Use color field for theme colors, brand colors, or any color selection to provide both visual and text-based color input methods.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/color-field.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/color-field",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/color-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/color-field-7dgfIQZ-.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/color-field.png"
   },
   "properties": [
     {

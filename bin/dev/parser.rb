@@ -11,12 +11,22 @@ require_relative "converter"
 class Parser
   ExampleItem = Data.define(:type, :children)
 
+  TYPOGRAPHIC_SYMBOLS = {
+    hellip: "…",
+    mdash: "—",
+    ndash: "–",
+    laquo: "«",
+    raquo: "»",
+    laquo_space: "« ",
+    raquo_space: " »"
+  }.freeze
+
   def initialize(markdown_content)
     markdown_content = ensure_utf8(markdown_content)
     metadata = extract_metadata(markdown_content)
     metadata[:api_name] = api_name_from(metadata[:source_url]) unless metadata.key?(:api_name)
     metadata[:screenshot_url] = nil unless metadata.key?(:screenshot_url)
-    @metadata = Component::MetaData.new(**metadata)
+    @metadata = Component::MetaData.new(**metadata.slice(*Component::MetaData.members))
     @document = Kramdown::Document.new(markdown_content, input: 'GFM')
     @root = @document.root
   end
@@ -331,7 +341,7 @@ class Parser
     return node.value.rstrip if node.type == :codeblock
 
     text = element_to_text(node)
-    text.gsub(/\s+/, ' ').strip
+    text.gsub(/\p{Cf}/, "").gsub(/\s+/, ' ').strip
   end
 
   def element_to_text(node)
@@ -340,6 +350,8 @@ class Parser
       node.value.to_s
     when :entity
       Kramdown::Utils::Entities.entity(node.value).char
+    when :typographic_sym
+      TYPOGRAPHIC_SYMBOLS.fetch(node.value, "")
     when :tr
       node.children.map { |child| element_to_text(child) }.join.delete_suffix(" | ")
     when :td

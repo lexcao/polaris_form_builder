@@ -4,10 +4,10 @@
     "description": "The date picker component allows merchants to select dates using a calendar interface. Use it when merchants benefit from seeing dates in context of the full month, such as selecting dates relative to today or needing weekday context.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/date-picker.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/date-picker",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/date-picker.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/datepicker-DUgxVSZB.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/datepicker.png"
   },
   "properties": [
     {
@@ -97,7 +97,7 @@
       "erb_code": "<!-- Disable past dates and far future dates -->\n<%= form.date_picker :appointment_date, type: \"single\", disallow: \"past\", allow: \"2024-06-01--2024-06-31\", view: \"2024-06\" %>"
     },
     {
-      "name": "Capture date selections with on​Change",
+      "name": "Capture date selections with onChange",
       "description": "Capture the selected date when the merchant makes a change so you can update your app state. This example shows a range picker inside a form with an onChange handler that stores the selected value.",
       "html_code": "<form>\n  <s-text-field\n    label=\"Order number\"\n    placeholder=\"Search orders...\"\n  ></s-text-field>\n  <s-date-picker\n    type=\"range\"\n    name=\"order-date-range\"\n    value=\"2024-01-01--2024-01-31\"\n    view=\"2024-01\"\n  ></s-date-picker>\n  <s-button type=\"submit\">Apply filters</s-button>\n</form>",
       "erb_code": "<form>\n  <%= form.text_field :order_number, label: \"Order number\", placeholder: \"Search orders...\" %>\n  <%= form.date_picker :order_date_range, type: \"range\", value: \"2024-01-01--2024-01-31\", view: \"2024-01\" %>\n  <s-button type=\"submit\">Apply filters</s-button>\n</form>"
