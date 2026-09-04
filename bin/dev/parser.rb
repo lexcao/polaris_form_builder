@@ -11,6 +11,16 @@ require_relative "converter"
 class Parser
   ExampleItem = Data.define(:type, :children)
 
+  TYPOGRAPHIC_SYMBOLS = {
+    hellip: "…",
+    mdash: "—",
+    ndash: "–",
+    laquo: "«",
+    raquo: "»",
+    laquo_space: "« ",
+    raquo_space: " »"
+  }.freeze
+
   def initialize(markdown_content)
     markdown_content = ensure_utf8(markdown_content)
     metadata = extract_metadata(markdown_content)
@@ -340,6 +350,8 @@ class Parser
       node.value.to_s
     when :entity
       Kramdown::Utils::Entities.entity(node.value).char
+    when :typographic_sym
+      TYPOGRAPHIC_SYMBOLS.fetch(node.value, "")
     when :tr
       node.children.map { |child| element_to_text(child) }.join.delete_suffix(" | ")
     when :td
