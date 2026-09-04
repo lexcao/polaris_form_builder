@@ -4,10 +4,10 @@
     "description": "The number field component captures numeric input with built-in number validation. Use it to collect quantities, prices, or other numeric information.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/number-field",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/number-field.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/number-field",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/number-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/numberfield-DD00ugG1.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/numberfield.png"
   },
   "properties": [
     {
@@ -54,7 +54,7 @@
     },
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | NumberAutocompleteField | `section-${string} one-time-code` | `section-${string} cc-number` | `section-${string} cc-csc` | \"shipping one-time-code\" | \"shipping cc-number\" | \"shipping cc-csc\" | \"billing one-time-code\" | \"billing cc-number\" | \"billing cc-csc\" | `section-${string} shipping one-time-code` | `section-${string} shipping cc-number` | `section-${string} shipping cc-csc` | `section-${string} billing one-time-code` | `section-${string} billing cc-number` | `section-${string} billing cc-csc`",
+      "type": "\"on\" | \"off\" | NumberAutocompleteField | `section-${string} one-time-code` | `section-${string} cc-number` | `section-${string} cc-csc` | \"shipping one-time-code\" | \"shipping cc-number\" | \"shipping cc-csc\" | \"billing one-time-code\" | 7 more | `section-${string} billing cc-csc`",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },

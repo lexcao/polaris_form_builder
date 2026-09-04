@@ -4,10 +4,10 @@
     "description": "The drop zone component lets users upload files through drag-and-drop or by clicking to browse. Use for file uploads such as images, documents, or CSV imports.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/drop-zone",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/drop-zone.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/drop-zone",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/drop-zone.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/dropzone-AQpi4uGt.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/dropzone.png"
   },
   "properties": [
     {

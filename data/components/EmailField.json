@@ -4,15 +4,15 @@
     "description": "The email field component captures email address input. Use it to collect email information in forms, customer profiles, or contact workflows.",
     "api_name": "app-home",
     "source_url": {
-      "html": "https://shopify.dev/docs/api/app-home/web-components/forms/email-field",
-      "md": "https://shopify.dev/docs/api/app-home/web-components/forms/email-field.md"
+      "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/email-field",
+      "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/email-field.md"
     },
-    "screenshot_url": "https://cdn.shopify.com/shopifycloud/shopify-dev/production/assets/assets/images/templated-apis-screenshots/admin/components/emailfield-vytm1uVt.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/emailfield.png"
   },
   "properties": [
     {
       "key": "autocomplete",
-      "type": "\"on\" | \"off\" | EmailAutocompleteField | `section-${string} email` | `section-${string} home email` | `section-${string} mobile email` | `section-${string} fax email` | `section-${string} pager email` | \"shipping email\" | \"shipping home email\" | \"shipping mobile email\" | \"shipping fax email\" | \"shipping pager email\" | \"billing email\" | \"billing home email\" | \"billing mobile email\" | \"billing fax email\" | \"billing pager email\" | `section-${string} shipping email` | `section-${string} shipping home email` | `section-${string} shipping mobile email` | `section-${string} shipping fax email` | `section-${string} shipping pager email` | `section-${string} billing email` | `section-${string} billing home email` | `section-${string} billing mobile email` | `section-${string} billing fax email` | `section-${string} billing pager email`",
+      "type": "\"on\" | \"off\" | EmailAutocompleteField | `section-${string} email` | `section-${string} home email` | `section-${string} mobile email` | `section-${string} fax email` | `section-${string} pager email` | \"shipping email\" | \"shipping home email\" | \"shipping mobile email\" | 16 more | `section-${string} billing p",
       "default": "'on' for everything else",
       "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
     },
