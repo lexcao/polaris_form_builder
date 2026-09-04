@@ -16,7 +16,7 @@ class Parser
     metadata = extract_metadata(markdown_content)
     metadata[:api_name] = api_name_from(metadata[:source_url]) unless metadata.key?(:api_name)
     metadata[:screenshot_url] = nil unless metadata.key?(:screenshot_url)
-    @metadata = Component::MetaData.new(**metadata)
+    @metadata = Component::MetaData.new(**metadata.slice(*Component::MetaData.members))
     @document = Kramdown::Document.new(markdown_content, input: 'GFM')
     @root = @document.root
   end
@@ -331,7 +331,7 @@ class Parser
     return node.value.rstrip if node.type == :codeblock
 
     text = element_to_text(node)
-    text.gsub(/\s+/, ' ').strip
+    text.gsub(/\p{Cf}/, "").gsub(/\s+/, ' ').strip
   end
 
   def element_to_text(node)
