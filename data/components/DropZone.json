@@ -30,13 +30,19 @@
     },
     {
       "key": "error",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "files",
+      "type": "File[]",
+      "default": "[]",
+      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
     },
     {
       "key": "label",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
       "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
@@ -69,12 +75,6 @@
       "type": "string",
       "default": "''",
       "description": "This sets the input value for a file type, which cannot be set programatically, so it can only be reset."
-    },
-    {
-      "key": "files",
-      "type": "File[]",
-      "default": "[]",
-      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
     }
   ],
   "examples": [

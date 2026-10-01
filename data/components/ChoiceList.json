@@ -11,38 +11,26 @@
   },
   "properties": [
     {
+      "key": "details",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "Supplementary text displayed below the field to provide additional context, instructions, or help. Use this to clarify the expected input or provide guidance to users. This text is announced to screen readers."
+    },
+    {
       "key": "disabled",
       "type": "boolean",
       "default": "false",
       "description": "Whether the field is disabled, preventing any user interaction. When true, the disabled property on any child choices is ignored."
     },
     {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
-    },
-    {
       "key": "error",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
-    },
-    {
-      "key": "multiple",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether multiple choices can be selected."
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
     },
     {
       "key": "label",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
       "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
@@ -51,6 +39,18 @@
       "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
       "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "multiple",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether multiple choices can be selected."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
       "key": "values",

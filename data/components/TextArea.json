@@ -11,6 +11,54 @@
   },
   "properties": [
     {
+      "key": "autocomplete",
+      "type": "\"on\" | \"off\" | TextAutocompleteField | `section-${string} one-time-code` | \"shipping one-time-code\" | \"billing one-time-code\" | `section-${string} shipping one-time-code` | `section-${string} billing one-time-code` | `section-${string} language` | `section-${string} organization` | `section-${string} additional-name…",
+      "default": "'on' for everything else",
+      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
+    },
+    {
+      "key": "defaultValue",
+      "type": "string",
+      "default": "",
+      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
+    },
+    {
+      "key": "details",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "Supplementary text displayed below the field to provide additional context, instructions, or help. Use this to clarify the expected input or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "error",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "id",
+      "type": "string",
+      "default": "",
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
+    },
+    {
+      "key": "label",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
       "key": "maxLength",
       "type": "number",
       "default": "Infinity",
@@ -23,52 +71,10 @@
       "description": "The minimum number of characters required in the field."
     },
     {
-      "key": "rows",
-      "type": "number",
-      "default": "2",
-      "description": "A number of visible text lines."
-    },
-    {
-      "key": "value",
+      "key": "name",
       "type": "string",
       "default": "",
-      "description": "The current text value in the field as a string. When setting this property programmatically, it updates the field's display value. When reading it, you get the user's current input."
-    },
-    {
-      "key": "autocomplete",
-      "type": "\"on\" | \"off\" | TextAutocompleteField | `section-${string} one-time-code` | \"shipping one-time-code\" | \"billing one-time-code\" | `section-${string} shipping one-time-code` | `section-${string} billing one-time-code` | `section-${string} language` | `section-${string} organization` | `section-${string} name` | … 141…",
-      "default": "'on' for everything else",
-      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
-    },
-    {
-      "key": "defaultValue",
-      "type": "string",
-      "default": "",
-      "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
-    },
-    {
-      "key": "details",
-      "type": "string",
-      "default": "",
-      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
-    },
-    {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
       "key": "placeholder",
@@ -89,22 +95,16 @@
       "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
     },
     {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field is disabled, preventing any user interaction."
+      "key": "rows",
+      "type": "number",
+      "default": "2",
+      "description": "A number of visible text lines."
     },
     {
-      "key": "id",
+      "key": "value",
       "type": "string",
       "default": "",
-      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
+      "description": "The current value for the field. If omitted, the field will be empty."
     }
   ],
   "examples": [
