@@ -11,28 +11,10 @@
   },
   "properties": [
     {
-      "key": "defaultView",
-      "type": "string",
-      "default": "",
-      "description": "The default month to display in YYYY-MM format. Used until the view callback is set by user interaction or programmatically. Defaults to the current month in the user's locale."
-    },
-    {
-      "key": "view",
-      "type": "string",
-      "default": "",
-      "description": "The currently displayed month in YYYY-MM format. When changed, the viewchange callback is triggered. Defaults to defaultView."
-    },
-    {
       "key": "allow",
       "type": "string",
       "default": "\"\"",
       "description": "Specifies which dates can be selected as a comma-separated list. An empty string (default) allows all dates. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: 2024-02--2025: February 2024 through end of 20252024-05-09, 2024-05-11: Only May 9th and 11th, 2024"
-    },
-    {
-      "key": "disallow",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Specifies which dates can't be selected as a comma-separated list. These dates are excluded from those specified in allow. An empty string (default) has no effect. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: --2024-02: All dates before February 20242024-05-09, 2024-05-11: May 9th and 11th, 2024"
     },
     {
       "key": "allowDays",
@@ -41,22 +23,28 @@
       "description": "Specifies which days of the week can be selected as a comma-separated list. Further restricts dates from allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (only weekends)"
     },
     {
-      "key": "disallowDays",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Specifies which days of the week can't be selected as a comma-separated list. Excludes days from allowDays and intersects with allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (no weekends)"
-    },
-    {
-      "key": "type",
-      "type": "\"single\" | \"range\"",
-      "default": "\"single\"",
-      "description": "The type of date selection allowed. single: Select a single daterange: Select a date range"
-    },
-    {
       "key": "defaultValue",
       "type": "string",
       "default": "\"\"",
       "description": "The initially selected date(s) when the component first renders. An empty string means no date is initially selected. Single date in YYYY-MM-DD format when type is set to \"single\"Date range in YYYY-MM-DD--YYYY-MM-DD format (inclusive) when type is set to \"range\""
+    },
+    {
+      "key": "defaultView",
+      "type": "string",
+      "default": "",
+      "description": "The default month to display in YYYY-MM format. Used until the view callback is set by user interaction or programmatically. Defaults to the current month in the user's locale."
+    },
+    {
+      "key": "disallow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which dates can't be selected as a comma-separated list. These dates are excluded from those specified in allow. An empty string (default) has no effect. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: --2024-02: All dates before February 20242024-05-09, 2024-05-11: May 9th and 11th, 2024"
+    },
+    {
+      "key": "disallowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Specifies which days of the week can't be selected as a comma-separated list. Excludes days from allowDays and intersects with allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (no weekends)"
     },
     {
       "key": "name",
@@ -65,10 +53,28 @@
       "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
+      "key": "type",
+      "type": "\"single\" | \"range\"",
+      "default": "\"single\"",
+      "description": "The type of date selection allowed. single: Select a single daterange: Select a date range"
+    },
+    {
       "key": "value",
       "type": "string",
       "default": "\"\"",
       "description": "The currently selected date(s). An empty string means no date is selected. Single date in YYYY-MM-DD format when type is set to \"single\"Date range in YYYY-MM-DD--YYYY-MM-DD format (inclusive) when type is set to \"range\""
+    },
+    {
+      "key": "view",
+      "type": "string",
+      "default": "",
+      "description": "The currently displayed month in YYYY-MM format. When changed, the viewchange callback is triggered. Defaults to defaultView."
+    },
+    {
+      "key": "visibleMonths",
+      "type": "\"auto\" | \"1\" | \"2\"",
+      "default": "'auto'",
+      "description": "Controls how many months are displayed. 'auto': Context-driven. Today this renders a single month, matching '1'.'1': Renders one month at a time.'2': Renders two consecutive months side-by-side."
     }
   ],
   "examples": [
@@ -107,6 +113,12 @@
       "description": "Add preset buttons so merchants can quickly select common date ranges like \"Last 7 days\" or \"This month.\" This example shows a range picker with quick-selection buttons that programmatically update the selected value.",
       "html_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <s-date-picker\n    type=\"range\"\n    name=\"analytics-period\"\n    id=\"analytics-picker\"\n    value=\"2025-01-01--2025-01-31\"\n    view=\"2025-01\"\n    onChange=\"console.log('Date range changed:', event.currentTarget.value)\"\n  ></s-date-picker>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>",
       "erb_code": "<!-- Quick date selection with onChange callback -->\n<s-stack gap=\"base\">\n  <s-button-group>\n    <s-button slot=\"secondary-actions\" id=\"last-7-days\">Last 7 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"last-30-days\">Last 30 days</s-button>\n    <s-button slot=\"secondary-actions\" id=\"this-month\">This month</s-button>\n  </s-button-group>\n  <%= form.date_picker :analytics_period, type: \"range\", id: \"analytics-picker\", value: \"2025-01-01--2025-01-31\", view: \"2025-01\", onchange: \"console.log('Date range changed:', event.currentTarget.value)\" %>\n  <s-text id=\"selected-range\">\n    Selected range: 2025-01-01--2025-01-31\n  </s-text>\n</s-stack>\n\n\n<script>\n  const picker = document.getElementById('analytics-picker');\n  const display = document.getElementById('selected-range');\n\n\n  // Handle picker changes\n  picker.addEventListener('change', (event) => {\n    display.textContent = `Selected range: ${event.currentTarget.value}`;\n  });\n\n\n  // Quick selection buttons\n  document.getElementById('last-7-days').addEventListener('click', () => {\n    picker.value = '2025-01-07--2025-01-13';\n    display.textContent = 'Selected range: 2025-01-07--2025-01-13';\n  });\n\n\n  document.getElementById('last-30-days').addEventListener('click', () => {\n    picker.value = '2024-12-14--2025-01-13';\n    display.textContent = 'Selected range: 2024-12-14--2025-01-13';\n  });\n\n\n  document.getElementById('this-month').addEventListener('click', () => {\n    picker.value = '2025-01-01--2025-01-31';\n    display.textContent = 'Selected range: 2025-01-01--2025-01-31';\n  });\n</script>"
+    },
+    {
+      "name": "Show two months at once",
+      "description": "Display two consecutive months so merchants can select a range that crosses a month boundary. This example sets visibleMonths to 2 on a range picker.",
+      "html_code": "<s-date-picker\n  type=\"range\"\n  name=\"reporting-period\"\n  visibleMonths=\"2\"\n  view=\"2025-05\"\n  value=\"2025-05-20--2025-06-10\"\n></s-date-picker>",
+      "erb_code": "<%= form.date_picker :reporting_period, type: \"range\", visiblemonths: \"2\", view: \"2025-05\", value: \"2025-05-20--2025-06-10\" %>"
     }
   ]
 }

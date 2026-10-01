@@ -11,10 +11,10 @@
   },
   "properties": [
     {
-      "key": "labelAccessibilityVisibility",
-      "type": "\"visible\" | \"exclusive\"",
-      "default": "'visible'",
-      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+      "key": "accessibilityLabel",
+      "type": "string",
+      "default": "",
+      "description": "A label that describes the purpose or content of the component for assistive technologies like screen readers. Use this to provide additional context when the visible content alone doesn't clearly convey the component's purpose."
     },
     {
       "key": "checked",
@@ -23,46 +23,16 @@
       "description": "Whether the control is currently checked. Use this for controlled components where you manage the checked state."
     },
     {
-      "key": "value",
-      "type": "string",
-      "default": "",
-      "description": "The value used in form data when the checkbox is checked."
-    },
-    {
       "key": "defaultChecked",
       "type": "boolean",
       "default": "false",
       "description": "The initial checked state for uncontrolled components. Use this when you want the control to start checked but don't need to control its state afterward."
     },
     {
-      "key": "accessibilityLabel",
-      "type": "string",
-      "default": "",
-      "description": "A label that describes the purpose or content of the component for assistive technologies like screen readers. Use this to provide additional context when the visible content alone doesn't clearly convey the component's purpose."
-    },
-    {
       "key": "details",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
-      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
-    },
-    {
-      "key": "error",
-      "type": "string",
-      "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
-    },
-    {
-      "key": "label",
-      "type": "string",
-      "default": "",
-      "description": "The text label displayed next to the checkbox that describes what the checkbox controls. Clicking the label will also toggle the checkbox state."
-    },
-    {
-      "key": "required",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+      "description": "Supplementary text displayed below the field to provide additional context, instructions, or help. Use this to clarify the expected input or provide guidance to users. This text is announced to screen readers."
     },
     {
       "key": "disabled",
@@ -71,16 +41,46 @@
       "description": "Whether the field is disabled, preventing any user interaction."
     },
     {
+      "key": "error",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
+    },
+    {
       "key": "id",
       "type": "string",
       "default": "",
       "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
     },
     {
+      "key": "label",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "The text label displayed next to the control that describes what it does. Clicking the label will also toggle the control state."
+    },
+    {
+      "key": "labelAccessibilityVisibility",
+      "type": "\"visible\" | \"exclusive\"",
+      "default": "'visible'",
+      "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
       "key": "name",
       "type": "string",
       "default": "",
       "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
+    },
+    {
+      "key": "required",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field needs a value. This requirement adds semantic value to the field, but it will not cause an error to appear automatically. If you want to present an error when this field is empty, you can do so with the error property."
+    },
+    {
+      "key": "value",
+      "type": "string",
+      "default": "",
+      "description": "The value used in form data when the control is checked."
     }
   ],
   "examples": [

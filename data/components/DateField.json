@@ -14,43 +14,19 @@
       "key": "allow",
       "type": "string",
       "default": "\"\"",
-      "description": "Specifies which dates can be selected as a comma-separated list. An empty string (default) allows all dates. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: 2024-02--2025: February 2024 through end of 20252024-05-09, 2024-05-11: Only May 9th and 11th, 2024"
-    },
-    {
-      "key": "disallow",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Specifies which dates can't be selected as a comma-separated list. These dates are excluded from those specified in allow. An empty string (default) has no effect. Formats: YYYY-MM-DD: Single dateYYYY-MM: Whole monthYYYY: Whole yearstart--end: Date range (inclusive, unbounded if start/end omitted) Examples: --2024-02: All dates before February 20242024-05-09, 2024-05-11: May 9th and 11th, 2024"
+      "description": "Dates that can be selected. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' allows all dates. Dates in YYYY-MM-DD format allow a single date.Dates in YYYY-MM format allow a whole month.Dates in YYYY format allow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
     },
     {
       "key": "allowDays",
       "type": "string",
       "default": "\"\"",
-      "description": "Specifies which days of the week can be selected as a comma-separated list. Further restricts dates from allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (only weekends)"
-    },
-    {
-      "key": "disallowDays",
-      "type": "string",
-      "default": "\"\"",
-      "description": "Specifies which days of the week can't be selected as a comma-separated list. Excludes days from allowDays and intersects with allow and disallow. An empty string (default) has no effect. Valid days: sunday, monday, tuesday, wednesday, thursday, friday, saturday Example: saturday, sunday (no weekends)"
-    },
-    {
-      "key": "view",
-      "type": "string",
-      "default": "",
-      "description": "The currently displayed month in YYYY-MM format. When changed, the viewchange callback is triggered. Defaults to defaultView."
-    },
-    {
-      "key": "defaultView",
-      "type": "string",
-      "default": "",
-      "description": "The default month to display in YYYY-MM format. Used until the view callback is set by user interaction or programmatically. Defaults to the current month in the user's locale."
+      "description": "Days of the week that can be selected. These intersect with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on the result of allow and disallow. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
     },
     {
       "key": "autocomplete",
       "type": "DateAutocompleteField",
       "default": "'on' for everything else",
-      "description": "Controls browser autofill behavior for the field. Basic values: on - Enables autofill without specifying content type (default)off - Disables autofill for sensitive data or one-time codes Specific field values describe the expected data type. You can optionally prefix these with: section-${string} - Scopes autofill to a specific form section (when multiple forms exist on the same page)shipping or billing - Indicates whether the data is for shipping or billing purposesBoth section and group (for example, section-primary shipping email) Providing a specific autofill token helps browsers suggest more relevant saved data. Learn more about the set of autocomplete values supported in browsers."
+      "description": "A hint as to the intended content of the field. When set to on (the default), this property indicates that the field should support autofill, but you do not have any more semantic information on the intended contents. When set to off, you are indicating that this field contains sensitive information, or contents that are never saved, like one-time codes. Alternatively, you can provide value which describes the specific data you would like to be entered into this field during autofill."
     },
     {
       "key": "defaultValue",
@@ -59,20 +35,50 @@
       "description": "The initial value of the field when it first loads. Unlike placeholder, this is a real value that the user can edit and that gets submitted with the form. Once the user starts typing, their input replaces it. Changing this property after the field has loaded has no effect. To update the field value at any time, use value instead."
     },
     {
-      "key": "details",
+      "key": "defaultView",
       "type": "string",
       "default": "",
-      "description": "Supplementary text displayed below the checkbox to provide additional context, instructions, or help. Use this to explain what checking the box means or provide guidance to users. This text is announced to screen readers."
+      "description": "Default month to display in YYYY-MM format. This value is used until view is set, either directly or as a result of user interaction. Defaults to the current month in the user's locale."
+    },
+    {
+      "key": "details",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "Supplementary text displayed below the field to provide additional context, instructions, or help. Use this to clarify the expected input or provide guidance to users. This text is announced to screen readers."
+    },
+    {
+      "key": "disabled",
+      "type": "boolean",
+      "default": "false",
+      "description": "Whether the field is disabled, preventing any user interaction."
+    },
+    {
+      "key": "disallow",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Dates that cannot be selected. These subtract from allow. A comma-separated list of dates, date ranges. Whitespace is allowed after commas. The default '' has no effect on allow. Dates in YYYY-MM-DD format disallow a single date.Dates in YYYY-MM format disallow a whole month.Dates in YYYY format disallow a whole year.Ranges are expressed as start--end. - Ranges are inclusive.If either start or end is omitted, the range is unbounded in that direction.If parts of the date are omitted for start, they are assumed to be the minimum possible value. So 2024-- is equivalent to 2024-01-01--.If parts of the date are omitted for end, they are assumed to be the maximum possible value. So --2024 is equivalent to --2024-12-31.Whitespace is allowed either side of --."
+    },
+    {
+      "key": "disallowDays",
+      "type": "string",
+      "default": "\"\"",
+      "description": "Days of the week that cannot be selected. This subtracts from allowDays, and intersects with the result of allow and disallow. A comma-separated list of days. Whitespace is allowed after commas. The default '' has no effect on allowDays. Days are sunday, monday, tuesday, wednesday, thursday, friday, saturday."
     },
     {
       "key": "error",
+      "type": "ComponentChildren",
+      "default": "",
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "id",
       "type": "string",
       "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
     },
     {
       "key": "label",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
       "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
@@ -81,6 +87,12 @@
       "type": "\"visible\" | \"exclusive\"",
       "default": "'visible'",
       "description": "Controls whether the label is visible to all users or only to screen readers. visible: The label is shown to everyone (default).exclusive: The label is visually hidden but still announced by screen readers. Use exclusive when the surrounding context makes the label redundant visually, but screen reader users still need it for clarity."
+    },
+    {
+      "key": "name",
+      "type": "string",
+      "default": "",
+      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
     },
     {
       "key": "placeholder",
@@ -101,28 +113,16 @@
       "description": "Whether the field requires a value before form submission. Displays a visual indicator and adds semantic meaning, but doesn't automatically validate or show errors. Use the error property to display validation messages."
     },
     {
-      "key": "disabled",
-      "type": "boolean",
-      "default": "false",
-      "description": "Whether the field is disabled, preventing any user interaction."
-    },
-    {
-      "key": "id",
-      "type": "string",
-      "default": "",
-      "description": "A unique identifier for the element. Use this to reference the element in JavaScript, link labels to form controls, or target specific elements for styling or scripting."
-    },
-    {
-      "key": "name",
-      "type": "string",
-      "default": "",
-      "description": "The name attribute for the field, used to identify the field's value when the form is submitted. Must be unique within the nearest containing form."
-    },
-    {
       "key": "value",
       "type": "string",
       "default": "\"\"",
-      "description": "The currently selected date in YYYY-MM-DD format. An empty string means no date is selected."
+      "description": "The current value for the field. If omitted, the field will be empty."
+    },
+    {
+      "key": "view",
+      "type": "string",
+      "default": "",
+      "description": "Displayed month in YYYY-MM format. onViewChange is called when this value changes. Defaults to defaultView."
     }
   ],
   "examples": [
