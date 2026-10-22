@@ -7,7 +7,7 @@
       "html": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/drop-zone",
       "md": "https://shopify.dev/docs/api/app-home/latest/web-components/forms/drop-zone.md"
     },
-    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/dropzone.png"
+    "screenshot_url": "https://shopify.dev/images/templated-apis-screenshots/admin/components/dropzone-CKAyaXKP.png"
   },
   "properties": [
     {
@@ -30,13 +30,19 @@
     },
     {
       "key": "error",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
-      "description": "An error message displayed below the checkbox to indicate validation problems. When set, the checkbox is styled with error indicators and the message is announced to screen readers."
+      "description": "An error message displayed below the field to indicate validation problems. When set, the field is styled with error indicators and the message is announced to screen readers."
+    },
+    {
+      "key": "files",
+      "type": "File[]",
+      "default": "[]",
+      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
     },
     {
       "key": "label",
-      "type": "string",
+      "type": "ComponentChildren",
       "default": "",
       "description": "The text displayed as the field label, which identifies the purpose of the field to users. This label is associated with the field for accessibility and helps users understand what information to provide."
     },
@@ -69,12 +75,6 @@
       "type": "string",
       "default": "''",
       "description": "This sets the input value for a file type, which cannot be set programatically, so it can only be reset."
-    },
-    {
-      "key": "files",
-      "type": "File[]",
-      "default": "[]",
-      "description": "An array of File objects representing the files currently selected by the user. This property is read-only and cannot be directly modified. To clear the selected files, set the value prop to an empty string or null."
     }
   ],
   "examples": [
@@ -135,8 +135,8 @@
     {
       "name": "Upload with validation",
       "description": "Handle the complete upload lifecycle with validation and feedback. This example combines type and size validation, error states, and disabled state during processing.",
-      "html_code": "<s-drop-zone \n  id=\"upload\" \n  label=\"Product images\" \n  accept=\"image/*\" \n  multiple\n></s-drop-zone>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Disable during upload\n    dropzone.disabled = true;\n\n\n    const formData = new FormData();\n    files.forEach(f => formData.append('images[]', f));\n\n\n    try {\n      await fetch('/api/upload', { method: 'POST', body: formData });\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>",
-      "erb_code": "<%= form.drop_zone :product_images, id: \"upload\", label: \"Product images\", accept: \"image/*\", multiple: true %>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Disable during upload\n    dropzone.disabled = true;\n\n\n    const formData = new FormData();\n    files.forEach(f => formData.append('images[]', f));\n\n\n    try {\n      await fetch('/api/upload', { method: 'POST', body: formData });\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>"
+      "html_code": "<s-drop-zone \n  id=\"upload\" \n  label=\"Product images\" \n  accept=\"image/*\" \n  multiple\n></s-drop-zone>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Simulate processing in this docs example. No files are sent to a server.\n    dropzone.disabled = true;\n\n\n    try {\n      await new Promise(resolve => setTimeout(resolve, 300));\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>",
+      "erb_code": "<%= form.drop_zone :product_images, id: \"upload\", label: \"Product images\", accept: \"image/*\", multiple: true %>\n\n\n<script>\n  const dropzone = document.getElementById('upload');\n\n\n  dropzone.addEventListener('change', async (e) => {\n    const files = e.currentTarget.files;\n\n\n    // Validate size (5MB max per file)\n    const maxSize = 5 * 1024 * 1024;\n    if (files.some(f => f.size > maxSize)) {\n      dropzone.error = 'Files must be under 5MB';\n      return;\n    }\n    dropzone.error = '';\n\n\n    // Simulate processing in this docs example. No files are sent to a server.\n    dropzone.disabled = true;\n\n\n    try {\n      await new Promise(resolve => setTimeout(resolve, 300));\n      dropzone.value = ''; // Clear for next upload\n      // Show success feedback\n    } catch (error) {\n      dropzone.error = 'Upload failed. Please try again.';\n    } finally {\n      dropzone.disabled = false;\n    }\n  });\n\n\n  dropzone.addEventListener('droprejected', () => {\n    dropzone.error = 'Only image files are accepted';\n  });\n</script>"
     }
   ]
 }
