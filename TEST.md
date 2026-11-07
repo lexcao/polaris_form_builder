@@ -102,5 +102,5 @@
 3) 增加 `ComponentsController` + 路由。
 4) 增加视图 `components/show.html.erb`（inline render + submit）。
 5) 增加测试基类 + `text_field_test.rb` 三个用例。
-6) 跑 `mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/text_field_test.rb`。
+6) 跑 `mise exec ruby@3.4.12 -- rake test TEST=test/dummy/test/integration/components/text_field_test.rb`。
 7) 后续组件按映射表补字段和测试文件。

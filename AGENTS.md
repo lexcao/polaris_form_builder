@@ -33,10 +33,10 @@ rake test_integration        # Rails integration tests in test/dummy
 rake test_playground         # Rails tests in app/playground
 
 # Run single test file
-mise exec ruby@3.4.5 -- bundle exec ruby -I test test/test_text_field.rb
+mise exec ruby@3.4.12 -- bundle exec ruby -I test test/test_text_field.rb
 
 # Run specific integration test
-mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/text_field_test.rb
+mise exec ruby@3.4.12 -- rake test TEST=test/dummy/test/integration/components/text_field_test.rb
 ```
 
 ### Development Tools
@@ -100,7 +100,7 @@ The `polaris_form_with` method wraps Rails' `form_with` helper, automatically se
 1. **Unit Tests** (`test/test_*.rb`):
    - Example-driven: Use `ComponentExampleTest` to validate against `data/components/*.json` examples
    - Behavior-driven: Test Rails semantics (name/value/error/checked attributes)
-   - Run with: `mise exec ruby@3.4.5 -- bundle exec ruby -I test test/test_<component>.rb`
+   - Run with: `mise exec ruby@3.4.12 -- bundle exec ruby -I test test/test_<component>.rb`
 
 2. **Integration Tests** (`test/dummy/test/integration/components/*_test.rb`):
    - Full Rails request/response cycle in dummy app
@@ -109,7 +109,7 @@ The `polaris_form_with` method wraps Rails' `form_with` helper, automatically se
      - POST invalid: Show validation errors (422 response)
      - POST valid: Redirect and display submitted values (303 response)
    - Uses `PreviewForm` (ActiveModel) for validation
-   - Run with: `mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb`
+   - Run with: `mise exec ruby@3.4.12 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb`
 
 3. **Playground Tests** (`app/playground/test/`):
    - System-level regression tests

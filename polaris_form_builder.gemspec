@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Rails form builder helpers for Shopify Polaris web components."
   spec.description = "Rails form helpers and view bindings to build forms with Shopify Polaris web components."
-  spec.homepage = "https://polaris-form-builder.lexcao.io"
+  spec.homepage = "https://polaris-form-builder.onrender.com/"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 

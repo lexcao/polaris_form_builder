@@ -76,7 +76,7 @@
    - **Behavior-driven**：补充最小闭环断言：`name/value/error/checked` 等由 builder 推导出来的行为。
    - 运行：  
      ```bash
-     mise exec ruby@3.4.5 -- bundle exec ruby -I test test/test_<component>.rb
+     mise exec ruby@3.4.12 -- bundle exec ruby -I test test/test_<component>.rb
      ```
 4. Integration Test（dummy wiring 清单）  
    - `test/dummy/app/controllers/components_controller.rb`：加入 permit 字段（必要时加入 alias canonicalization）。
@@ -84,7 +84,7 @@
    - `test/dummy/test/integration/components/<component>_test.rb`：至少 3 个用例：GET 主示例、POST invalid（422）、POST valid（303 + follow redirect）。
    - 运行：  
      ```bash
-     mise exec ruby@3.4.5 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb
+     mise exec ruby@3.4.12 -- rake test TEST=test/dummy/test/integration/components/<component>_test.rb
      ```
 5. Playground Preview（**必须**同步维护）
    Playground 会直接执行 SoT 的 `erb_code`，因此它能很好地暴露"builder 是否真的生效 / 表单语义是否正确 / round-trip 是否工作"。要让 "Try it" 功能可用，需要补齐 preview plumbing：
@@ -136,7 +136,7 @@
    - 目标：在提交 PR 前尽量保证和 CI 一致，避免把基础失败带到远端。
    - 运行：  
      ```bash
-     mise exec ruby@3.4.5 -- bin/ci
+     mise exec ruby@3.4.12 -- bin/ci
      ```
 8. 提交代码  
    ```bash
