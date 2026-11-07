@@ -2,7 +2,19 @@ name: CI
 
 on:
   pull_request:
-    types: [ opened, synchronize ]
+    types: [opened, synchronize]
+  workflow_call:
+    inputs:
+      ref:
+        description: Branch, tag, or commit SHA to test. Empty uses the triggering ref.
+        required: false
+        type: string
+        default: ""
+      sha:
+        description: Commit that HEAD must match. Empty skips the check.
+        required: false
+        type: string
+        default: ""
 
 jobs:
   ci:
@@ -12,7 +24,33 @@ jobs:
       - name: Install system packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libsqlite3-0 libvips curl ffmpeg
 
-      - uses: actions/checkout@v4
+      # pull_request keeps the default checkout (the PR merge ref).
+      # Sync Components calls this workflow for the synced branch. That run is not
+      # a pull_request event, so it checks out inputs.ref and requires inputs.sha.
+      - name: Checkout
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+
+      - name: Checkout synced commit
+        if: github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Verify synced commit
+        if: github.event_name != 'pull_request'
+        env:
+          EXPECTED_SHA: ${{ inputs.sha }}
+        run: |
+          if ! printf '%s' "$EXPECTED_SHA" | grep -Eq '^[0-9a-f]{40}$'; then
+            echo "Expected a full commit SHA, got: ${EXPECTED_SHA}"
+            exit 1
+          fi
+          actual="$(git rev-parse HEAD)"
+          if [ "$actual" != "$EXPECTED_SHA" ]; then
+            echo "Checked out ${actual}; expected synced commit ${EXPECTED_SHA}."
+            exit 1
+          fi
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
